@@ -117,7 +117,7 @@ void Game_GUI::on_pushButton_add_clicked()
 	for (int i{ 0 }; i < 10; ++i)
 	{
 		QString tmp = char(gameMap1.mufasa.playerCards[i].name);
-		model->setData(model->index(0, i), tmp);
+		model_letters->setData(model->index(0, i), tmp);
 	}
 
 	if (!gameMap1.computerAction()) { 
