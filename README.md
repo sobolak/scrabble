@@ -1,0 +1,2 @@
+# scrabble
+C++ project - scrabble
