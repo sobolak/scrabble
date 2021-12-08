@@ -29,12 +29,13 @@ class field{
         }
         bool isOccupied() {
             if (getSession() == 2)
-                return false;
-            return true;
+                return true;
+            return false;
         }
         bool changeSessionToFree(){
             if (getSession() == 1){
                 setSession(0);
+                setLetter('_');
                 return true;
              }
              return false;
@@ -131,145 +132,153 @@ class computerPossibilities{
         }
 };
 
-class player{
-    public:
-        int points;
-        card playerCards[cardQuantity];
-        void changeUsedCards(string word, card cybant[79]) {
-            srand(time(NULL));
-            for (int i{ 0 }; i < word.length(); i++) {
-                for (int j{ 0 }; j < cardQuantity; j++) {
-                    if (word[i] == playerCards[j].name) {
-                        playerCards[j].name = cybant[rand() % 79].name;
-                        break;
-                    }
+class player {
+public:
+    int points = 0;
+    card playerCards[cardQuantity];
+    bool possibilityToChangeCards = true;
+
+    void setPoints(int points) {
+        this->points = points;
+    }
+    int getPoints() {
+        return points;
+    }
+
+    void setPossibilityToChangeCards(bool possibilityToChangeCards) {
+        this->possibilityToChangeCards = possibilityToChangeCards;
+    }
+    bool getPossibilityToChangeCards() {
+        return possibilityToChangeCards;
+    }
+
+    void changeEveryPlayerCard(card cybant[79]) {
+        if (getPossibilityToChangeCards()) {
+            randomCards(cybant);
+        }
+        setPossibilityToChangeCards(false);
+    }
+
+    void randomCards(card cybant[79]) {
+        srand(time(NULL));
+        for (int i = 0; i < cardQuantity; i++) {
+            playerCards[i] = cybant[rand() % 79];
+        }
+    }
+
+    void changeUsedCards(string word, card cybant[79]) {
+        srand(time(NULL));
+        for (int i{ 0 }; i < word.length(); i++) {
+            for (int j{ 0 }; j < cardQuantity; j++) {
+                if (word[i] == playerCards[j].name) {
+                    playerCards[j] = cybant[rand() % 79];
+                    break;
                 }
             }
         }
+    }
+
+    void xxx() {
+        ofstream CHUJ("C:\\Users\\48508\\Desktop\\player_checkk.txt");
+        for (int j{ 0 }; j < cardQuantity; j++) {
+            CHUJ << playerCards[j].name << endl;
+        }
+    }
 };
 
 class gameMap{
     //private:
-        public:
-        player mufasa;
-        field board[sizeOfTheBoard][sizeOfTheBoard];
-        card *cybant = new card[79];
-        gameMap(){
-            cybant[0] = {'A',1};
-            cybant[1] = { 'A',1 };
-            cybant[2] = { 'A',1 };
-            cybant[3] = { 'A',1 };
-            cybant[4] = { 'A',1 };
-            cybant[5] = { 'A',1 };
-            cybant[6] = {'B',3};
-            cybant[7] = { 'B',3 };
-            cybant[8] = { 'B',3 };
-            cybant[9] = {'C',3};
-            cybant[10] = { 'C',3 };
-            cybant[11] = {'D',2};
-            cybant[12] = { 'D',2 };
-            cybant[13] = { 'D',2 };
-            cybant[14] = {'E',1};
-            cybant[15] = { 'E',1 };
-            cybant[16] = { 'E',1 };
-            cybant[17] = { 'E',1 };
-            cybant[18] = { 'E',1 };
-            cybant[19] = { 'E',1 };
-            cybant[20] = {'F',4};
-            cybant[21] = { 'F',4 };
-            cybant[22] = {'G',2};
-            cybant[23] = { 'G',2 };
-            cybant[24] = { 'G',2 };
-            cybant[25] = { 'G',2 };
-            cybant[26] = { 'G',2 };
-            cybant[27] = {'H',4};
-            cybant[28] = { 'H',4 };
-            cybant[29] = { 'H',4 };
-            cybant[30] = {'I',1};
-            cybant[31] = { 'I',1 };
-            cybant[32] = { 'I',1 };
-            cybant[33] = { 'I',1 };
-            cybant[34] = { 'I',1 };
-            cybant[35] = {'J',8};
-            cybant[36] = { 'J',8 };
-            cybant[37] = {'K',5};
-            cybant[38] = { 'K',5 };
-            cybant[39] = {'L',1};
-            cybant[40] = { 'L',1 };
-            cybant[41] = { 'L',1 };
-            cybant[42] = {'M',3};
-            cybant[43] = { 'M',3 };
-            cybant[44] = {'N',1};
-            cybant[45] = {'O',1};
-            cybant[46] = { 'N',1 };
-            cybant[47] = { 'N',1 };
-            cybant[48] = { 'O',1 };
-            cybant[49] = { 'O',1 };
-            cybant[50] = { 'O',1 };
-            cybant[51] = { 'O',1 };
-            cybant[52] = {'P',3};
-            cybant[53] = { 'P',3 };
-            cybant[54] = { 'P',3 };
-            cybant[55] = {'Q',10};
-            cybant[56] = {'R',1};
-            cybant[57] = {'S',1};
-            cybant[58] = {'T',1};
-            cybant[59] = {'U',1};
-            cybant[60] = { 'R',1 };
-            cybant[61] = { 'S',1 };
-            cybant[62] = { 'T',1 };
-            cybant[63] = { 'U',1 };
-            cybant[64] = { 'R',1 };
-            cybant[65] = { 'S',1 };
-            cybant[66] = { 'T',1 };
-            cybant[67] = { 'U',1 };
-            cybant[68] = {'W',4};
-            cybant[69] = {'V',4};
-            cybant[70] = { 'W',4 };
-            cybant[71] = { 'V',4 };
-            cybant[72] = {'X',6};
-            cybant[73] = { 'X',6 };
-            cybant[74] = {'Y',8};
-            cybant[75] = { 'Y',8 };
-            cybant[76] = {'Z',10};
-            cybant[77] = { 'Z',10 };
-            cybant[78] = { 'Z',10 };
-            srand(time(NULL));
-            for (int i = 0; i < cardQuantity; i++) {
-               mufasa.playerCards[i].name= cybant[rand()%79].name;
-            }
-        }
-        ~gameMap(){
-            delete cybant;
-        }
-        void showgameMap(){
-            cout << "    0  1  2  3  4  5  6  7  8  9 10 11 12 13 14" << endl;
-            for (int i = 0 ; i < sizeOfTheBoard; i++){
-                if (i<10){
-                    cout << ' ';
-                    cout << i;
-                    cout << ' ';
-                }else{
-                    cout << i;
-                    cout << ' ';
-                }
-                for (int j = 0 ; j < sizeOfTheBoard; j++){
-                    cout << ' ';
-                    cout << board[i][j].getLetter();
-                    cout << ' ';
-                }
-                if (i<10){
-                    cout << ' ';
-                    cout << i;
-                    cout << ' ';
-                }else{
-                    cout << ' ';
-                    cout << i;
-                }
-            cout << endl;
-            }
-            cout << "    0  1  2  3  4  5  6  7  8  9 10 11 12 13 14" << endl;
-        }
+public:
+    player mufasa;
+    field board[sizeOfTheBoard][sizeOfTheBoard];
+    card* cybant = new card[79];
+    int computerPoints = 0;
+    gameMap() {
+        cybant[0] = { 'A',1 };
+        cybant[1] = { 'A',1 };
+        cybant[2] = { 'A',1 };
+        cybant[3] = { 'A',1 };
+        cybant[4] = { 'A',1 };
+        cybant[5] = { 'A',1 };
+        cybant[6] = { 'B',3 };
+        cybant[7] = { 'B',3 };
+        cybant[8] = { 'B',3 };
+        cybant[9] = { 'C',3 };
+        cybant[10] = { 'C',3 };
+        cybant[11] = { 'D',2 };
+        cybant[12] = { 'D',2 };
+        cybant[13] = { 'D',2 };
+        cybant[14] = { 'E',1 };
+        cybant[15] = { 'E',1 };
+        cybant[16] = { 'E',1 };
+        cybant[17] = { 'E',1 };
+        cybant[18] = { 'E',1 };
+        cybant[19] = { 'E',1 };
+        cybant[20] = { 'F',4 };
+        cybant[21] = { 'F',4 };
+        cybant[22] = { 'G',2 };
+        cybant[23] = { 'G',2 };
+        cybant[24] = { 'G',2 };
+        cybant[25] = { 'G',2 };
+        cybant[26] = { 'G',2 };
+        cybant[27] = { 'H',4 };
+        cybant[28] = { 'H',4 };
+        cybant[29] = { 'H',4 };
+        cybant[30] = { 'I',1 };
+        cybant[31] = { 'I',1 };
+        cybant[32] = { 'I',1 };
+        cybant[33] = { 'I',1 };
+        cybant[34] = { 'I',1 };
+        cybant[35] = { 'J',8 };
+        cybant[36] = { 'J',8 };
+        cybant[37] = { 'K',5 };
+        cybant[38] = { 'K',5 };
+        cybant[39] = { 'L',1 };
+        cybant[40] = { 'L',1 };
+        cybant[41] = { 'L',1 };
+        cybant[42] = { 'M',3 };
+        cybant[43] = { 'M',3 };
+        cybant[44] = { 'N',1 };
+        cybant[45] = { 'O',1 };
+        cybant[46] = { 'N',1 };
+        cybant[47] = { 'N',1 };
+        cybant[48] = { 'O',1 };
+        cybant[49] = { 'O',1 };
+        cybant[50] = { 'O',1 };
+        cybant[51] = { 'O',1 };
+        cybant[52] = { 'P',3 };
+        cybant[53] = { 'P',3 };
+        cybant[54] = { 'P',3 };
+        cybant[55] = { 'Q',10 };
+        cybant[56] = { 'R',1 };
+        cybant[57] = { 'S',1 };
+        cybant[58] = { 'T',1 };
+        cybant[59] = { 'U',1 };
+        cybant[60] = { 'R',1 };
+        cybant[61] = { 'S',1 };
+        cybant[62] = { 'T',1 };
+        cybant[63] = { 'U',1 };
+        cybant[64] = { 'R',1 };
+        cybant[65] = { 'S',1 };
+        cybant[66] = { 'T',1 };
+        cybant[67] = { 'U',1 };
+        cybant[68] = { 'W',4 };
+        cybant[69] = { 'V',4 };
+        cybant[70] = { 'W',4 };
+        cybant[71] = { 'V',4 };
+        cybant[72] = { 'X',6 };
+        cybant[73] = { 'X',6 };
+        cybant[74] = { 'Y',8 };
+        cybant[75] = { 'Y',8 };
+        cybant[76] = { 'Z',10 };
+        cybant[77] = { 'Z',10 };
+        cybant[78] = { 'Z',10 };
+
+        mufasa.randomCards(cybant);
+    }
+    ~gameMap() {
+        delete cybant;
+    }
         bool isFieldEmpty(field bufforField){
             // dopisaæ warunek z sesja czyli jak juz jest cos wpisane wczesniej ze nie mozna juz zrobiłem
             if (bufforField.getLetter() == '_'){
@@ -278,51 +287,53 @@ class gameMap{
                 return false;
             }
         }
-        bool correctMove(){
+        bool correctMove() {
             int rowPointer, columnPointer;
-            int i =0;
+            int i = 0;
             bool looping = true;
             bool correctness = true;
-            do{
-                for (int j = 0 ; j < sizeOfTheBoard; j++){
-                    if (board[i][j].getSession() == 1){
-                            rowPointer = i;
-                            columnPointer = j;
-                            looping = false;
-                            break;
+            do {
+                for (int j = 0; j < sizeOfTheBoard; j++) {
+                    if (board[i][j].getSession() == 1) {
+                        rowPointer = i;
+                        columnPointer = j;
+                        looping = false;
+                        break;
                     }
                 }
                 i++;
-            }while(looping && i < sizeOfTheBoard);
-            
-            if (board[rowPointer + 1][columnPointer].getSession() == 1 || board[rowPointer + 1][columnPointer].getSession() == 2){
-                if(wordUnityCheck(rowPointer,columnPointer,"column") == false){
+            } while (looping && i < sizeOfTheBoard);
+
+            if (board[rowPointer + 1][columnPointer].getSession() == 1 || board[rowPointer + 1][columnPointer].getSession() == 2) {
+                if (wordUnityCheck(rowPointer, columnPointer, "column") == false) {
                     cout << "WPISALES NIECIAGLY WYRAZ" << endl;
                     correctness = false;
                 }
-            }else if(board[rowPointer][columnPointer + 1].getSession() ==1 || board[rowPointer][columnPointer + 1].getSession() ==2){
-                if(wordUnityCheck(rowPointer,columnPointer,"row") == false){
+            }
+            else if (board[rowPointer][columnPointer + 1].getSession() == 1 || board[rowPointer][columnPointer + 1].getSession() == 2) {
+                if (wordUnityCheck(rowPointer, columnPointer, "row") == false) {
                     cout << "WPISALES NIEPOPRAAWNY WYRAZ" << endl;
                     correctness = false;
                 }
-            }else{
-                if(letterUnityCheck(rowPointer,columnPointer) == false){
+            }
+            else {
+                if (letterUnityCheck(rowPointer, columnPointer) == false) {
                     cout << "WPISALES NIEPOPRAWNY WYRAZ" << endl;
                     correctness = false;
                 }
             }
-            cout << "CHUJ" << endl;
-            if (correctness == true){
+            if (correctness == true) {
                 correctness = checkWordEnteredByPlayer();
             }
-            if (correctness == false){
-                /*for(int i = 0 ; i < sizeOfTheBoard; i++){
-                    for (int j = 0 ; j < sizeOfTheBoard; j ++){
-                        board[i][j].changeSessionToOccupied();
+            if (correctness == true) {
+                ifstream wordsToCheck;
+                wordsToCheck.open("wordsToCheck.txt");
+                if (wordsToCheck.is_open()) {
+                    string word;
+                    while (getline(wordsToCheck, word)) {
+                        //playerPointsCount(word);
                     }
-                }*/
-            //}else{
-                cout << "twojego slowa nie ma w slowniku" << endl;
+                }
             }
             return correctness;
         }
@@ -335,11 +346,15 @@ class gameMap{
             if (dictonary.is_open() && wordsToCheck.is_open()) {
                 string line;
                 string word;
-                while (getline(wordsToCheck,word)){
+                while (getline(wordsToCheck, word)) {
+                    ok = false;
                     while (getline(dictonary, line)) {
-                        if (strcmp (line.c_str(),word.c_str()) == 0){
+                        if (strcmp(line.c_str(), word.c_str()) == 0) {
                             ok = true;
                         }
+                    }
+                    if (ok == false) {
+                        break;
                     }
                 }
                 wordsToCheck.close();
@@ -649,7 +664,7 @@ class gameMap{
                 }
             }
         }
-        bool computerAction(){ // zmiana na bool i ingerencja w gui
+        bool computerAction() { // zmiana na bool i ingerencja w gui
             //int i = 10;
             bool corectness = false;
             computerPossibilities buffor(0, 0);
@@ -657,8 +672,8 @@ class gameMap{
            //     i = 10;
             buffor = computerPlaceSelection(buffor);
             corectness = computerWordSelection(buffor);
-              //  i--;
-            //} while (corectness == false && i >0);
+            //  i--;
+          //} while (corectness == false && i >0);
             return corectness;
             //computerWordSelection();
             //}while();
@@ -666,43 +681,36 @@ class gameMap{
         bool checkLettersAvability(string wordToCheck){
             return true;
         }
-        void incorrextMoveOfPlayer(card playerCard[10]){
-            for(int i = 0 ; i < sizeOfTheBoard; i++){
-                for (int j = 0 ; j < sizeOfTheBoard; j ++){
-                    if (board[i][j].changeSessionToFree() == true){
-                        for (int p = 0 ; p  < 10 ; p++){
-                            if (playerCard[p].name == '_'){
-                                playerCard[p].name = board[i][j].getLetter();
-                                board[i][j].setLetter('_');
-                            }
-                        }
-                    }
+        void incorrextMoveOfPlayer() {
+            for (int i = 0; i < sizeOfTheBoard; i++) {
+                for (int j = 0; j < sizeOfTheBoard; j++) {
+                    board[i][j].changeSessionToFree();
                 }
             }
         }
-        bool computerWordSelection(computerPossibilities computerFieldCandidate){
+        bool computerWordSelection(computerPossibilities computerFieldCandidate) {
             ifstream dictonary;
             bool corectness = false;
-            dictonary.open("sortedDic.txt");
-            ofstream CHUJ("wordsToCheck.txt");
-            ofstream KONIEC("KONIEC.txt");
-            CHUJ << computerFieldCandidate.getUp() << "  " << computerFieldCandidate.getDown() << "  " << computerFieldCandidate.getLeft() << "  " << computerFieldCandidate.getRight() << "  " << endl;
+            dictonary.open("C:\\Users\\48508\\Desktop\\sortedDic.txt");
+
             srand(time(NULL));
-            int difficultyLevel = 1; //2 3; // wpierdalam do konstruktora potem
-            int startWordIterator=0;
-            if (difficultyLevel == 1){
+            int difficultyLevel = 3; //2 3; // wpierdalam do konstruktora potem
+            int startWordIterator = 0;
+            if (difficultyLevel == 1) {
                 startWordIterator = rand() % 6000; //TUTAJ ZMIENIAMY TRUDNOŚĆ!!!
-            }else if (difficultyLevel == 2){
+            }
+            else if (difficultyLevel == 2) {
                 startWordIterator = rand() % 5000 + 10446;
-            }else if (difficultyLevel == 3){
+            }
+            else if (difficultyLevel == 3) {
                 startWordIterator = rand() % 500 + 24000;
             }
-            int spaceToWrite=0;
-            int counter =0;
-            int candidateLetterPointer=0;
-            int leftUpSpace=0;
-            int rightDownSpace=0;
-            bool upDownOrRightLeft=0;
+            int spaceToWrite = 0;
+            int counter = 0;
+            int candidateLetterPointer = 0;
+            int leftUpSpace = 0;
+            int rightDownSpace = 0;
+            bool upDownOrRightLeft = 0;
             bool looping = true;
             string wordToCheck;
             if ((computerFieldCandidate.getUp() + computerFieldCandidate.getDown()) > (computerFieldCandidate.getLeft() + computerFieldCandidate.getRight())) {
@@ -722,18 +730,18 @@ class gameMap{
                         //  cout << wordToCheck;
                         //CHUJ << wordToCheck << endl;
                         if (wordToCheck.length() <= spaceToWrite) {
-                                CHUJ << "1" << endl;
+
                             for (int i = 0; i < wordToCheck.length(); i++) {
                                 if (board[computerFieldCandidate.getRow()][computerFieldCandidate.getColumn()].getLetter() == wordToCheck[i]) {
                                     candidateLetterPointer = i;
                                     leftUpSpace = i;
                                     rightDownSpace = wordToCheck.length() - 1 - i;
-                                               CHUJ << "2" << endl;
+
                                     if (upDownOrRightLeft == true) {
                                         if (computerFieldCandidate.getUp() >= leftUpSpace && computerFieldCandidate.getDown() >= rightDownSpace) {
                                             //  if (wordToCheck.length() > 3 || counter <= 700 ){
                                             if (checkLettersAvability(wordToCheck) == true) { // ONE MORE ZEBY PRZYBLOKOWAĆ MAŁE CHUJKI
-                                               CHUJ << "3" << endl;
+
                                                 cout << wordToCheck << endl;
                                                 computerFieldCandidate.setWord(wordToCheck);
                                                 computerFieldCandidate.setLeft(0);
@@ -751,7 +759,7 @@ class gameMap{
                                         if (computerFieldCandidate.getLeft() >= leftUpSpace && computerFieldCandidate.getRight() >= rightDownSpace) {
                                             //  if (wordToCheck.length() > 3 || counter >= 80000 ){
                                             if (checkLettersAvability(wordToCheck) == true) {
-                                               CHUJ << "3" << endl;
+
                                                 cout << wordToCheck << endl;
                                                 computerFieldCandidate.setWord(wordToCheck);
                                                 computerFieldCandidate.setDown(0);
@@ -770,15 +778,10 @@ class gameMap{
                             }
                         }
                     }
-                    //   cout<< endl;
-                    if (wordToCheck == "KONIEC!") {
-                        KONIEC << "MUGAFAFAG" << endl;
-                    }
                 } while (looping == true && wordToCheck != "KONIEC!");
             }
-            
-            CHUJ << computerFieldCandidate.getRow() << "   " << computerFieldCandidate.getColumn() << endl;
-            CHUJ << computerFieldCandidate.getWord() << endl;
+
+
             if (corectness == true) {
                 computerWriteWordToMap(computerFieldCandidate);
             }
@@ -962,5 +965,14 @@ class gameMap{
 
             return computerFieldCandidate;
 
+    }
+        bool playerPointsCount(string word, player player) {
+            int wordPoint = 0;
+            for (int i{ 0 }; i < word.length(); i++) {
+
+            }
+            player.setPoints(player.getPoints() + wordPoint);
+        }
+        bool computerPointsCount(string words) {
     }
 };
