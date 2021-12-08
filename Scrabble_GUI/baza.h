@@ -330,8 +330,8 @@ class gameMap{
             bool ok = false;
             ifstream dictonary;
             ifstream wordsToCheck;
-            dictonary.open("C:\\Users\\48508\\Desktop\\dic.txt");
-            wordsToCheck.open("C:\\Users\\48508\\Desktop\\wordsToCheck.txt");
+            dictonary.open("dic.txt");
+            wordsToCheck.open("wordsToCheck.txt");
             if (dictonary.is_open() && wordsToCheck.is_open()) {
                 string line;
                 string word;
@@ -371,7 +371,7 @@ class gameMap{
                 }while(q < sizeOfTheBoard && ok == true);
             }
 
-            ofstream WRITE("C:\\Users\\48508\\Desktop\\wordsToCheck.txt");
+            ofstream WRITE("wordsToCheck.txt");
             if (ok == true){
                 newWordStartPointer = rowPointer;
                 newWordEndPointer = rowPointer;
@@ -461,7 +461,7 @@ class gameMap{
             int newWordStartPointer = columnPointer;
             int newWordEndPointer = columnPointer;
             if (ok == true){
-                ofstream WRITE("C:\\Users\\48508\\Desktop\\wordsToCheck.txt");
+                ofstream WRITE("wordsToCheck.txt");
                 for( int p = rowPointer ; p <= endRowPointer ; p ++){
                     newWordStartPointer = columnPointer;
                     newWordEndPointer = columnPointer;
@@ -546,7 +546,7 @@ class gameMap{
                 int newWordStartPointer = rowPointer;
                 int newWordEndPointer = rowPointer;
                 if (ok == true){
-                    ofstream WRITE("C:\\Users\\48508\\Desktop\\wordsToCheck.txt");
+                    ofstream WRITE("wordsToCheck.txt");
                     for( int p = columnPointer ; p <= endColumnPointer ; p ++){
                         newWordStartPointer = rowPointer;
                         newWordEndPointer = rowPointer;
@@ -683,9 +683,9 @@ class gameMap{
         bool computerWordSelection(computerPossibilities computerFieldCandidate){
             ifstream dictonary;
             bool corectness = false;
-            dictonary.open("C:\\Users\\48508\\Desktop\\sortedDic.txt");
-            ofstream CHUJ("C:\\Users\\48508\\Desktop\\wordsToCheck.txt");
-            ofstream KONIEC("C:\\Users\\48508\\Desktop\\KONIEC.txt");
+            dictonary.open("sortedDic.txt");
+            ofstream CHUJ("wordsToCheck.txt");
+            ofstream KONIEC("KONIEC.txt");
             CHUJ << computerFieldCandidate.getUp() << "  " << computerFieldCandidate.getDown() << "  " << computerFieldCandidate.getLeft() << "  " << computerFieldCandidate.getRight() << "  " << endl;
             srand(time(NULL));
             int difficultyLevel = 1; //2 3; // wpierdalam do konstruktora potem
