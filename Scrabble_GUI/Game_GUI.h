@@ -12,6 +12,7 @@ public:
 	Game_GUI(QWidget *parent = Q_NULLPTR);
 	~Game_GUI();
 	gameMap gameMap1;
+	player mufasa;
 
 private:
 	Ui::Game_GUI ui;

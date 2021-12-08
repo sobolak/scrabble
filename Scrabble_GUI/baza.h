@@ -138,6 +138,7 @@ public:
     card playerCards[cardQuantity];
     bool possibilityToChangeCards = true;
 
+
     void setPoints(int points) {
         this->points = points;
     }
@@ -161,35 +162,41 @@ public:
 
     void randomCards(card cybant[79]) {
         srand(time(NULL));
+        int j;
         for (int i = 0; i < cardQuantity; i++) {
-            playerCards[i] = cybant[rand() % 79];
+            j = rand() % 79;
+            playerCards[i].name = cybant[j].name;
+            playerCards[i].points = cybant[j].points;
         }
     }
 
     void changeUsedCards(string word, card cybant[79]) {
         srand(time(NULL));
+        int luck;
         for (int i{ 0 }; i < word.length(); i++) {
             for (int j{ 0 }; j < cardQuantity; j++) {
                 if (word[i] == playerCards[j].name) {
-                    playerCards[j] = cybant[rand() % 79];
+                    luck = rand() % 79;
+                    playerCards[j].name = cybant[luck].name;
+                    playerCards[j].points = cybant[luck].points;
                     break;
                 }
             }
         }
     }
 
-    void xxx() {
-      //  ofstream CHUJ("C:\\Users\\48508\\Desktop\\player_checkk.txt");
-      //  for (int j{ 0 }; j < cardQuantity; j++) {
-      //      CHUJ << playerCards[j].name << endl;
-      //  }
+    void wordProperty() {
+        ofstream CHUJ("player_checkk.txt");
+        for (int j{ 0 }; j < cardQuantity; j++) {
+            CHUJ << playerCards[j].name << endl;
+        }
     }
 };
 
 class gameMap{
     //private:
 public:
-    player mufasa;
+    //player mufasa;
     bool firstMove = true;
     field board[sizeOfTheBoard][sizeOfTheBoard];
     card* cybant = new card[79];
@@ -274,8 +281,6 @@ public:
         cybant[76] = { 'Z',10 };
         cybant[77] = { 'Z',10 };
         cybant[78] = { 'Z',10 };
-
-        mufasa.randomCards(cybant);
     }
     ~gameMap() {
         delete cybant;
@@ -694,7 +699,7 @@ public:
         bool computerWordSelection(computerPossibilities computerFieldCandidate) {
             ifstream dictonary;
             bool corectness = false;
-            dictonary.open("C:\\Users\\48508\\Desktop\\sortedDic.txt");
+            dictonary.open("sortedDic.txt");
 
             srand(time(NULL));
             int difficultyLevel = 3; //2 3; // wpierdalam do konstruktora potem
@@ -829,7 +834,7 @@ public:
                 else if (((computerFieldCandidate.getDown() + computerFieldCandidate.getUp()) == 1 || (computerFieldCandidate.getRight() + computerFieldCandidate.getLeft()) == 1 ) && counter < 70) {
                     // DO  WYJEBANIA WIDZOWEI tu sprawdzanie dic z wyrazami dwuliterowymi mykmym
                     if (checkTwoWordsDic(computerFieldCandidate.getUp(), computerFieldCandidate.getDown(), computerFieldCandidate.getLeft(), computerFieldCandidate.getRight(), board[i][j].getLetter())) {
-                        ofstream CHUJ("C:\\Users\\48508\\Desktop\\qqq.txt");
+                        ofstream CHUJ("qqq.txt");
                         CHUJ << computerFieldCandidate.getDown() << " " << computerFieldCandidate.getUp() << " " << computerFieldCandidate.getRight() << " " << computerFieldCandidate.getLeft() << " " << endl;
                         choice = true;
                     }

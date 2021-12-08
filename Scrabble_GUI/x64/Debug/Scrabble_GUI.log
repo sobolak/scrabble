@@ -1,6 +1,6 @@
 ﻿  Create_Game_GUI.cpp
   Game_GUI.cpp
   main.cpp
-C:\Users\48508\Desktop\scrabble\Scrabble_GUI\baza.h(683): warning C4715: 'gameMap::computerAction': not all control paths return a value
+C:\Users\48508\Desktop\scrabble\Scrabble_GUI\baza.h(688): warning C4715: 'gameMap::computerAction': not all control paths return a value
   moc_Game_GUI.cpp
   Scrabble_GUI.vcxproj -> C:\Users\48508\Desktop\scrabble\x64\Debug\Scrabble_GUI.exe
