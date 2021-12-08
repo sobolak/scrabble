@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿  Reading Qt configuration (C:/Qt/6.2.1/msvc2019_64/bin/qmake)
   uic Logging_GUI.ui
   uic Menu_GUI.ui
@@ -26,3 +27,6 @@
   moc_Statistics_GUI.cpp
   LINK : C:\Users\pawel\OneDrive\Pulpit\scrabble\x64\Debug\Scrabble_GUI.exe not found or not built by the last incremental link; performing full link
   Scrabble_GUI.vcxproj -> C:\Users\pawel\OneDrive\Pulpit\scrabble\x64\Debug\Scrabble_GUI.exe
+=======
+﻿  Scrabble_GUI.vcxproj -> C:\Users\48508\Desktop\scrabble\x64\Debug\Scrabble_GUI.exe
+>>>>>>> 776fd774023bae657ccd4b32433fde00dd7bc974
