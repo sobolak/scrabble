@@ -120,7 +120,10 @@ void Game_GUI::on_pushButton_add_clicked()
 		}
 	}
 
-	gameMap1.computerAction();
+	bool computerMove = gameMap1.computerAction();
+	if (!computerMove) {
+		gameMap1.board[0][0].setLetter('%');
+	}
 
 	for (int i = 0; i < 15; i++) { // refresh tablicy
 		for (int j = 0; j < 15; j++) {

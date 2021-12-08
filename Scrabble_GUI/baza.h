@@ -179,10 +179,10 @@ public:
     }
 
     void xxx() {
-        ofstream CHUJ("C:\\Users\\48508\\Desktop\\player_checkk.txt");
-        for (int j{ 0 }; j < cardQuantity; j++) {
-            CHUJ << playerCards[j].name << endl;
-        }
+      //  ofstream CHUJ("C:\\Users\\48508\\Desktop\\player_checkk.txt");
+      //  for (int j{ 0 }; j < cardQuantity; j++) {
+      //      CHUJ << playerCards[j].name << endl;
+      //  }
     }
 };
 
@@ -676,15 +676,9 @@ public:
             if (!getFirstMove()) {
                 bool corectness = false;
                 computerPossibilities buffor(0, 0);
-                //do {
-               //     i = 10;
                 buffor = computerPlaceSelection(buffor);
                 corectness = computerWordSelection(buffor);
-                //  i--;
-              //} while (corectness == false && i >0);
                 return corectness;
-                //computerWordSelection();
-                //}while();
             }
         }
         bool checkLettersAvability(string wordToCheck){
@@ -796,11 +790,32 @@ public:
             }
             return corectness;
         }
+        bool checkTwoWordsDic(int up, int down, int left, int right, char letter) {
+            bool ok = false;
+            ifstream twoWords;
+            twoWords.open("twoWordsDic.txt");
+            if (twoWords.is_open()) {
+                string word;
+                while (getline(twoWords, word)) {
+                    if (up == 1 || left == 1) {
+                        if (word[1] == letter) {
+                            ok = true;
+                        }
+                    }
+                    else {
+                        if (word[0] == letter) {
+                            ok = true;
+                        }
+                    }
+                }
+            }
+            return ok;
+        }
         computerPossibilities computerPlaceSelection(computerPossibilities x){
             int i,j,iZnacznik,jZnacznik;
             bool choice = false;
             srand(time(NULL));
-
+            int counter = 500;
             do{
             i = rand()%15;
             j = rand()%15;
@@ -811,9 +826,18 @@ public:
                 if ((computerFieldCandidate.getDown()+computerFieldCandidate.getUp()) >= 2 || (computerFieldCandidate.getRight()+computerFieldCandidate.getLeft()) >= 2 ){
                     choice = true;
                 }
+                else if (((computerFieldCandidate.getDown() + computerFieldCandidate.getUp()) == 1 || (computerFieldCandidate.getRight() + computerFieldCandidate.getLeft()) == 1 ) && counter < 70) {
+                    // DO  WYJEBANIA WIDZOWEI tu sprawdzanie dic z wyrazami dwuliterowymi mykmym
+                    if (checkTwoWordsDic(computerFieldCandidate.getUp(), computerFieldCandidate.getDown(), computerFieldCandidate.getLeft(), computerFieldCandidate.getRight(), board[i][j].getLetter())) {
+                        ofstream CHUJ("C:\\Users\\48508\\Desktop\\qqq.txt");
+                        CHUJ << computerFieldCandidate.getDown() << " " << computerFieldCandidate.getUp() << " " << computerFieldCandidate.getRight() << " " << computerFieldCandidate.getLeft() << " " << endl;
+                        choice = true;
+                    }
+                }
                 x = computerFieldCandidate;
+                counter--;
             }
-            }while(choice == false);
+            }while(choice == false && counter > 0);
 
             return x;
         }
