@@ -52,6 +52,9 @@
     <ClCompile Include="Create_Game_GUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Statistics_GUI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="Game_GUI.ui">
@@ -66,6 +69,9 @@
     <QtUic Include="Create_Game_GUI.ui">
       <Filter>Form Files</Filter>
     </QtUic>
+    <QtUic Include="Statistics_GUI.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Game_GUI.h">
@@ -78,6 +84,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="Create_Game_GUI.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Statistics_GUI.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

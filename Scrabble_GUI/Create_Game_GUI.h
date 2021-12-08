@@ -13,4 +13,10 @@ public:
 
 private:
 	Ui::Create_Game_GUI ui;
+private slots:
+	void on_pushButton_start_clicked();
+private slots:
+	void on_pushButton_return_clicked();
+private slots:
+	void on_pushButton_logout_clicked();
 };

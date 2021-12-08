@@ -1,5 +1,5 @@
 #include "Menu_GUI.h"
-#include "Game_GUI.h"
+#include "Create_Game_GUI.h"
 #include "Logging_GUI.h"
 
 Menu_GUI::Menu_GUI(QWidget *parent)
@@ -14,10 +14,10 @@ Menu_GUI::~Menu_GUI()
 
 void Menu_GUI::on_pushButton_play_clicked()
 {
-	Game_GUI game;
+	Create_Game_GUI create_game;
 	this->hide();
-	game.setModal(true);
-	game.exec();
+	create_game.setModal(true);
+	create_game.exec();
 }
 
 void Menu_GUI::on_pushButton_logout_clicked()
