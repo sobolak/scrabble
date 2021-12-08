@@ -1,16 +1,18 @@
-<<<<<<< HEAD
 ﻿  Reading Qt configuration (C:/Qt/6.2.1/msvc2019_64/bin/qmake)
+  uic Create_Game_GUI.ui
+  uic Game_GUI.ui
   uic Logging_GUI.ui
   uic Menu_GUI.ui
   uic Scrabble_GUI.ui
+  uic Statistics_GUI.ui
   rcc Scrabble_GUI.qrc
   moc Scrabble_GUI.h
+   RCC: Warning: No resources in 'C:\Users\48508\Desktop\scrabble\Scrabble_GUI\Scrabble_GUI.qrc'.
   moc Game_GUI.h
   moc Logging_GUI.h
   moc Menu_GUI.h
   moc Create_Game_GUI.h
   moc Statistics_GUI.h
-   RCC: Warning: No resources in 'C:\Users\pawel\OneDrive\Pulpit\scrabble\Scrabble_GUI\Scrabble_GUI.qrc'.
   Create_Game_GUI.cpp
   Game_GUI.cpp
   Logging_GUI.cpp
@@ -18,6 +20,7 @@
   Menu_GUI.cpp
   Scrabble_GUI.cpp
   Statistics_GUI.cpp
+C:\Users\48508\Desktop\scrabble\Scrabble_GUI\baza.h(689): warning C4715: 'gameMap::computerAction': not all control paths return a value
   qrc_Scrabble_GUI.cpp
   moc_Scrabble_GUI.cpp
   moc_Game_GUI.cpp
@@ -25,8 +28,5 @@
   moc_Menu_GUI.cpp
   moc_Create_Game_GUI.cpp
   moc_Statistics_GUI.cpp
-  LINK : C:\Users\pawel\OneDrive\Pulpit\scrabble\x64\Debug\Scrabble_GUI.exe not found or not built by the last incremental link; performing full link
-  Scrabble_GUI.vcxproj -> C:\Users\pawel\OneDrive\Pulpit\scrabble\x64\Debug\Scrabble_GUI.exe
-=======
-﻿  Scrabble_GUI.vcxproj -> C:\Users\48508\Desktop\scrabble\x64\Debug\Scrabble_GUI.exe
->>>>>>> 776fd774023bae657ccd4b32433fde00dd7bc974
+  LINK : C:\Users\48508\Desktop\scrabble\x64\Debug\Scrabble_GUI.exe not found or not built by the last incremental link; performing full link
+  Scrabble_GUI.vcxproj -> C:\Users\48508\Desktop\scrabble\x64\Debug\Scrabble_GUI.exe
