@@ -190,6 +190,7 @@ class gameMap{
     //private:
 public:
     player mufasa;
+    bool firstMove = true;
     field board[sizeOfTheBoard][sizeOfTheBoard];
     card* cybant = new card[79];
     int computerPoints = 0;
@@ -279,6 +280,12 @@ public:
     ~gameMap() {
         delete cybant;
     }
+        void setFirstMove(bool firstMove) {
+            this->firstMove = firstMove;
+        }
+        bool getFirstMove() {
+            return firstMove;
+        }
         bool isFieldEmpty(field bufforField){
             // dopisaæ warunek z sesja czyli jak juz jest cos wpisane wczesniej ze nie mozna juz zrobiłem
             if (bufforField.getLetter() == '_'){
@@ -666,17 +673,19 @@ public:
         }
         bool computerAction() { // zmiana na bool i ingerencja w gui
             //int i = 10;
-            bool corectness = false;
-            computerPossibilities buffor(0, 0);
-            //do {
-           //     i = 10;
-            buffor = computerPlaceSelection(buffor);
-            corectness = computerWordSelection(buffor);
-            //  i--;
-          //} while (corectness == false && i >0);
-            return corectness;
-            //computerWordSelection();
-            //}while();
+            if (!getFirstMove()) {
+                bool corectness = false;
+                computerPossibilities buffor(0, 0);
+                //do {
+               //     i = 10;
+                buffor = computerPlaceSelection(buffor);
+                corectness = computerWordSelection(buffor);
+                //  i--;
+              //} while (corectness == false && i >0);
+                return corectness;
+                //computerWordSelection();
+                //}while();
+            }
         }
         bool checkLettersAvability(string wordToCheck){
             return true;

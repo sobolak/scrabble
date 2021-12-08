@@ -30,6 +30,10 @@ void Game_GUI::on_pushButton_add_clicked()
 	auto playerLetter = ui.tableWidget_letters->model();
 	std::string word = ui.lineEdit_word->text().toStdString();
 	bool check_word = true;
+	if (word == "") {
+		check_word = false;
+	}
+	
 	gameMap1.mufasa.setPossibilityToChangeCards(true); // NALEZY USTAWIC ROWNIRZ W PASOWANIU
 	if (check_word) { //trzeba dodac jakies rzeczy gdy slowo nie znajduje sie w slowniku dic
 		int x = ui.comboBox_column->currentText().toInt();
@@ -102,6 +106,7 @@ void Game_GUI::on_pushButton_add_clicked()
 				}
 				gameMap1.mufasa.changeUsedCards(word, gameMap1.cybant);
 				gameMap1.mufasa.xxx();
+				gameMap1.setFirstMove(false);
 			}
 			ui.lineEdit_word->setText(""); //zmiana tabelki
 			for (int i{ 0 }; i < 10; ++i) {
