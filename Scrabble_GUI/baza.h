@@ -139,17 +139,17 @@ public:
     card playerCards[cardQuantity];
     bool possibilityToChangeCards = true;
 
-    void setPoints(bool points) {
+    void setPoints(int points) {
         this->points = points;
     }
-    bool getPoints() {
+    int getPoints() {
         return points;
     }
 
-    void setCurrentlyPlay(int currentlyPlay) {
+    void setCurrentlyPlay(bool currentlyPlay) {
         this->currentlyPlay = currentlyPlay;
     }
-    int getCurrentlyPlay() {
+    bool getCurrentlyPlay() {
         return currentlyPlay;
     }
 
@@ -1087,4 +1087,11 @@ public:
         }
         bool computerPointsCount(string words) {
     }
+
+        void setNumberOfPlayers(int numberOfPlayers) {
+            this->numberOfPlayers = numberOfPlayers;
+        }
+        int getNumberOfPlayers() {
+            return numberOfPlayers;
+        }
 };

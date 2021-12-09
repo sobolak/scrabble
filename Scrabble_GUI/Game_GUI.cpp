@@ -7,20 +7,22 @@ Game_GUI::Game_GUI(QWidget *parent)
 	: QDialog(parent)
 {
 	gameMap gameMap1;
-	//player mufasa;
-	mufasa.randomCards(gameMap1.cybant);
-	ui.setupUi(this);
-	//card buffor[10];
-	std::random_device rd;
-	std::mt19937 gen(rd());
-	//std::uniform_int_distribution<> distrib(65, 90);
-	auto model = ui.tableWidget_letters->model();
-	for (int i{ 0 }; i < 10; ++i){
-		QString tmp = char(mufasa.playerCards[i].name);
-		//QString tmp = char(distrib(rd));
-		model->setData(model->index(0, i), tmp);
+	if (gameMap1.getNumberOfPlayers() >= 1 ) {
+		mufasa.randomCards(gameMap1.cybant);
 	}
-	cout << " " << endl;
+	if (gameMap1.getNumberOfPlayers() >= 2) {
+		esteban.randomCards(gameMap1.cybant);
+	}
+	if (gameMap1.getNumberOfPlayers() >= 3) {
+		zeromski.randomCards(gameMap1.cybant);
+	}
+	if (gameMap1.getNumberOfPlayers() == 4) {
+		rokoko.randomCards(gameMap1.cybant);
+	}
+	ui.setupUi(this);
+	// mufasa to zawsze domyslny player 1 czy z kompem czy nie i zawsze robi 1 ruch i zawsze jeg literki
+	changeCurrentPlayer();
+	playerLetterRefresh(mufasa);
 }
 
 Game_GUI::~Game_GUI()
@@ -29,9 +31,12 @@ Game_GUI::~Game_GUI()
 
 void Game_GUI::on_pushButton_add_clicked()
 {
-	playerMove(mufasa);
+	//zmiana na odpowedniego playera w zaleznosci od ilosci
 	//bool computerMove = 
-	gameMap1.computerAction();
+	if (gameMap1.getNumberOfPlayers() == 1) {
+		playerMove(mufasa);
+		gameMap1.computerAction();
+	}
 	/*if (!computerMove) {
 		gameMap1.board[0][0].setLetter('%');
 	}*/
@@ -39,12 +44,9 @@ void Game_GUI::on_pushButton_add_clicked()
 }
 
 void Game_GUI::on_pushButton_change_clicked() {
-	mufasa.changeEveryPlayerCard(gameMap1.cybant);
-	auto model = ui.tableWidget_letters->model();
-	for (int i{ 0 }; i < 10; ++i) {
-		QString tmp = char(mufasa.playerCards[i].name);
-		//QString tmp = char(distrib(rd));
-		model->setData(model->index(0, i), tmp);
+	if (gameMap1.getNumberOfPlayers() == 1) {
+		mufasa.changeEveryPlayerCard(gameMap1.cybant);
+		playerLetterRefresh(mufasa);
 	}
 	/*std::random_device rd;
 	std::mt19937 gen(rd());
@@ -60,13 +62,19 @@ void Game_GUI::on_pushButton_change_clicked() {
 void Game_GUI::on_pushButton_pass_clicked() {
 	gameMap1.computerAction();
 	refreshGameMap();
+	//zmiana playera i zmian jego dymow
+}
+
+void Game_GUI::playerLetterRefresh(player player) {
+	auto model = ui.tableWidget_letters->model();
+	for (int i{ 0 }; i < 10; ++i) { // wpisuje w tabelke zawsze literki mufasy bo on jest graczem rozpoczynajcym rozgryke 
+		QString tmp = char(player.playerCards[i].name);
+		model->setData(model->index(0, i), tmp);
+	}
 }
 
 void Game_GUI::playerMove(player player) {
-	cout << " " << endl;
 	auto model = ui.tableWidget_game->model();
-	auto model_letters = ui.tableWidget_letters->model();
-	auto playerLetter = ui.tableWidget_letters->model();
 	std::string word = ui.lineEdit_word->text().toStdString();
 	bool check_word = true;
 	if (word == "") {
@@ -122,8 +130,6 @@ void Game_GUI::playerMove(player player) {
 		}
 		if (check_word == true) {
 			check_word = this->gameMap1.correctMove();
-			//ofstream XXX("C:\\Users\\48508\\Desktop\\cosiedzieje.txt");
-			//XXX << check_word << endl;
 			if (check_word == true) {
 				int x = ui.comboBox_column->currentText().toInt();
 				int y = ui.comboBox_row->currentText().toInt();
@@ -145,10 +151,7 @@ void Game_GUI::playerMove(player player) {
 				gameMap1.setFirstMove(false);
 			}
 			ui.lineEdit_word->setText(""); //zmiana tabelki
-			for (int i{ 0 }; i < 10; ++i) {
-				QString tmp = char(player.playerCards[i].name);
-				playerLetter->setData(playerLetter->index(0, i), tmp);
-			}
+			playerLetterRefresh(player);
 		}
 		if (!check_word) {
 			gameMap1.incorrextMoveOfPlayer();
@@ -157,6 +160,12 @@ void Game_GUI::playerMove(player player) {
 	}
 
 }
+
+void Game_GUI::changeCurrentPlayer() {
+	cout << "";
+	mufasa.setCurrentlyPlay(true);
+	cout << "";
+};
 
 void Game_GUI::refreshGameMap() {
 	mufasa.setPossibilityToChangeCards(true);
