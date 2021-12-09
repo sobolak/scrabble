@@ -97,6 +97,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu_GUI.cpp" />
     <ClCompile Include="Scrabble_GUI.cpp" />
+    <ClCompile Include="Statistics_GUI.cpp" />
     <QtRcc Include="Scrabble_GUI.qrc" />
     <QtUic Include="Create_Game_GUI.ui" />
     <QtUic Include="Game_GUI.ui" />
@@ -104,6 +105,7 @@
     <QtUic Include="Menu_GUI.ui" />
     <QtUic Include="Scrabble_GUI.ui" />
     <QtMoc Include="Scrabble_GUI.h" />
+    <QtUic Include="Statistics_GUI.ui" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Game_GUI.h" />
@@ -119,6 +121,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="baza.h" />
+    <QtMoc Include="Statistics_GUI.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

@@ -1,7 +1,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
 <Qt_DEFINES_>UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;NDEBUG;QT_NO_DEBUG;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB</Qt_DEFINES_>
-<Qt_INCLUDEPATH_>"C:\Users\pawel\OneDrive\Pulpit\AGH\V semestr\IO\Scrabble_GUI\Scrabble_GUI\x64\Release\qmake\temp";C:\Qt\6.2.1\msvc2019_64\include;C:\Qt\6.2.1\msvc2019_64\include\QtWidgets;C:\Qt\6.2.1\msvc2019_64\include\QtGui;C:\Qt\6.2.1\msvc2019_64\include\QtCore;/include;C:\Qt\6.2.1\msvc2019_64\mkspecs\win32-msvc</Qt_INCLUDEPATH_>
+<Qt_INCLUDEPATH_>C:\Qt\6.2.1\msvc2019_64\include;C:\Qt\6.2.1\msvc2019_64\include\QtWidgets;C:\Qt\6.2.1\msvc2019_64\include\QtGui;C:\Qt\6.2.1\msvc2019_64\include\QtCore;/include;C:\Qt\6.2.1\msvc2019_64\mkspecs\win32-msvc</Qt_INCLUDEPATH_>
 <Qt_LIBS_>C:\Qt\6.2.1\msvc2019_64\lib\Qt6Widgets.lib;C:\Qt\6.2.1\msvc2019_64\lib\Qt6Gui.lib;C:\Qt\6.2.1\msvc2019_64\lib\Qt6Core.lib;C:\Qt\6.2.1\msvc2019_64\lib\Qt6EntryPoint.lib;shell32.lib</Qt_LIBS_>
 <QMake_QT_SYSROOT_></QMake_QT_SYSROOT_>
 <QMake_QT_INSTALL_PREFIX_>C:/Qt/6.2.1/msvc2019_64</QMake_QT_INSTALL_PREFIX_>
