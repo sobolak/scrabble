@@ -45,7 +45,7 @@ void Game_GUI::on_pushButton_add_clicked()
 
 void Game_GUI::on_pushButton_change_clicked() {
 	if (gameMap1.getNumberOfPlayers() == 1) {
-		mufasa.changeEveryPlayerCard(gameMap1.cybant);
+		mufasa.changeEveryPlayerCard(gameMap1.cybant, gameMap1.getFirstMove());
 		playerLetterRefresh(mufasa);
 	}
 	/*std::random_device rd;

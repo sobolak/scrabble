@@ -1,5 +1,4 @@
-﻿  moc Game_GUI.h
-  Create_Game_GUI.cpp
+﻿  Create_Game_GUI.cpp
   Game_GUI.cpp
   main.cpp
 C:\Users\48508\Desktop\scrabble\Scrabble_GUI\baza.h(762): warning C4715: 'gameMap::computerAction': not all control paths return a value

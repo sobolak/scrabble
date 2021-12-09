@@ -160,8 +160,8 @@ public:
         return possibilityToChangeCards;
     }
 
-    void changeEveryPlayerCard(card cybant[79]) {
-        if (getPossibilityToChangeCards()) {
+    void changeEveryPlayerCard(card cybant[79],bool firstMove) {
+        if (getPossibilityToChangeCards() || firstMove) {
             randomCards(cybant);
         }
         setPossibilityToChangeCards(false);
