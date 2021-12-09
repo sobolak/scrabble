@@ -46,7 +46,7 @@ class field{
         void setLetterBonnus(int letterBonus){
             this->letterBonus = letterBonus;
         }
-        void setWordsBonus(int wordBonus){
+        void setWordBonus(int wordBonus){
             this->wordBonus = wordBonus;
         }
         void setSession(int session){
@@ -196,7 +196,6 @@ public:
 class gameMap{
     //private:
 public:
-    //player mufasa;
     bool firstMove = true;
     field board[sizeOfTheBoard][sizeOfTheBoard];
     card* cybant = new card[79];
@@ -281,6 +280,71 @@ public:
         cybant[76] = { 'Z',10 };
         cybant[77] = { 'Z',10 };
         cybant[78] = { 'Z',10 };
+
+        board[0][0].setWordBonus(3);
+        board[0][7].setWordBonus(3);
+        board[0][14].setWordBonus(3);
+        board[7][0].setWordBonus(3);
+        board[14][0].setWordBonus(3);
+        board[14][7].setWordBonus(3);
+        board[14][14].setWordBonus(3);
+        board[7][14].setWordBonus(3);
+
+        board[1][1].setWordBonus(2);
+        board[2][2].setWordBonus(2);
+        board[3][3].setWordBonus(2);
+        board[4][4].setWordBonus(2);
+        board[13][1].setWordBonus(2);
+        board[12][2].setWordBonus(2);
+        board[11][3].setWordBonus(2);
+        board[10][4].setWordBonus(2);
+        board[1][13].setWordBonus(2);
+        board[2][12].setWordBonus(2);
+        board[3][11].setWordBonus(2);
+        board[4][10].setWordBonus(2);
+        board[13][13].setWordBonus(2);
+        board[12][12].setWordBonus(2);
+        board[11][11].setWordBonus(2);
+        board[10][10].setWordBonus(2);
+        board[7][7].setWordBonus(2);
+
+        board[1][5].setLetterBonnus(3);
+        board[1][9].setLetterBonnus(3);
+        board[5][1].setLetterBonnus(3);
+        board[5][5].setLetterBonnus(3);
+        board[5][9].setLetterBonnus(3);
+        board[5][13].setLetterBonnus(3);
+        board[9][1].setLetterBonnus(3);
+        board[9][5].setLetterBonnus(3);
+        board[9][9].setLetterBonnus(3);
+        board[9][13].setLetterBonnus(3);
+        board[13][5].setLetterBonnus(3);
+        board[13][9].setLetterBonnus(3);
+
+        board[0][3].setLetterBonnus(2);
+        board[0][11].setLetterBonnus(2);
+        board[2][6].setLetterBonnus(2);
+        board[2][8].setLetterBonnus(2);
+        board[3][0].setLetterBonnus(2);
+        board[3][7].setLetterBonnus(2);
+        board[3][14].setLetterBonnus(2);
+        board[6][2].setLetterBonnus(2);
+        board[6][6].setLetterBonnus(2);
+        board[6][8].setLetterBonnus(2);
+        board[6][12].setLetterBonnus(2);
+        board[7][3].setLetterBonnus(2);
+        board[7][11].setLetterBonnus(2);
+        board[8][2].setLetterBonnus(2);
+        board[8][6].setLetterBonnus(2);
+        board[8][8].setLetterBonnus(2);
+        board[8][12].setLetterBonnus(2);
+        board[11][0].setLetterBonnus(2);
+        board[11][7].setLetterBonnus(2);
+        board[11][14].setLetterBonnus(2);
+        board[12][6].setLetterBonnus(2);
+        board[12][8].setLetterBonnus(2);
+        board[14][3].setLetterBonnus(2);
+        board[14][11].setLetterBonnus(2);
     }
     ~gameMap() {
         delete cybant;

@@ -21,4 +21,6 @@ private slots:
 	void on_pushButton_add_clicked();
 private slots:
 	void on_pushButton_change_clicked();
+private slots:
+	void on_pushButton_pass_clicked();
 };
