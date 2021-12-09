@@ -130,12 +130,7 @@ void Game_GUI::on_pushButton_add_clicked()
 		gameMap1.board[0][0].setLetter('%');
 	}*/
 
-	for (int i = 0; i < 15; i++) { // refresh tablicy
-		for (int j = 0; j < 15; j++) {
-			if (gameMap1.board[i][j].getSession() == 1 || gameMap1.board[i][j].getSession() == 2)
-				model->setData(model->index(i, j), QString(gameMap1.board[i][j].getLetter()));
-		}
-	}
+	refreshGameMap();
 }
 
 
@@ -159,6 +154,10 @@ void Game_GUI::on_pushButton_change_clicked() {
 }
 void Game_GUI::on_pushButton_pass_clicked() {
 	gameMap1.computerAction();
+	refreshGameMap();
+}
+
+void Game_GUI::refreshGameMap() {
 	auto model = ui.tableWidget_game->model();
 	for (int i = 0; i < 15; i++) { // refresh tablicy
 		for (int j = 0; j < 15; j++) {
