@@ -1,5 +1,7 @@
 wordsToCheck.txt
 Scrabble_GUI.vcxproj.user
-x64/Debug
+**/x64/Debug/**
+**/db_config.txt
+**/a.out
 .vs
 player_checkk.txt
