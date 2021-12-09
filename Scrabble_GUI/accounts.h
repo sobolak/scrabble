@@ -88,6 +88,8 @@ public:
     Manager(const string, const string, const string, const string);
     ~Manager();
     void message(string);
+    string fetchSingleValue(string);
+
 protected:
     MYSQL* DBconnection;
 };
@@ -101,6 +103,17 @@ public:
     void printAllUsers();
     void deleteUser(User*);
     User* logIn(const string, const string);
+
+    int getPlayedMatches(User*);
+    int getWonMatches(User*);
+    float getWonMatchesPercentage(User*);
+    int getLostMatches(User*);
+    float getLostMatchesPercentage(User*);
+    int getWonMatchesTrain(User*);
+    int getWonMatchesMax(User*);
+    int getWordsCount(User*);
+    float getMeanLetterCount(User*);
+    float getMeanWordScore(User*);
 };
 
 class MatchManager: public Manager {
