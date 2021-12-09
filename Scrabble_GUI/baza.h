@@ -135,15 +135,22 @@ class computerPossibilities{
 class player {
 public:
     int points = 0;
+    bool currentlyPlay = false;
     card playerCards[cardQuantity];
     bool possibilityToChangeCards = true;
 
-
-    void setPoints(int points) {
+    void setPoints(bool points) {
         this->points = points;
     }
-    int getPoints() {
+    bool getPoints() {
         return points;
+    }
+
+    void setCurrentlyPlay(int currentlyPlay) {
+        this->currentlyPlay = currentlyPlay;
+    }
+    int getCurrentlyPlay() {
+        return currentlyPlay;
     }
 
     void setPossibilityToChangeCards(bool possibilityToChangeCards) {
@@ -200,6 +207,9 @@ public:
     field board[sizeOfTheBoard][sizeOfTheBoard];
     card* cybant = new card[79];
     int computerPoints = 0;
+    int numberOfPlayers = 1; // 1 2 3 4 // przekazanie od poprzedniej planszy
+
+    int difficultyLevel = 3; //2 3; // wpierdalam do konstruktora potem
     gameMap() {
         cybant[0] = { 'A',1 };
         cybant[1] = { 'A',1 };

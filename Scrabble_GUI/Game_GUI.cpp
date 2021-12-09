@@ -29,6 +29,40 @@ Game_GUI::~Game_GUI()
 
 void Game_GUI::on_pushButton_add_clicked()
 {
+	playerMove(mufasa);
+	//bool computerMove = 
+	gameMap1.computerAction();
+	/*if (!computerMove) {
+		gameMap1.board[0][0].setLetter('%');
+	}*/
+	refreshGameMap();
+}
+
+void Game_GUI::on_pushButton_change_clicked() {
+	mufasa.changeEveryPlayerCard(gameMap1.cybant);
+	auto model = ui.tableWidget_letters->model();
+	for (int i{ 0 }; i < 10; ++i) {
+		QString tmp = char(mufasa.playerCards[i].name);
+		//QString tmp = char(distrib(rd));
+		model->setData(model->index(0, i), tmp);
+	}
+	/*std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<> distrib(65, 90);
+	auto playerLetter = ui.tableWidget_letters->model();
+	for (int i{ 0 }; i < 10; ++i)
+	{
+			QString tmp = char(distrib(rd));
+			playerLetter->setData(playerLetter->index(0, i), tmp);
+	}*/
+}
+
+void Game_GUI::on_pushButton_pass_clicked() {
+	gameMap1.computerAction();
+	refreshGameMap();
+}
+
+void Game_GUI::playerMove(player player) {
 	cout << " " << endl;
 	auto model = ui.tableWidget_game->model();
 	auto model_letters = ui.tableWidget_letters->model();
@@ -38,8 +72,6 @@ void Game_GUI::on_pushButton_add_clicked()
 	if (word == "") {
 		check_word = false;
 	}
-	
-	mufasa.setPossibilityToChangeCards(true); // NALEZY USTAWIC ROWNIRZ W PASOWANIU
 	if (check_word) { //trzeba dodac jakies rzeczy gdy slowo nie znajduje sie w slowniku dic
 		int x = ui.comboBox_column->currentText().toInt();
 		int y = ui.comboBox_row->currentText().toInt();
@@ -54,7 +86,7 @@ void Game_GUI::on_pushButton_add_clicked()
 				else {
 					check_word = false;
 					for (int i{ 0 }; i < 10; ++i) {
-						if (lett == char(mufasa.playerCards[i].name)) {
+						if (lett == char(player.playerCards[i].name)) {
 							this->gameMap1.board[y][x + cnt].setSession(1);
 							this->gameMap1.board[y][x + cnt].setLetter(lett);
 							check_word = true;
@@ -75,7 +107,7 @@ void Game_GUI::on_pushButton_add_clicked()
 				else {
 					check_word = false;
 					for (int i{ 0 }; i < 10; ++i) {
-						if (lett == char(mufasa.playerCards[i].name)) {
+						if (lett == char(player.playerCards[i].name)) {
 							this->gameMap1.board[y + cnt][x].setSession(1);
 							this->gameMap1.board[y + cnt][x].setLetter(lett);
 							check_word = true;
@@ -109,12 +141,12 @@ void Game_GUI::on_pushButton_add_clicked()
 					}
 					++cnt;
 				}
-				mufasa.changeUsedCards(word, gameMap1.cybant);
+				player.changeUsedCards(word, gameMap1.cybant);
 				gameMap1.setFirstMove(false);
 			}
 			ui.lineEdit_word->setText(""); //zmiana tabelki
 			for (int i{ 0 }; i < 10; ++i) {
-				QString tmp = char(mufasa.playerCards[i].name);
+				QString tmp = char(player.playerCards[i].name);
 				playerLetter->setData(playerLetter->index(0, i), tmp);
 			}
 		}
@@ -124,40 +156,10 @@ void Game_GUI::on_pushButton_add_clicked()
 		}
 	}
 
-	//bool computerMove = 
-	gameMap1.computerAction();
-	/*if (!computerMove) {
-		gameMap1.board[0][0].setLetter('%');
-	}*/
-
-	refreshGameMap();
-}
-
-
-void Game_GUI::on_pushButton_change_clicked() {
-	mufasa.changeEveryPlayerCard(gameMap1.cybant);
-	auto model = ui.tableWidget_letters->model();
-	for (int i{ 0 }; i < 10; ++i) {
-		QString tmp = char(mufasa.playerCards[i].name);
-		//QString tmp = char(distrib(rd));
-		model->setData(model->index(0, i), tmp);
-	}
-	/*std::random_device rd;
-	std::mt19937 gen(rd());
-	std::uniform_int_distribution<> distrib(65, 90);
-	auto playerLetter = ui.tableWidget_letters->model();
-	for (int i{ 0 }; i < 10; ++i)
-	{
-			QString tmp = char(distrib(rd));
-			playerLetter->setData(playerLetter->index(0, i), tmp);
-	}*/
-}
-void Game_GUI::on_pushButton_pass_clicked() {
-	gameMap1.computerAction();
-	refreshGameMap();
 }
 
 void Game_GUI::refreshGameMap() {
+	mufasa.setPossibilityToChangeCards(true);
 	auto model = ui.tableWidget_game->model();
 	for (int i = 0; i < 15; i++) { // refresh tablicy
 		for (int j = 0; j < 15; j++) {

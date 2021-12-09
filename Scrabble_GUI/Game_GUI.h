@@ -13,10 +13,14 @@ public:
 	~Game_GUI();
 	gameMap gameMap1;
 	player mufasa;
+	player esteban;
+	player zeromski;
+	player rokoko;
 
 private:
 	Ui::Game_GUI ui;
 	void refreshGameMap();
+	void playerMove(player player);
 private slots:
 	void on_pushButton_add_clicked();
 private slots:
