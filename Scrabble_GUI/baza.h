@@ -138,7 +138,15 @@ public:
     bool currentlyPlay = false;
     card playerCards[cardQuantity];
     bool possibilityToChangeCards = true;
+    string nick;
 
+    void setNick(string nick) {
+        this->nick = nick;
+    }
+    string getNick() {
+        return nick;
+    }
+    
     void setPoints(int points) {
         this->points = points;
     }
@@ -207,7 +215,7 @@ public:
     field board[sizeOfTheBoard][sizeOfTheBoard];
     card* cybant = new card[79];
     int computerPoints = 0;
-    int numberOfPlayers = 1; // 1 2 3 4 // przekazanie od poprzedniej planszy
+    int numberOfPlayers = 2; // 1 2 3 4 // przekazanie od poprzedniej planszy
 
     int difficultyLevel = 3; //2 3; // wpierdalam do konstruktora potem
     gameMap() {

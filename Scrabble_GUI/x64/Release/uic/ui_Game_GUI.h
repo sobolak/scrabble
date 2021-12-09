@@ -43,6 +43,7 @@ public:
     QLabel *label_points1;
     QLabel *label_points2;
     QPushButton *pushButton_change;
+    QLabel *label;
     QButtonGroup *buttonGroup_direction;
 
     void setupUi(QWidget *Game_GUI)
@@ -1157,6 +1158,9 @@ public:
         pushButton_change = new QPushButton(Game_GUI);
         pushButton_change->setObjectName(QString::fromUtf8("pushButton_change"));
         pushButton_change->setGeometry(QRect(930, 300, 121, 31));
+        label = new QLabel(Game_GUI);
+        label->setObjectName(QString::fromUtf8("label"));
+        label->setGeometry(QRect(950, 10, 111, 16));
 
         retranslateUi(Game_GUI);
 
@@ -1322,6 +1326,7 @@ public:
         label_points1->setText(QCoreApplication::translate("Game_GUI", "pkt1", nullptr));
         label_points2->setText(QCoreApplication::translate("Game_GUI", "pkt2", nullptr));
         pushButton_change->setText(QCoreApplication::translate("Game_GUI", "Change letters", nullptr));
+        label->setText(QCoreApplication::translate("Game_GUI", "TextLabel", nullptr));
     } // retranslateUi
 
 };

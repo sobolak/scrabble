@@ -9,15 +9,19 @@ Game_GUI::Game_GUI(QWidget *parent)
 	gameMap gameMap1;
 	if (gameMap1.getNumberOfPlayers() >= 1 ) {
 		mufasa.randomCards(gameMap1.cybant);
+		mufasa.setNick("mufasa");
 	}
 	if (gameMap1.getNumberOfPlayers() >= 2) {
 		esteban.randomCards(gameMap1.cybant);
+		esteban.setNick("esteban");
 	}
 	if (gameMap1.getNumberOfPlayers() >= 3) {
 		zeromski.randomCards(gameMap1.cybant);
+		zeromski.setNick("zeromski");
 	}
 	if (gameMap1.getNumberOfPlayers() == 4) {
 		rokoko.randomCards(gameMap1.cybant);
+		rokoko.setNick("rokoko");
 	}
 	ui.setupUi(this);
 	// mufasa to zawsze domyslny player 1 czy z kompem czy nie i zawsze robi 1 ruch i zawsze jeg literki
@@ -36,6 +40,21 @@ void Game_GUI::on_pushButton_add_clicked()
 	if (gameMap1.getNumberOfPlayers() == 1) {
 		playerMove(mufasa);
 		gameMap1.computerAction();
+	}
+	else if (gameMap1.getNumberOfPlayers() == 2) {
+		if (mufasa.getCurrentlyPlay() == true) {
+			playerLetterRefresh(mufasa);
+			playerMove(mufasa);
+			mufasa.setCurrentlyPlay(false);
+			esteban.setCurrentlyPlay(true);
+			playerLetterRefresh(esteban);
+		}else if (esteban.getCurrentlyPlay() == true) {
+			playerLetterRefresh(esteban);
+			playerMove(esteban);
+			esteban.setCurrentlyPlay(false);
+			mufasa.setCurrentlyPlay(true);
+			playerLetterRefresh(mufasa);
+		}
 	}
 	/*if (!computerMove) {
 		gameMap1.board[0][0].setLetter('%');
@@ -63,6 +82,7 @@ void Game_GUI::on_pushButton_pass_clicked() {
 	gameMap1.computerAction();
 	refreshGameMap();
 	//zmiana playera i zmian jego dymow
+	
 }
 
 void Game_GUI::playerLetterRefresh(player player) {
