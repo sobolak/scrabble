@@ -4,7 +4,7 @@
 #include <sstream>
 #include <cstring>
 #include <iomanip>
-#include <mysql/mysql.h>
+//#include <mysql/mysql.h>
 #include "accounts.h"
 #include "sha256.h"
 
