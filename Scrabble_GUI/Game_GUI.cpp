@@ -93,7 +93,7 @@ void Game_GUI::playerLetterRefresh(player player) {
 	}
 }
 
-void Game_GUI::playerMove(player player) {
+void Game_GUI::playerMove(player &playerPlay) {
 	auto model = ui.tableWidget_game->model();
 	std::string word = ui.lineEdit_word->text().toStdString();
 	bool check_word = true;
@@ -115,7 +115,8 @@ void Game_GUI::playerMove(player player) {
 				else {
 					check_word = false;
 					for (int i{ 0 }; i < 10; ++i) {
-						if (lett == char(player.getPlayerCardsName(i))) {
+						if (lett == char(playerPlay.getPlayerCardsName(i)) && playerPlay.getPlayerCardsChoiceToWrite(i) == false) {
+							playerPlay.setPlayerCardsChoiceToWrite(i, true);
 							this->gameMap1.board[y][x + cnt].setSession(1);
 							this->gameMap1.board[y][x + cnt].setLetter(lett);
 							check_word = true;
@@ -136,7 +137,8 @@ void Game_GUI::playerMove(player player) {
 				else {
 					check_word = false;
 					for (int i{ 0 }; i < 10; ++i) {
-						if (lett == char(player.getPlayerCardsName(i))) {
+						if (lett == char(playerPlay.getPlayerCardsName(i)) && playerPlay.getPlayerCardsChoiceToWrite(i) == false) {
+							playerPlay.setPlayerCardsChoiceToWrite(i, true);
 							this->gameMap1.board[y + cnt][x].setSession(1);
 							this->gameMap1.board[y + cnt][x].setLetter(lett);
 							check_word = true;
@@ -148,6 +150,9 @@ void Game_GUI::playerMove(player player) {
 					break;
 			}
 			++cnt;
+		}
+		for (int i{ 0 }; i < 10; ++i) {
+			playerPlay.setPlayerCardsChoiceToWrite(i, false);
 		}
 		if (check_word == true) {
 			check_word = this->gameMap1.correctMove();
@@ -168,11 +173,11 @@ void Game_GUI::playerMove(player player) {
 					}
 					++cnt;
 				}
-				player.changeUsedCards(word, gameMap1.cybant);
+				playerPlay.changeUsedCards(word, gameMap1.cybant);
 				gameMap1.setFirstMove(false);
 			}
 			ui.lineEdit_word->setText(""); //zmiana tabelki
-			playerLetterRefresh(player);
+			playerLetterRefresh(playerPlay);
 		}
 		if (!check_word) {
 			gameMap1.incorrextMoveOfPlayer();

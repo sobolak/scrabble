@@ -32,8 +32,13 @@ void Create_Game_GUI::on_pushButton_return_clicked()
 
 void Create_Game_GUI::on_pushButton_start_clicked()
 {
-	Game_GUI game;
 	this->hide();
-	game.setModal(true);
-	game.exec();
+	//Game_GUI *game = new Game_GUI();
+	Game_GUI* chuj = new Game_GUI();
+
+	//game->setModal(true);
+	chuj->setModal(true);
+
+	//game->show();
+	chuj->show();
 }

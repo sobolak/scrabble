@@ -20,7 +20,7 @@ public:
 private:
 	Ui::Game_GUI ui;
 	void refreshGameMap();
-	void playerMove(player player);
+	void playerMove(player &player);
 	void playerLetterRefresh(player player);
 	void changeCurrentPlayer();
 private slots:

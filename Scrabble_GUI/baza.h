@@ -137,57 +137,58 @@ private:
     int points = 0;
     bool currentlyPlay = false;
     card playerCards[cardQuantity];
-    bool playerCardsChoice[cardQuantity];
+    bool playerCardsChoiceToWrite[cardQuantity] = { false };
+    //bool* playerCardsChoiceToWrite = new bool[cardQuantity];
     bool possibilityToChangeCards = true;
     string nick;
 public:
+    /*player() {
+    }
+    ~player(){
+        delete playerCardsChoiceToWrite;
+    }*/
     char getPlayerCardsName(int i) {
         return playerCards[i].name;
     }
-
     int getPlayerCardsPoints(int i) {
         return playerCards[i].points;
     }
-
-    bool getPlayerCardsChoice(int i) {
-        return playerCardsChoice[i];
+    bool getPlayerCardsChoiceToWrite(int i) {
+        return playerCardsChoiceToWrite[i];
     }
-
+    void setPlayerCardsChoiceToWrite(int i, bool state) {
+        playerCardsChoiceToWrite[i] = state;
+    }
     void setNick(string nick) {
         this->nick = nick;
     }
     string getNick() {
         return nick;
     }
-    
     void setPoints(int points) {
         this->points = points;
     }
     int getPoints() {
         return points;
     }
-
     void setCurrentlyPlay(bool currentlyPlay) {
         this->currentlyPlay = currentlyPlay;
     }
     bool getCurrentlyPlay() {
         return currentlyPlay;
     }
-
     void setPossibilityToChangeCards(bool possibilityToChangeCards) {
         this->possibilityToChangeCards = possibilityToChangeCards;
     }
     bool getPossibilityToChangeCards() {
         return possibilityToChangeCards;
     }
-
     void changeEveryPlayerCard(card cybant[79],bool firstMove) {
         if (getPossibilityToChangeCards() || firstMove) {
             randomCards(cybant);
         }
         setPossibilityToChangeCards(false);
     }
-
     void randomCards(card cybant[79]) {
         srand(time(NULL));
         int j;
@@ -197,7 +198,6 @@ public:
             playerCards[i].points = cybant[j].points;
         }
     }
-
     void changeUsedCards(string word, card cybant[79]) {
         srand(time(NULL));
         int luck;
@@ -212,7 +212,6 @@ public:
             }
         }
     }
-
     void wordProperty() {
         ofstream CHUJ("player_checkk.txt");
         for (int j{ 0 }; j < cardQuantity; j++) {
