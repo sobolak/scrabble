@@ -104,6 +104,7 @@ void Game_GUI::playerMove(player player) {
 		int x = ui.comboBox_column->currentText().toInt();
 		int y = ui.comboBox_row->currentText().toInt();
 		int cnt = 0;
+		int s = 0;
 		for (auto lett : word) { //sprawdzenie czy na odpowiednich pozycjach jest to samo i czy litery istnieja odpowiednio
 			if (ui.radioButton_horizontal->isChecked()) {
 				if (this->gameMap1.board[y][x + cnt].isOccupied()) {
