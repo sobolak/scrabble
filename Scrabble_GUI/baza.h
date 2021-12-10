@@ -133,12 +133,25 @@ class computerPossibilities{
 };
 
 class player {
-public:
+private:
     int points = 0;
     bool currentlyPlay = false;
     card playerCards[cardQuantity];
+    bool playerCardsChoice[cardQuantity];
     bool possibilityToChangeCards = true;
     string nick;
+public:
+    char getPlayerCardsName(int i) {
+        return playerCards[i].name;
+    }
+
+    int getPlayerCardsPoints(int i) {
+        return playerCards[i].points;
+    }
+
+    bool getPlayerCardsChoice(int i) {
+        return playerCardsChoice[i];
+    }
 
     void setNick(string nick) {
         this->nick = nick;
@@ -209,15 +222,23 @@ public:
 };
 
 class gameMap{
-    //private:
-public:
+private:
     bool firstMove = true;
-    field board[sizeOfTheBoard][sizeOfTheBoard];
-    card* cybant = new card[79];
     int computerPoints = 0;
-    int numberOfPlayers = 2; // 1 2 3 4 // przekazanie od poprzedniej planszy
-
+    int numberOfPlayers = 1; // 1 2 3 4 // przekazanie od poprzedniej planszy
     int difficultyLevel = 3; //2 3; // wpierdalam do konstruktora potem
+public:
+    card* cybant = new card[79];
+    field board[sizeOfTheBoard][sizeOfTheBoard];
+    field getBoardElement(int i, int j) {
+        return board[i][j];
+    }
+    void xxx(int i, int j) {
+        getBoardElement(i, j).setSession(1);
+    }
+    void setBoardElement(int i, int j, field buffor) {
+        this->board[i][j] = buffor;
+    }
     gameMap() {
         cybant[0] = { 'A',1 };
         cybant[1] = { 'A',1 };

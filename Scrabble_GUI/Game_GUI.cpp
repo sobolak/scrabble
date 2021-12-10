@@ -88,7 +88,7 @@ void Game_GUI::on_pushButton_pass_clicked() {
 void Game_GUI::playerLetterRefresh(player player) {
 	auto model = ui.tableWidget_letters->model();
 	for (int i{ 0 }; i < 10; ++i) { // wpisuje w tabelke zawsze literki mufasy bo on jest graczem rozpoczynajcym rozgryke 
-		QString tmp = char(player.playerCards[i].name);
+		QString tmp = char(player.getPlayerCardsName(i));
 		model->setData(model->index(0, i), tmp);
 	}
 }
@@ -114,7 +114,7 @@ void Game_GUI::playerMove(player player) {
 				else {
 					check_word = false;
 					for (int i{ 0 }; i < 10; ++i) {
-						if (lett == char(player.playerCards[i].name)) {
+						if (lett == char(player.getPlayerCardsName(i))) {
 							this->gameMap1.board[y][x + cnt].setSession(1);
 							this->gameMap1.board[y][x + cnt].setLetter(lett);
 							check_word = true;
@@ -135,7 +135,7 @@ void Game_GUI::playerMove(player player) {
 				else {
 					check_word = false;
 					for (int i{ 0 }; i < 10; ++i) {
-						if (lett == char(player.playerCards[i].name)) {
+						if (lett == char(player.getPlayerCardsName(i))) {
 							this->gameMap1.board[y + cnt][x].setSession(1);
 							this->gameMap1.board[y + cnt][x].setLetter(lett);
 							check_word = true;
@@ -163,7 +163,7 @@ void Game_GUI::playerMove(player player) {
 					else {
 						model->setData(model->index(y + cnt, x), QString(lett));
 						this->gameMap1.board[y + cnt][x].setSession(2);
-						this->gameMap1.board[y][x + cnt].setLetter(lett);
+						this->gameMap1.board[y + cnt][x].setLetter(lett);
 					}
 					++cnt;
 				}

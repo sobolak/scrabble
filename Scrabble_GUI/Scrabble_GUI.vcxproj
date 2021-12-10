@@ -92,8 +92,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="accounts.cpp" />
-    <ClCompile Include="acc_test.cpp" />
     <ClCompile Include="Create_Game_GUI.cpp" />
     <ClCompile Include="Game_GUI.cpp" />
     <ClCompile Include="Logging_GUI.cpp" />
@@ -127,7 +125,6 @@
     <QtMoc Include="Create_Game_GUI.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="accounts.h" />
     <ClInclude Include="baza.h" />
     <ClInclude Include="sha256.h" />
     <QtMoc Include="Statistics_GUI.h" />
