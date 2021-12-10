@@ -5,3 +5,6 @@
 .vs
 player_checkk.txt
 **/*.vcxproj.*
+Scrabble_GUI/accounts.h
+Scrabble_GUI/acc_test.cpp
+Scrabble_GUI/accounts.cpp
