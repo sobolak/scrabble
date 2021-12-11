@@ -3,6 +3,9 @@
 #include <QDialog>
 #include "ui_Game_GUI.h"
 #include "baza.h"
+#include <random>
+#include <string>
+
 
 class Game_GUI : public QDialog
 {

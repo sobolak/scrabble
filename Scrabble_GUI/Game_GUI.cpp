@@ -1,7 +1,6 @@
 #include "Game_GUI.h"
 #include "ui_Game_GUI.h"
-#include <random>
-#include <string>
+#include<string>
 
 Game_GUI::Game_GUI(QWidget *parent)
 	: QDialog(parent)
@@ -159,7 +158,7 @@ void Game_GUI::playerMove(player &playerPlay) {
 			playerPlay.setPlayerCardsChoiceToWrite(i, false);
 		}
 		if (check_word == true) {
-			check_word = this->gameMap1.correctMove();
+			check_word = this->gameMap1.correctMove( mufasa);
 			if (check_word == true) {
 				int x = ui.comboBox_column->currentText().toInt();
 				int y = ui.comboBox_row->currentText().toInt();
@@ -206,6 +205,13 @@ void Game_GUI::refreshGameMap() {
 				model->setData(model->index(i, j), QString(gameMap1.board[i][j].getLetter()));
 		}
 	}
+	QString tmp = QString::number(mufasa.getPoints());
+	auto playerPoints = ui.player_point;
+	playerPoints->setText(tmp);
+
+	QString x = QString::number(gameMap1.getComputerPoints());
+	auto computerPoints = ui.textEdit;
+	computerPoints->setText(x);
 }
 
 void Game_GUI::gatherLetterToChange_1(player &playerGane){
@@ -239,5 +245,21 @@ void Game_GUI::gatherLetterToChange_1(player &playerGane){
 	if (ui.checkBox_10->isChecked()) {
 		playerGane.setPlayerCardsToChange(9, true);
 	}
+	playerGane.changeChosenCards(gameMap1.cybant);
 	playerLetterRefresh(mufasa);
+	
+	playerGane.changeChosenCardsUnchecked();
+	ui.checkBox->setCheckState(Qt::Unchecked);
+	ui.checkBox_2->setCheckState(Qt::Unchecked);
+	ui.checkBox_3->setCheckState(Qt::Unchecked);
+	ui.checkBox_4->setCheckState(Qt::Unchecked);
+	ui.checkBox_5->setCheckState(Qt::Unchecked);
+	ui.checkBox_6->setCheckState(Qt::Unchecked);
+	ui.checkBox_7->setCheckState(Qt::Unchecked);
+	ui.checkBox_8->setCheckState(Qt::Unchecked);
+	ui.checkBox_9->setCheckState(Qt::Unchecked);
+	ui.checkBox_10->setCheckState(Qt::Unchecked);
+
+	gameMap1.computerAction();
+	refreshGameMap();
 }
