@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <string>
 #include <time.h>
@@ -14,7 +15,6 @@ struct card{
     char name;
     int points;
 };
-
 class field{
     private:
         char letter = '_';
@@ -65,7 +65,6 @@ class field{
             return session;
         }
 };
-
 class computerPossibilities{
     private:
         int up = 0;
@@ -131,10 +130,10 @@ class computerPossibilities{
             this->ok = ok;
         }
 };
-
 class player {
 private:
     int points = 0;
+    bool firstMove = true;
     bool currentlyPlay = false;
     card playerCards[cardQuantity];
     bool playerCardsChoiceToWrite[cardQuantity] = { false };
@@ -184,12 +183,6 @@ public:
     bool getPossibilityToChangeCards() {
         return possibilityToChangeCards;
     }
-    void changeEveryPlayerCard(card cybant[79],bool firstMove) {
-        if (getPossibilityToChangeCards() || firstMove) {
-            randomCards(cybant);
-        }
-        setPossibilityToChangeCards(false);
-    }
     void randomCards(card cybant[79]) {
         srand(time(NULL));
         int j;
@@ -213,7 +206,11 @@ public:
             }
         }
     }
+<<<<<<< HEAD
     bool changeChosenCards(card cybant[79]) {
+=======
+    void changeChosenCards(card cybant[79]) {
+>>>>>>> differentLetterChange
         bool change = false;
         int luck;
         srand(time(NULL));
@@ -224,13 +221,21 @@ public:
                 playerCards[i].points = cybant[luck].points;
                 change = true;
             }
+<<<<<<< HEAD
+=======
+        }
+        //w gameGUI booli jak false to funkcja pass a jaktrue to leci kaabarecik
+    }
+    void changeChosenCardsUnchecked() {
+        for (int i{ 0 }; i < cardQuantity; i++) {
+            playerCardsToChange[i] = false;
+>>>>>>> differentLetterChange
         }
         return change;
         //w gameGUI booli jak false to funkcja pass a jaktrue to leci kaabarecik
     }
     
 };
-
 class gameMap{
 private:
     bool firstMove = true;
@@ -240,7 +245,16 @@ private:
 public:
     card* cybant = new card[79];
     field board[sizeOfTheBoard][sizeOfTheBoard];
+<<<<<<< HEAD
 
+=======
+    int getComputerPoints() {
+        return computerPoints;
+    }
+    void setComputerPoints(int computerPoints) {
+        this->computerPoints = computerPoints;
+    }
+>>>>>>> differentLetterChange
     field getBoardElement(int i, int j) {
         return board[i][j];
     }
@@ -413,7 +427,7 @@ public:
                 return false;
             }
         }
-        bool correctMove() {
+        bool correctMove(player &playerGame) {
             int rowPointer, columnPointer;
             int i = 0;
             bool looping = true;
@@ -449,7 +463,7 @@ public:
                 }
             }
             if (correctness == true) {
-                correctness = checkWordEnteredByPlayer();
+                correctness = checkWordEnteredByPlayer(playerGame);
             }
             if (correctness == true) {
                 ifstream wordsToCheck;
@@ -463,8 +477,9 @@ public:
             }
             return correctness;
         }
-        bool checkWordEnteredByPlayer(){
+        bool checkWordEnteredByPlayer(player &playerGame){
             bool ok = false;
+            int pointsInRound = 0;
             ifstream dictonary;
             ifstream wordsToCheck;
             dictonary.open("dic.txt");
@@ -477,16 +492,34 @@ public:
                     while (getline(dictonary, line)) {
                         if (strcmp(line.c_str(), word.c_str()) == 0) {
                             ok = true;
+                            pointsInRound += pointsForWordCount(word);
                         }
                     }
                     if (ok == false) {
+                        playerGame.setPoints(playerGame.getPoints() - pointsInRound);
                         break;
                     }
+                    // kminie ze moze byc problemik z baza danych i zapisywanie pkt zkazdego slowa - musimy pokminic z Zeromskim
+                }
+                if (ok == true) {
+                    playerGame.setPoints(playerGame.getPoints() + pointsInRound);
                 }
                 wordsToCheck.close();
                 dictonary.close();
             }
             return ok;
+        }
+        int pointsForWordCount(string word) {
+            int points =0;
+            for (auto letter : word) {
+                for (int i{ 0 }; i < 79; i++) {
+                    if (letter == cybant[i].name) {
+                        points += cybant[i].points;
+                        break;
+                    }
+                }
+            }
+            return points;
         }
         bool letterUnityCheck(int rowPointer, int columnPointer){
             int newWordStartPointer = columnPointer;
@@ -960,11 +993,15 @@ public:
 
             return x;
         }
+        void countComputerPoints() {
+
+        }
         void computerWriteWordToMap(computerPossibilities wordToWrite){
             cout <<"ROW "<< wordToWrite.getRow() << " COLUMN " << wordToWrite.getColumn() << endl;
             int startUpLeft, startDownRight;
             string word = wordToWrite.getWord();
             //cout << word.length() << endl;
+            setComputerPoints(getComputerPoints() + pointsForWordCount(word));
             int i;
             if (wordToWrite.getUp() > 0 || wordToWrite.getDown() > 0){
                 startUpLeft = wordToWrite.getRow() - wordToWrite.getUp();
@@ -1118,16 +1155,6 @@ public:
             return computerFieldCandidate;
 
     }
-        bool playerPointsCount(string word, player player) {
-            int wordPoint = 0;
-            for (int i{ 0 }; i < word.length(); i++) {
-
-            }
-            player.setPoints(player.getPoints() + wordPoint);
-        }
-        bool computerPointsCount(string words) {
-    }
-
         void setNumberOfPlayers(int numberOfPlayers) {
             this->numberOfPlayers = numberOfPlayers;
         }
