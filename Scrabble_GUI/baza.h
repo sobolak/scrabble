@@ -199,7 +199,15 @@ public:
             }
         }
     }
+<<<<<<< HEAD
+<<<<<<< HEAD
+    bool changeChosenCards(card cybant[79]) {
+=======
     void changeChosenCards(card cybant[79]) {
+>>>>>>> differentLetterChange
+=======
+    void changeChosenCards(card cybant[79]) {
+>>>>>>> 398e3ef842db3b671e1c4c965b7683a29280697d
         bool change = false;
         int luck;
         srand(time(NULL));
@@ -210,12 +218,21 @@ public:
                 playerCards[i].points = cybant[luck].points;
                 change = true;
             }
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 398e3ef842db3b671e1c4c965b7683a29280697d
         }
         //w gameGUI booli jak false to funkcja pass a jaktrue to leci kaabarecik
     }
     void changeChosenCardsUnchecked() {
         for (int i{ 0 }; i < cardQuantity; i++) {
             playerCardsToChange[i] = false;
+<<<<<<< HEAD
+>>>>>>> differentLetterChange
+=======
+>>>>>>> 398e3ef842db3b671e1c4c965b7683a29280697d
         }
     }
 };
@@ -228,12 +245,22 @@ private:
 public:
     card* cybant = new card[79];
     field board[sizeOfTheBoard][sizeOfTheBoard];
+<<<<<<< HEAD
+<<<<<<< HEAD
+
+=======
+=======
+>>>>>>> 398e3ef842db3b671e1c4c965b7683a29280697d
     int getComputerPoints() {
         return computerPoints;
     }
     void setComputerPoints(int computerPoints) {
         this->computerPoints = computerPoints;
     }
+<<<<<<< HEAD
+>>>>>>> differentLetterChange
+=======
+>>>>>>> 398e3ef842db3b671e1c4c965b7683a29280697d
     field getBoardElement(int i, int j) {
         return board[i][j];
     }
@@ -393,6 +420,7 @@ public:
         delete cybant;
     }
     void setFirstMove(bool firstMove) {
+<<<<<<< HEAD
         this->firstMove = firstMove;
     }
     bool getFirstMove() {
@@ -419,6 +447,48 @@ public:
                     columnPointer = j;
                     looping = false;
                     break;
+=======
+            this->firstMove = firstMove;
+        }
+    bool getFirstMove() {
+            return firstMove;
+        }
+    bool isFieldEmpty(field bufforField){
+            // dopisaæ warunek z sesja czyli jak juz jest cos wpisane wczesniej ze nie mozna juz zrobiłem
+            if (bufforField.getLetter() == '_'){
+                return true;
+            }else{
+                return false;
+            }
+        }
+    bool correctMove(player playerGame) {
+            int rowPointer, columnPointer;
+            int i = 0;
+            bool looping = true;
+            bool correctness = true;
+            do {
+                for (int j = 0; j < sizeOfTheBoard; j++) {
+                    if (board[i][j].getSession() == 1) {
+                        rowPointer = i;
+                        columnPointer = j;
+                        looping = false;
+                        break;
+                    }
+                }
+                i++;
+            } while (looping && i < sizeOfTheBoard);
+
+            if (board[rowPointer + 1][columnPointer].getSession() == 1 || board[rowPointer + 1][columnPointer].getSession() == 2) {
+                if (wordUnityCheck(rowPointer, columnPointer, "column") == false) {
+                    cout << "WPISALES NIECIAGLY WYRAZ" << endl;
+                    correctness = false;
+                }
+            }
+            else if (board[rowPointer][columnPointer + 1].getSession() == 1 || board[rowPointer][columnPointer + 1].getSession() == 2) {
+                if (wordUnityCheck(rowPointer, columnPointer, "row") == false) {
+                    cout << "WPISALES NIEPOPRAAWNY WYRAZ" << endl;
+                    correctness = false;
+>>>>>>> 8616e5595050a0d6eda153a4ba02804f6a457536
                 }
             }
             i++;
@@ -442,19 +512,44 @@ public:
                 correctness = false;
             }
         }
+<<<<<<< HEAD
         if (correctness == true) {
             correctness = checkWordEnteredByPlayer(playerGame);
         }
         if (correctness == true) {
+=======
+    bool checkWordEnteredByPlayer(player &playerGame){
+            bool ok = false;
+            int pointsInRound = 0;
+            ifstream dictonary;
+>>>>>>> 8616e5595050a0d6eda153a4ba02804f6a457536
             ifstream wordsToCheck;
             wordsToCheck.open("wordsToCheck.txt");
             if (wordsToCheck.is_open()) {
                 string word;
                 while (getline(wordsToCheck, word)) {
+<<<<<<< HEAD
                     //playerPointsCount(word);
                 }
+=======
+                    ok = false;
+                    while (getline(dictonary, line)) {
+                        if (strcmp(line.c_str(), word.c_str()) == 0) {
+                            ok = true;
+                            pointsInRound += pointsForWordCount(word);
+                        }
+                    }
+                    if (ok == false) {
+                        break;
+                    }
+                    // kminie ze moze byc problemik z baza danych i zapisywanie pkt zkazdego slowa - musimy pokminic z Zeromskim
+                }
+                wordsToCheck.close();
+                dictonary.close();
+>>>>>>> 8616e5595050a0d6eda153a4ba02804f6a457536
             }
         }
+<<<<<<< HEAD
         return correctness;
     }
     bool checkWordEnteredByPlayer(player& playerGame) {
@@ -473,6 +568,15 @@ public:
                     if (strcmp(line.c_str(), word.c_str()) == 0) {
                         ok = true;
                         pointsInRound += pointsForWordCount(word);
+=======
+    int pointsForWordCount(string word) {
+            int points =0;
+            for (auto letter : word) {
+                for (int i{ 0 }; i < 79; i++) {
+                    if (letter == cybant[i].name) {
+                        points += cybant[i].points;
+                        break;
+>>>>>>> 8616e5595050a0d6eda153a4ba02804f6a457536
                     }
                 }
                 if (ok == false) {
@@ -484,6 +588,7 @@ public:
             wordsToCheck.close();
             dictonary.close();
         }
+<<<<<<< HEAD
         return ok;
     }
     int pointsForWordCount(string word) {
@@ -492,6 +597,16 @@ public:
             for (int i{ 0 }; i < 79; i++) {
                 if (letter == cybant[i].name) {
                     points += cybant[i].points;
+=======
+    bool letterUnityCheck(int rowPointer, int columnPointer){
+            int newWordStartPointer = columnPointer;
+            int newWordEndPointer = columnPointer;
+            bool ok = true;
+            bool aloneLetter = false;
+            for (int p = columnPointer + 1 ; p < sizeOfTheBoard; p ++){
+                if(board[rowPointer][p].getSession() == 1){
+                    ok = false;
+>>>>>>> 8616e5595050a0d6eda153a4ba02804f6a457536
                     break;
                 }
             }
@@ -581,6 +696,7 @@ public:
                 WRITE << endl;
             }
         }
+<<<<<<< HEAD
         if (aloneLetter == true) {
             ok = false;
         }
@@ -598,6 +714,24 @@ public:
                     ok = false;
                     cout << "1" << endl;
                     break;
+=======
+    bool  wordUnityCheck(int rowPointer, int columnPointer, string columnRow){
+            int state = 1;
+            bool ok = true;
+            int endColumnPointer;
+            int endRowPointer;
+            if (columnRow == "column"){
+                cout << rowPointer << "  " << columnPointer << endl;
+                for(int q = rowPointer; q < sizeOfTheBoard; q++){
+                    if(board[q][columnPointer].getSession() == 1 && state == 0){
+                        ok = false;
+                        cout << "1" <<endl;
+                        break;
+                    }else if (board[q][columnPointer].getSession() == 1 && state == 1){
+                        endRowPointer = q;
+                    }
+                    state = board[q][columnPointer].getSession();
+>>>>>>> 8616e5595050a0d6eda153a4ba02804f6a457536
                 }
                 else if (board[q][columnPointer].getSession() == 1 && state == 1) {
                     endRowPointer = q;
@@ -620,7 +754,11 @@ public:
             if (ok == true) {
                 ofstream WRITE("wordsToCheck.txt");
                 ofstream LOCATION("wordsToCheckLocatio.txt");
+<<<<<<< HEAD
                 for (int p = rowPointer; p <= endRowPointer; p++) {
+=======
+                for( int p = rowPointer ; p <= endRowPointer ; p ++){
+>>>>>>> 8616e5595050a0d6eda153a4ba02804f6a457536
                     newWordStartPointer = columnPointer;
                     newWordEndPointer = columnPointer;
                     if (columnPointer != 0) {
@@ -645,9 +783,15 @@ public:
                             }
                         }
                     }
+<<<<<<< HEAD
                     if (newWordEndPointer != newWordStartPointer) {
 
                         for (q = newWordStartPointer; q <= newWordEndPointer; q++) {
+=======
+                    if (newWordEndPointer != newWordStartPointer){
+
+                        for(q = newWordStartPointer ; q <= newWordEndPointer ; q++){
+>>>>>>> 8616e5595050a0d6eda153a4ba02804f6a457536
                             WRITE << board[p][q].getLetter();
                         }
                         WRITE << endl;
@@ -770,6 +914,7 @@ public:
                 WRITE << endl;
             }
         }
+<<<<<<< HEAD
         return ok;
     }
     void letterWrite(card* playerCard, int pointer) {
@@ -800,6 +945,45 @@ public:
                         if (playerCard[i].name == '_') {
                             playerCard[i].name = returnGame;
                             break;
+=======
+    void letterWrite(card* playerCard,int pointer){
+            while(true){
+                int row,column;
+                char chosenLetter;
+                char returnGame;
+                chosenLetter = playerCard[pointer].name;
+                int i = 0;
+                cout << "podaj row: ";
+                cin >> row;
+                cout << endl;
+                cout << "podaj kolumne: ";
+                cin >> column;
+                if (this->isFieldEmpty(this->board[row][column])){
+                    board[row][column].setLetter(chosenLetter);
+                    board[row][column].setSession(1);
+                    playerCard[pointer].name = '_';
+                    break;
+                }else if (board[row][column].getSession() == 1) {
+                    char yesNo;
+                    cout << "Czy koniecznie chcesz zamienic! [t/n]" << endl;
+                    cin >> yesNo;
+                    if (yesNo == 't'){
+                        returnGame = board[row][column].getLetter();
+                        while(true){
+                            if (playerCard[i].name == '_'){
+                                playerCard[i].name = returnGame;
+                                break;
+                            }
+                            i++;
+                        }
+                        board[row][column].setLetter(chosenLetter);
+                        if (chosenLetter == '_'){
+                            board[row][column].setSession(0);
+                        }
+                        else{
+                            board[row][column].setSession(1);
+                            playerCard[pointer].name = '_';
+>>>>>>> 8616e5595050a0d6eda153a4ba02804f6a457536
                         }
                         i++;
                     }
@@ -814,6 +998,7 @@ public:
                     break;
                 }
             }
+<<<<<<< HEAD
             else if (board[row][column].getSession() == 2) {
                 cout << "TO POLE JEST ZAJETE" << endl;
                 break;
@@ -844,6 +1029,33 @@ public:
         ifstream dictonary;
         bool corectness = false;
         dictonary.open("sortedDic.txt");
+=======
+        }
+    bool computerAction() { // zmiana na bool i ingerencja w gui
+            //int i = 10;
+            if (!getFirstMove()) {
+                bool corectness = false;
+                computerPossibilities buffor(0, 0);
+                buffor = computerPlaceSelection(buffor);
+                corectness = computerWordSelection(buffor);
+                return corectness;
+            }
+        }
+    bool checkLettersAvability(string wordToCheck){
+            return true;
+        }
+    void incorrextMoveOfPlayer() {
+            for (int i = 0; i < sizeOfTheBoard; i++) {
+                for (int j = 0; j < sizeOfTheBoard; j++) {
+                    board[i][j].changeSessionToFree();
+                }
+            }
+        }
+    bool computerWordSelection(computerPossibilities computerFieldCandidate) {
+            ifstream dictonary;
+            bool corectness = false;
+            dictonary.open("sortedDic.txt");
+>>>>>>> 8616e5595050a0d6eda153a4ba02804f6a457536
 
         srand(time(NULL));
         int difficultyLevel = 3; //2 3; // wpierdalam do konstruktora potem
@@ -937,6 +1149,7 @@ public:
         if (corectness == true) {
             computerWriteWordToMap(computerFieldCandidate);
         }
+<<<<<<< HEAD
         return corectness;
     }
     bool checkTwoWordsDic(int up, int down, int left, int right, char letter) {
@@ -949,6 +1162,19 @@ public:
                 if (up == 1 || left == 1) {
                     if (word[1] == letter) {
                         ok = true;
+=======
+    bool checkTwoWordsDic(int up, int down, int left, int right, char letter) {
+            bool ok = false;
+            ifstream twoWords;
+            twoWords.open("twoWordsDic.txt");
+            if (twoWords.is_open()) {
+                string word;
+                while (getline(twoWords, word)) {
+                    if (up == 1 || left == 1) {
+                        if (word[1] == letter) {
+                            ok = true;
+                        }
+>>>>>>> 8616e5595050a0d6eda153a4ba02804f6a457536
                     }
                 }
                 else {
@@ -958,6 +1184,7 @@ public:
                 }
             }
         }
+<<<<<<< HEAD
         return ok;
     }
     computerPossibilities computerPlaceSelection(computerPossibilities x) {
@@ -969,6 +1196,17 @@ public:
             i = rand() % 15;
             j = rand() % 15;
             if (board[i][j].getSession() == 2) {
+=======
+    computerPossibilities computerPlaceSelection(computerPossibilities x){
+            int i,j,iZnacznik,jZnacznik;
+            bool choice = false;
+            srand(time(NULL));
+            int counter = 500;
+            do{
+            i = rand()%15;
+            j = rand()%15;
+            if (board[i][j].getSession() == 2){
+>>>>>>> 8616e5595050a0d6eda153a4ba02804f6a457536
                 // znaczniI znacznik J i konstruktor kurwa
                 computerPossibilities computerFieldCandidate(i, j);
                 computerFieldCandidate = computerCheckSpaceAvability(computerFieldCandidate);
@@ -997,6 +1235,7 @@ public:
                 break;
             }
         }
+<<<<<<< HEAD
 
     }
     void computerWriteWordToMap(computerPossibilities wordToWrite) {
@@ -1070,6 +1309,87 @@ public:
                 if (q > 0) {
                     if (board[q - 1][computerFieldCandidate.getColumn()].getSession() == 2) {
                         break;
+=======
+    int getPointsOfLetter(char letter) {
+            for (int i{ 0 }; i < 79; i++) {
+                if (letter == cybant[i].name) {
+                    return cybant[i].points;
+                    break;
+                }
+            }
+            
+        }
+    void computerWriteWordToMap(computerPossibilities wordToWrite){
+            cout <<"ROW "<< wordToWrite.getRow() << " COLUMN " << wordToWrite.getColumn() << endl;
+            int startUpLeft, startDownRight;
+            string word = wordToWrite.getWord();
+            //cout << word.length() << endl;
+            int pointsFromWord = 0;
+            int localWordBonus = 1;
+            int i;
+            if (wordToWrite.getUp() > 0 || wordToWrite.getDown() > 0){
+                startUpLeft = wordToWrite.getRow() - wordToWrite.getUp();
+                startDownRight = wordToWrite.getRow() + 1;
+                for ( i = 0 ; i < wordToWrite.getUp(); i++){
+                    pointsFromWord += board[startUpLeft][wordToWrite.getColumn()].getLetterBonus() * getPointsOfLetter(word[i]);
+                    localWordBonus *= board[startUpLeft][wordToWrite.getColumn()].getWordBonus();
+                    board[startUpLeft][wordToWrite.getColumn()].setLetterBonnus(1);
+                    board[startUpLeft][wordToWrite.getColumn()].setWordBonus(1);
+                    board[startUpLeft][wordToWrite.getColumn()].setLetter(word[i]);
+                    board[startUpLeft][wordToWrite.getColumn()].setSession(2); 
+                    startUpLeft++;
+                }
+                pointsFromWord += getPointsOfLetter(word[i]);
+                i++;
+                for ( i  ; i < word.length(); i++){
+                    //cout << "tam gdzie wpisuje " << startDownRight<<endl;
+                    //cout << "ktora litere " << i << endl;
+                    pointsFromWord += board[startDownRight][wordToWrite.getColumn()].getLetterBonus() * getPointsOfLetter(word[i]);
+                    localWordBonus *= board[startDownRight][wordToWrite.getColumn()].getWordBonus();
+                    board[startDownRight][wordToWrite.getColumn()].setLetterBonnus(1);
+                    board[startDownRight][wordToWrite.getColumn()].setWordBonus(1);
+                    board[startDownRight][wordToWrite.getColumn()].setLetter(word[i]);
+                    board[startDownRight][wordToWrite.getColumn()].setSession(2);
+                    startDownRight++;
+                }
+                //cout << "UP " <<wordToWrite.getUp() <<" DOWN " << wordToWrite.getDown() << endl;
+            }else if (wordToWrite.getLeft() > 0 || wordToWrite.getRight() > 0){
+                startUpLeft = wordToWrite.getColumn() - wordToWrite.getLeft();
+                startDownRight = wordToWrite.getColumn() + 1;
+                for ( i = 0 ; i < wordToWrite.getLeft(); i++){
+                    pointsFromWord += board[wordToWrite.getRow()][startUpLeft].getLetterBonus() * getPointsOfLetter(word[i]);
+                    localWordBonus *= board[wordToWrite.getRow()][startUpLeft].getWordBonus();
+                    board[wordToWrite.getRow()][startUpLeft].setLetter(word[i]);
+                    board[wordToWrite.getRow()][startUpLeft].setSession(2);
+                    startUpLeft++;
+                }
+                pointsFromWord += getPointsOfLetter(word[i]);
+                i++;
+                for ( i  ; i < word.length(); i++){
+                    //cout << "tam gdzie wpisuje " << startDownRight<<endl;
+                    //cout << "ktora litere " << i << endl;
+                    pointsFromWord += board[wordToWrite.getRow()][startDownRight].getLetterBonus() * getPointsOfLetter(word[i]);
+                    localWordBonus *= board[wordToWrite.getRow()][startDownRight].getWordBonus();
+                    board[wordToWrite.getRow()][startDownRight].setLetter(word[i]);
+                    board[wordToWrite.getRow()][startDownRight].setSession(2);
+                    startDownRight++;
+                }
+                //cout << "LEFT " <<wordToWrite.getLeft() <<" Right " << wordToWrite.getRight() << endl;
+            }
+            setComputerPoints(getComputerPoints() + pointsFromWord * localWordBonus);
+        }
+    computerPossibilities computerCheckSpaceAvability(computerPossibilities computerFieldCandidate){
+            bool correction = false;
+            //UP
+            for (int q = computerFieldCandidate.getRow()-1; q >= 0 ; q--){
+                if (board[q][computerFieldCandidate.getColumn()].getSession() == 2){
+                    break;
+                }else if(board[q][computerFieldCandidate.getColumn()].getSession() == 0){
+                    if (q > 0){
+                        if(board[q-1][computerFieldCandidate.getColumn()].getSession() == 2){
+                            break;
+                        }
+>>>>>>> 8616e5595050a0d6eda153a4ba02804f6a457536
                     }
                 }
                 if (computerFieldCandidate.getColumn() > 0) {
@@ -1180,9 +1500,18 @@ public:
 
     }
     void setNumberOfPlayers(int numberOfPlayers) {
+<<<<<<< HEAD
         this->numberOfPlayers = numberOfPlayers;
     }
     int getNumberOfPlayers() {
         return numberOfPlayers;
     }
 };
+=======
+            this->numberOfPlayers = numberOfPlayers;
+        }
+    int getNumberOfPlayers() {
+            return numberOfPlayers;
+        }
+};
+>>>>>>> 8616e5595050a0d6eda153a4ba02804f6a457536
