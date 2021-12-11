@@ -3249,11 +3249,6 @@
     <string/>
    </property>
   </widget>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 398e3ef842db3b671e1c4c965b7683a29280697d
   <widget class="QTextEdit" name="player_point">
    <property name="geometry">
     <rect>
@@ -3274,10 +3269,6 @@
     </rect>
    </property>
   </widget>
-<<<<<<< HEAD
->>>>>>> differentLetterChange
-=======
->>>>>>> 398e3ef842db3b671e1c4c965b7683a29280697d
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
