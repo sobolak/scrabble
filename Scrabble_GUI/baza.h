@@ -199,7 +199,15 @@ public:
             }
         }
     }
+<<<<<<< HEAD
+<<<<<<< HEAD
+    bool changeChosenCards(card cybant[79]) {
+=======
     void changeChosenCards(card cybant[79]) {
+>>>>>>> differentLetterChange
+=======
+    void changeChosenCards(card cybant[79]) {
+>>>>>>> 398e3ef842db3b671e1c4c965b7683a29280697d
         bool change = false;
         int luck;
         srand(time(NULL));
@@ -210,12 +218,21 @@ public:
                 playerCards[i].points = cybant[luck].points;
                 change = true;
             }
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 398e3ef842db3b671e1c4c965b7683a29280697d
         }
         //w gameGUI booli jak false to funkcja pass a jaktrue to leci kaabarecik
     }
     void changeChosenCardsUnchecked() {
         for (int i{ 0 }; i < cardQuantity; i++) {
             playerCardsToChange[i] = false;
+<<<<<<< HEAD
+>>>>>>> differentLetterChange
+=======
+>>>>>>> 398e3ef842db3b671e1c4c965b7683a29280697d
         }
     }
 };
@@ -228,12 +245,22 @@ private:
 public:
     card* cybant = new card[79];
     field board[sizeOfTheBoard][sizeOfTheBoard];
+<<<<<<< HEAD
+<<<<<<< HEAD
+
+=======
+=======
+>>>>>>> 398e3ef842db3b671e1c4c965b7683a29280697d
     int getComputerPoints() {
         return computerPoints;
     }
     void setComputerPoints(int computerPoints) {
         this->computerPoints = computerPoints;
     }
+<<<<<<< HEAD
+>>>>>>> differentLetterChange
+=======
+>>>>>>> 398e3ef842db3b671e1c4c965b7683a29280697d
     field getBoardElement(int i, int j) {
         return board[i][j];
     }
