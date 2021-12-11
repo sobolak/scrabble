@@ -158,7 +158,7 @@ void Game_GUI::playerMove(player &playerPlay) {
 			playerPlay.setPlayerCardsChoiceToWrite(i, false);
 		}
 		if (check_word == true) {
-			check_word = this->gameMap1.correctMove( mufasa);
+			check_word = this->gameMap1.correctMove(mufasa);
 			if (check_word == true) {
 				int x = ui.comboBox_column->currentText().toInt();
 				int y = ui.comboBox_row->currentText().toInt();
@@ -205,9 +205,7 @@ void Game_GUI::refreshGameMap() {
 				model->setData(model->index(i, j), QString(gameMap1.board[i][j].getLetter()));
 		}
 	}
-	QString tmp = QString::number(mufasa.getPoints());
-	auto playerPoints = ui.player_point;
-	playerPoints->setText(tmp);
+
 
 	QString x = QString::number(gameMap1.getComputerPoints());
 	auto computerPoints = ui.textEdit;

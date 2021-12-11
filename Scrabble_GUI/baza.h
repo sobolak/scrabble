@@ -132,7 +132,6 @@ class computerPossibilities{
 };
 class player {
 private:
-    int points = 0;
     bool firstMove = true;
     bool currentlyPlay = false;
     card playerCards[cardQuantity];
@@ -164,12 +163,6 @@ public:
     }
     string getNick() {
         return nick;
-    }
-    void setPoints(int points) {
-        this->points = points;
-    }
-    int getPoints() {
-        return points;
     }
     void setCurrentlyPlay(bool currentlyPlay) {
         this->currentlyPlay = currentlyPlay;
@@ -206,15 +199,7 @@ public:
             }
         }
     }
-<<<<<<< HEAD
-<<<<<<< HEAD
-    bool changeChosenCards(card cybant[79]) {
-=======
     void changeChosenCards(card cybant[79]) {
->>>>>>> differentLetterChange
-=======
-    void changeChosenCards(card cybant[79]) {
->>>>>>> 398e3ef842db3b671e1c4c965b7683a29280697d
         bool change = false;
         int luck;
         srand(time(NULL));
@@ -225,21 +210,12 @@ public:
                 playerCards[i].points = cybant[luck].points;
                 change = true;
             }
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 398e3ef842db3b671e1c4c965b7683a29280697d
         }
         //w gameGUI booli jak false to funkcja pass a jaktrue to leci kaabarecik
     }
     void changeChosenCardsUnchecked() {
         for (int i{ 0 }; i < cardQuantity; i++) {
             playerCardsToChange[i] = false;
-<<<<<<< HEAD
->>>>>>> differentLetterChange
-=======
->>>>>>> 398e3ef842db3b671e1c4c965b7683a29280697d
         }
     }
 };
@@ -252,22 +228,12 @@ private:
 public:
     card* cybant = new card[79];
     field board[sizeOfTheBoard][sizeOfTheBoard];
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
-=======
->>>>>>> 398e3ef842db3b671e1c4c965b7683a29280697d
     int getComputerPoints() {
         return computerPoints;
     }
     void setComputerPoints(int computerPoints) {
         this->computerPoints = computerPoints;
     }
-<<<<<<< HEAD
->>>>>>> differentLetterChange
-=======
->>>>>>> 398e3ef842db3b671e1c4c965b7683a29280697d
     field getBoardElement(int i, int j) {
         return board[i][j];
     }
@@ -426,13 +392,13 @@ public:
     ~gameMap() {
         delete cybant;
     }
-        void setFirstMove(bool firstMove) {
+    void setFirstMove(bool firstMove) {
             this->firstMove = firstMove;
         }
-        bool getFirstMove() {
+    bool getFirstMove() {
             return firstMove;
         }
-        bool isFieldEmpty(field bufforField){
+    bool isFieldEmpty(field bufforField){
             // dopisaæ warunek z sesja czyli jak juz jest cos wpisane wczesniej ze nie mozna juz zrobiłem
             if (bufforField.getLetter() == '_'){
                 return true;
@@ -440,7 +406,7 @@ public:
                 return false;
             }
         }
-        bool correctMove(player &playerGame) {
+    bool correctMove(player playerGame) {
             int rowPointer, columnPointer;
             int i = 0;
             bool looping = true;
@@ -490,7 +456,7 @@ public:
             }
             return correctness;
         }
-        bool checkWordEnteredByPlayer(player &playerGame){
+    bool checkWordEnteredByPlayer(player &playerGame){
             bool ok = false;
             int pointsInRound = 0;
             ifstream dictonary;
@@ -509,20 +475,17 @@ public:
                         }
                     }
                     if (ok == false) {
-                        playerGame.setPoints(playerGame.getPoints() - pointsInRound);
                         break;
                     }
                     // kminie ze moze byc problemik z baza danych i zapisywanie pkt zkazdego slowa - musimy pokminic z Zeromskim
                 }
-                if (ok == true) {
-                    playerGame.setPoints(playerGame.getPoints() + pointsInRound);
-                }
+
                 wordsToCheck.close();
                 dictonary.close();
             }
             return ok;
         }
-        int pointsForWordCount(string word) {
+    int pointsForWordCount(string word) {
             int points =0;
             for (auto letter : word) {
                 for (int i{ 0 }; i < 79; i++) {
@@ -534,7 +497,7 @@ public:
             }
             return points;
         }
-        bool letterUnityCheck(int rowPointer, int columnPointer){
+    bool letterUnityCheck(int rowPointer, int columnPointer){
             int newWordStartPointer = columnPointer;
             int newWordEndPointer = columnPointer;
             bool ok = true;
@@ -617,7 +580,7 @@ public:
             }
             return ok;
         }
-        bool wordUnityCheck(int rowPointer, int columnPointer, string columnRow){
+    bool  wordUnityCheck(int rowPointer, int columnPointer, string columnRow){
             int state = 1;
             bool ok = true;
             int endColumnPointer;
@@ -649,6 +612,7 @@ public:
             int newWordEndPointer = columnPointer;
             if (ok == true){
                 ofstream WRITE("wordsToCheck.txt");
+                ofstream LOCATION("wordsToCheckLocatio.txt");
                 for( int p = rowPointer ; p <= endRowPointer ; p ++){
                     newWordStartPointer = columnPointer;
                     newWordEndPointer = columnPointer;
@@ -673,6 +637,7 @@ public:
                         }
                     }
                     if (newWordEndPointer != newWordStartPointer){
+
                         for(q = newWordStartPointer ; q <= newWordEndPointer ; q++){
                             WRITE << board[p][q].getLetter();
                         }
@@ -790,7 +755,7 @@ public:
             }
             return ok;
         }
-        void letterWrite(card* playerCard,int pointer){
+    void letterWrite(card* playerCard,int pointer){
             while(true){
                 int row,column;
                 char chosenLetter;
@@ -836,7 +801,7 @@ public:
                 }
             }
         }
-        bool computerAction() { // zmiana na bool i ingerencja w gui
+    bool computerAction() { // zmiana na bool i ingerencja w gui
             //int i = 10;
             if (!getFirstMove()) {
                 bool corectness = false;
@@ -846,17 +811,17 @@ public:
                 return corectness;
             }
         }
-        bool checkLettersAvability(string wordToCheck){
+    bool checkLettersAvability(string wordToCheck){
             return true;
         }
-        void incorrextMoveOfPlayer() {
+    void incorrextMoveOfPlayer() {
             for (int i = 0; i < sizeOfTheBoard; i++) {
                 for (int j = 0; j < sizeOfTheBoard; j++) {
                     board[i][j].changeSessionToFree();
                 }
             }
         }
-        bool computerWordSelection(computerPossibilities computerFieldCandidate) {
+    bool computerWordSelection(computerPossibilities computerFieldCandidate) {
             ifstream dictonary;
             bool corectness = false;
             dictonary.open("sortedDic.txt");
@@ -955,7 +920,7 @@ public:
             }
             return corectness;
         }
-        bool checkTwoWordsDic(int up, int down, int left, int right, char letter) {
+    bool checkTwoWordsDic(int up, int down, int left, int right, char letter) {
             bool ok = false;
             ifstream twoWords;
             twoWords.open("twoWordsDic.txt");
@@ -976,7 +941,7 @@ public:
             }
             return ok;
         }
-        computerPossibilities computerPlaceSelection(computerPossibilities x){
+    computerPossibilities computerPlaceSelection(computerPossibilities x){
             int i,j,iZnacznik,jZnacznik;
             bool choice = false;
             srand(time(NULL));
@@ -1006,28 +971,44 @@ public:
 
             return x;
         }
-        void countComputerPoints() {
-
+    int getPointsOfLetter(char letter) {
+            for (int i{ 0 }; i < 79; i++) {
+                if (letter == cybant[i].name) {
+                    return cybant[i].points;
+                    break;
+                }
+            }
+            
         }
-        void computerWriteWordToMap(computerPossibilities wordToWrite){
+    void computerWriteWordToMap(computerPossibilities wordToWrite){
             cout <<"ROW "<< wordToWrite.getRow() << " COLUMN " << wordToWrite.getColumn() << endl;
             int startUpLeft, startDownRight;
             string word = wordToWrite.getWord();
             //cout << word.length() << endl;
-            setComputerPoints(getComputerPoints() + pointsForWordCount(word));
+            int pointsFromWord = 0;
+            int localWordBonus = 1;
             int i;
             if (wordToWrite.getUp() > 0 || wordToWrite.getDown() > 0){
                 startUpLeft = wordToWrite.getRow() - wordToWrite.getUp();
                 startDownRight = wordToWrite.getRow() + 1;
                 for ( i = 0 ; i < wordToWrite.getUp(); i++){
+                    pointsFromWord += board[startUpLeft][wordToWrite.getColumn()].getLetterBonus() * getPointsOfLetter(word[i]);
+                    localWordBonus *= board[startUpLeft][wordToWrite.getColumn()].getWordBonus();
+                    board[startUpLeft][wordToWrite.getColumn()].setLetterBonnus(1);
+                    board[startUpLeft][wordToWrite.getColumn()].setWordBonus(1);
                     board[startUpLeft][wordToWrite.getColumn()].setLetter(word[i]);
-                    board[startUpLeft][wordToWrite.getColumn()].setSession(2);
+                    board[startUpLeft][wordToWrite.getColumn()].setSession(2); 
                     startUpLeft++;
                 }
+                pointsFromWord += getPointsOfLetter(word[i]);
                 i++;
                 for ( i  ; i < word.length(); i++){
                     //cout << "tam gdzie wpisuje " << startDownRight<<endl;
                     //cout << "ktora litere " << i << endl;
+                    pointsFromWord += board[startDownRight][wordToWrite.getColumn()].getLetterBonus() * getPointsOfLetter(word[i]);
+                    localWordBonus *= board[startDownRight][wordToWrite.getColumn()].getWordBonus();
+                    board[startDownRight][wordToWrite.getColumn()].setLetterBonnus(1);
+                    board[startDownRight][wordToWrite.getColumn()].setWordBonus(1);
                     board[startDownRight][wordToWrite.getColumn()].setLetter(word[i]);
                     board[startDownRight][wordToWrite.getColumn()].setSession(2);
                     startDownRight++;
@@ -1037,22 +1018,28 @@ public:
                 startUpLeft = wordToWrite.getColumn() - wordToWrite.getLeft();
                 startDownRight = wordToWrite.getColumn() + 1;
                 for ( i = 0 ; i < wordToWrite.getLeft(); i++){
+                    pointsFromWord += board[wordToWrite.getRow()][startUpLeft].getLetterBonus() * getPointsOfLetter(word[i]);
+                    localWordBonus *= board[wordToWrite.getRow()][startUpLeft].getWordBonus();
                     board[wordToWrite.getRow()][startUpLeft].setLetter(word[i]);
                     board[wordToWrite.getRow()][startUpLeft].setSession(2);
                     startUpLeft++;
                 }
+                pointsFromWord += getPointsOfLetter(word[i]);
                 i++;
                 for ( i  ; i < word.length(); i++){
                     //cout << "tam gdzie wpisuje " << startDownRight<<endl;
                     //cout << "ktora litere " << i << endl;
+                    pointsFromWord += board[wordToWrite.getRow()][startDownRight].getLetterBonus() * getPointsOfLetter(word[i]);
+                    localWordBonus *= board[wordToWrite.getRow()][startDownRight].getWordBonus();
                     board[wordToWrite.getRow()][startDownRight].setLetter(word[i]);
                     board[wordToWrite.getRow()][startDownRight].setSession(2);
                     startDownRight++;
                 }
                 //cout << "LEFT " <<wordToWrite.getLeft() <<" Right " << wordToWrite.getRight() << endl;
             }
+            setComputerPoints(getComputerPoints() + pointsFromWord * localWordBonus);
         }
-        computerPossibilities computerCheckSpaceAvability(computerPossibilities computerFieldCandidate){
+    computerPossibilities computerCheckSpaceAvability(computerPossibilities computerFieldCandidate){
             bool correction = false;
             //UP
             for (int q = computerFieldCandidate.getRow()-1; q >= 0 ; q--){
@@ -1168,10 +1155,10 @@ public:
             return computerFieldCandidate;
 
     }
-        void setNumberOfPlayers(int numberOfPlayers) {
+    void setNumberOfPlayers(int numberOfPlayers) {
             this->numberOfPlayers = numberOfPlayers;
         }
-        int getNumberOfPlayers() {
+    int getNumberOfPlayers() {
             return numberOfPlayers;
         }
 };
