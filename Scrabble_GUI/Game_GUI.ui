@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1205</width>
+    <width>1229</width>
     <height>781</height>
    </rect>
   </property>
@@ -2672,7 +2672,7 @@
    <property name="geometry">
     <rect>
      <x>910</x>
-     <y>140</y>
+     <y>150</y>
      <width>261</width>
      <height>21</height>
     </rect>
@@ -2683,8 +2683,8 @@
     <rect>
      <x>800</x>
      <y>40</y>
-     <width>372</width>
-     <height>51</height>
+     <width>381</width>
+     <height>91</height>
     </rect>
    </property>
    <attribute name="horizontalHeaderDefaultSectionSize">
@@ -2693,6 +2693,11 @@
    <row>
     <property name="text">
      <string>Letters:</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>choice</string>
     </property>
    </row>
    <column>
@@ -2793,6 +2798,11 @@
    <item row="0" column="9">
     <property name="text">
      <string>J</string>
+    </property>
+   </item>
+   <item row="1" column="0">
+    <property name="text">
+     <string/>
     </property>
    </item>
   </widget>
@@ -2970,7 +2980,7 @@
    <property name="geometry">
     <rect>
      <x>810</x>
-     <y>140</y>
+     <y>150</y>
      <width>81</width>
      <height>16</height>
     </rect>
@@ -3107,6 +3117,136 @@
    </property>
    <property name="text">
     <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="checkBox">
+   <property name="geometry">
+    <rect>
+     <x>860</x>
+     <y>100</y>
+     <width>16</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="checkBox_2">
+   <property name="geometry">
+    <rect>
+     <x>890</x>
+     <y>100</y>
+     <width>16</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="checkBox_3">
+   <property name="geometry">
+    <rect>
+     <x>923</x>
+     <y>100</y>
+     <width>16</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="checkBox_4">
+   <property name="geometry">
+    <rect>
+     <x>955</x>
+     <y>100</y>
+     <width>16</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="checkBox_5">
+   <property name="geometry">
+    <rect>
+     <x>986</x>
+     <y>100</y>
+     <width>16</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="checkBox_6">
+   <property name="geometry">
+    <rect>
+     <x>1017</x>
+     <y>100</y>
+     <width>16</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="checkBox_7">
+   <property name="geometry">
+    <rect>
+     <x>1050</x>
+     <y>100</y>
+     <width>16</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="checkBox_8">
+   <property name="geometry">
+    <rect>
+     <x>1080</x>
+     <y>100</y>
+     <width>16</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="checkBox_9">
+   <property name="geometry">
+    <rect>
+     <x>1110</x>
+     <y>100</y>
+     <width>16</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="checkBox_10">
+   <property name="geometry">
+    <rect>
+     <x>1142</x>
+     <y>100</y>
+     <width>16</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
    </property>
   </widget>
  </widget>

@@ -11,7 +11,7 @@ Game_GUI::Game_GUI(QWidget *parent)
 		mufasa.randomCards(gameMap1.cybant);
 		mufasa.setNick("mufasa");
 	}
-	if (gameMap1.getNumberOfPlayers() >= 2) {
+	/*if (gameMap1.getNumberOfPlayers() >= 2) {
 		esteban.randomCards(gameMap1.cybant);
 		esteban.setNick("esteban");
 	}
@@ -22,7 +22,7 @@ Game_GUI::Game_GUI(QWidget *parent)
 	if (gameMap1.getNumberOfPlayers() == 4) {
 		rokoko.randomCards(gameMap1.cybant);
 		rokoko.setNick("rokoko");
-	}
+	}*/
 	ui.setupUi(this);
 	// mufasa to zawsze domyslny player 1 czy z kompem czy nie i zawsze robi 1 ruch i zawsze jeg literki
 	changeCurrentPlayer();
@@ -41,7 +41,7 @@ void Game_GUI::on_pushButton_add_clicked()
 		playerMove(mufasa);
 		gameMap1.computerAction();
 	}
-	else if (gameMap1.getNumberOfPlayers() == 2) {
+	/*else if (gameMap1.getNumberOfPlayers() == 2) {
 		if (mufasa.getCurrentlyPlay() == true) {
 			playerLetterRefresh(mufasa);
 			playerMove(mufasa);
@@ -55,7 +55,7 @@ void Game_GUI::on_pushButton_add_clicked()
 			mufasa.setCurrentlyPlay(true);
 			playerLetterRefresh(mufasa);
 		}
-	}
+	}*/
 	/*if (!computerMove) {
 		gameMap1.board[0][0].setLetter('%');
 	}*/
@@ -63,10 +63,14 @@ void Game_GUI::on_pushButton_add_clicked()
 }
 
 void Game_GUI::on_pushButton_change_clicked() {
-	if (gameMap1.getNumberOfPlayers() == 1) {
-		mufasa.changeEveryPlayerCard(gameMap1.cybant, gameMap1.getFirstMove());
-		playerLetterRefresh(mufasa);
-	}
+	//if (gameMap1.getNumberOfPlayers() == 1) {
+	//	mufasa.changeEveryPlayerCard(gameMap1.cybant, gameMap1.getFirstMove());
+	//	playerLetterRefresh(mufasa);
+	//}
+	// TO DO ZMIANY PO W PIERWSZYM MOVE LOSUJESZ W INF 
+
+	gatherLetterToChange_1(mufasa);
+
 	/*std::random_device rd;
 	std::mt19937 gen(rd());
 	std::uniform_int_distribution<> distrib(65, 90);
@@ -202,4 +206,38 @@ void Game_GUI::refreshGameMap() {
 				model->setData(model->index(i, j), QString(gameMap1.board[i][j].getLetter()));
 		}
 	}
+}
+
+void Game_GUI::gatherLetterToChange_1(player &playerGane){
+	if (ui.checkBox->isChecked()) {
+		playerGane.setPlayerCardsToChange(0, true);
+	}
+	if (ui.checkBox_2->isChecked()) {
+		playerGane.setPlayerCardsToChange(1, true);
+	}
+	if (ui.checkBox_3->isChecked()) {
+		playerGane.setPlayerCardsToChange(2, true);
+	}
+	if (ui.checkBox_4->isChecked()) {
+		playerGane.setPlayerCardsToChange(3, true);
+	}
+	if (ui.checkBox_5->isChecked()) {
+		playerGane.setPlayerCardsToChange(4, true);
+	}
+	if (ui.checkBox_6->isChecked()) {
+		playerGane.setPlayerCardsToChange(5, true);
+	}
+	if (ui.checkBox_7->isChecked()) {
+		playerGane.setPlayerCardsToChange(6, true);
+	}
+	if (ui.checkBox_8->isChecked()) {
+		playerGane.setPlayerCardsToChange(7, true);
+	}
+	if (ui.checkBox_9->isChecked()) {
+		playerGane.setPlayerCardsToChange(8, true);
+	}
+	if (ui.checkBox_10->isChecked()) {
+		playerGane.setPlayerCardsToChange(9, true);
+	}
+	playerLetterRefresh(mufasa);
 }
