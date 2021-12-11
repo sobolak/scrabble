@@ -2,11 +2,11 @@
 #include "ui_Game_GUI.h"
 #include<string>
 
-Game_GUI::Game_GUI(QWidget *parent)
+Game_GUI::Game_GUI(QWidget* parent)
 	: QDialog(parent)
 {
 	gameMap gameMap1;
-	if (gameMap1.getNumberOfPlayers() >= 1 ) {
+	if (gameMap1.getNumberOfPlayers() >= 1) {
 		mufasa.randomCards(gameMap1.cybant);
 		mufasa.setNick("mufasa");
 	}
@@ -85,7 +85,7 @@ void Game_GUI::on_pushButton_pass_clicked() {
 	gameMap1.computerAction();
 	refreshGameMap();
 	//zmiana playera i zmian jego dymow
-	
+
 }
 
 void Game_GUI::playerLetterRefresh(player player) {
@@ -96,7 +96,7 @@ void Game_GUI::playerLetterRefresh(player player) {
 	}
 }
 
-void Game_GUI::playerMove(player &playerPlay) {
+void Game_GUI::playerMove(player& playerPlay) {
 	auto model = ui.tableWidget_game->model();
 	std::string word = ui.lineEdit_word->text().toStdString();
 	bool check_word = true;
@@ -158,7 +158,7 @@ void Game_GUI::playerMove(player &playerPlay) {
 			playerPlay.setPlayerCardsChoiceToWrite(i, false);
 		}
 		if (check_word == true) {
-			check_word = this->gameMap1.correctMove( mufasa);
+			check_word = this->gameMap1.correctMove(mufasa);
 			if (check_word == true) {
 				int x = ui.comboBox_column->currentText().toInt();
 				int y = ui.comboBox_row->currentText().toInt();
@@ -205,16 +205,14 @@ void Game_GUI::refreshGameMap() {
 				model->setData(model->index(i, j), QString(gameMap1.board[i][j].getLetter()));
 		}
 	}
-	QString tmp = QString::number(mufasa.getPoints());
-	auto playerPoints = ui.player_point;
-	playerPoints->setText(tmp);
+
 
 	QString x = QString::number(gameMap1.getComputerPoints());
 	auto computerPoints = ui.textEdit;
 	computerPoints->setText(x);
 }
 
-void Game_GUI::gatherLetterToChange_1(player &playerGane){
+void Game_GUI::gatherLetterToChange_1(player& playerGane) {
 	if (ui.checkBox->isChecked()) {
 		playerGane.setPlayerCardsToChange(0, true);
 	}
@@ -247,7 +245,7 @@ void Game_GUI::gatherLetterToChange_1(player &playerGane){
 	}
 	playerGane.changeChosenCards(gameMap1.cybant);
 	playerLetterRefresh(mufasa);
-	
+
 	playerGane.changeChosenCardsUnchecked();
 	ui.checkBox->setCheckState(Qt::Unchecked);
 	ui.checkBox_2->setCheckState(Qt::Unchecked);
