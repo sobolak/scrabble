@@ -138,15 +138,16 @@ private:
     bool currentlyPlay = false;
     card playerCards[cardQuantity];
     bool playerCardsChoiceToWrite[cardQuantity] = { false };
-    //bool* playerCardsChoiceToWrite = new bool[cardQuantity];
+    bool playerCardsToChange[cardQuantity] = { false };
     bool possibilityToChangeCards = true;
     string nick;
 public:
-    /*player() {
+    bool getPlayerCardsToChange(int i) {
+        return playerCardsToChange[i];
     }
-    ~player(){
-        delete playerCardsChoiceToWrite;
-    }*/
+    void setPlayerCardsToChange(int i, bool state) {
+        playerCardsToChange[i] = state;
+    }
     char getPlayerCardsName(int i) {
         return playerCards[i].name;
     }
@@ -212,12 +213,22 @@ public:
             }
         }
     }
-    void wordProperty() {
-        ofstream CHUJ("player_checkk.txt");
-        for (int j{ 0 }; j < cardQuantity; j++) {
-            CHUJ << playerCards[j].name << endl;
+    bool changeChosenCards(card cybant[79]) {
+        bool change = false;
+        int luck;
+        srand(time(NULL));
+        for (int i{ 0 }; i < cardQuantity; i++) {
+            if (playerCardsToChange[i] == true) {
+                luck = rand() % 79;
+                playerCards[i].name = cybant[luck].name;
+                playerCards[i].points = cybant[luck].points;
+                change = true;
+            }
         }
+        return change;
+        //w gameGUI booli jak false to funkcja pass a jaktrue to leci kaabarecik
     }
+    
 };
 
 class gameMap{
@@ -229,6 +240,7 @@ private:
 public:
     card* cybant = new card[79];
     field board[sizeOfTheBoard][sizeOfTheBoard];
+
     field getBoardElement(int i, int j) {
         return board[i][j];
     }
