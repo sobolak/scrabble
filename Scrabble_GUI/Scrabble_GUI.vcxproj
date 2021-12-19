@@ -62,6 +62,7 @@
     <ClCompile>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalOptions>/utf-8 /Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>$(Qt_INCLUDEPATH_);%(AdditionalIncludeDirectories);C:\\Program Files\\MySQL\\MySQL Server 8.0\\include</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
@@ -96,13 +97,17 @@
     <ClCompile Include="Logging_GUI.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu_GUI.cpp" />
+    <ClCompile Include="Player_GUI.cpp" />
     <ClCompile Include="Scrabble_GUI.cpp" />
+    <ClCompile Include="sha256.cpp" />
     <ClCompile Include="Statistics_GUI.cpp" />
     <QtRcc Include="Scrabble_GUI.qrc" />
     <QtUic Include="Create_Game_GUI.ui" />
+    <QtUic Include="Game.ui" />
     <QtUic Include="Game_GUI.ui" />
     <QtUic Include="Logging_GUI.ui" />
     <QtUic Include="Menu_GUI.ui" />
+    <QtUic Include="Player_GUI.ui" />
     <QtUic Include="Scrabble_GUI.ui" />
     <QtMoc Include="Scrabble_GUI.h" />
     <QtUic Include="Statistics_GUI.ui" />
@@ -121,7 +126,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="baza.h" />
+    <ClInclude Include="sha256.h" />
     <QtMoc Include="Statistics_GUI.h" />
+    <QtMoc Include="Player_GUI.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

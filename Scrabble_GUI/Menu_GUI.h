@@ -17,4 +17,6 @@ private slots:
 	void on_pushButton_play_clicked();
 private slots:
 	void on_pushButton_logout_clicked();
+private slots:
+	void on_pushButton_ranking_clicked();
 };

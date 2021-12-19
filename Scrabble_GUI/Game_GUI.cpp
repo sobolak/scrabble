@@ -1,7 +1,6 @@
 #include "Game_GUI.h"
 #include "ui_Game_GUI.h"
-#include <random>
-#include <string>
+#include<string>
 
 Game_GUI::Game_GUI(QWidget *parent)
 	: QDialog(parent)
@@ -11,7 +10,7 @@ Game_GUI::Game_GUI(QWidget *parent)
 		mufasa.randomCards(gameMap1.cybant);
 		mufasa.setNick("mufasa");
 	}
-	if (gameMap1.getNumberOfPlayers() >= 2) {
+	/*if (gameMap1.getNumberOfPlayers() >= 2) {
 		esteban.randomCards(gameMap1.cybant);
 		esteban.setNick("esteban");
 	}
@@ -22,7 +21,7 @@ Game_GUI::Game_GUI(QWidget *parent)
 	if (gameMap1.getNumberOfPlayers() == 4) {
 		rokoko.randomCards(gameMap1.cybant);
 		rokoko.setNick("rokoko");
-	}
+	}*/
 	ui.setupUi(this);
 	// mufasa to zawsze domyslny player 1 czy z kompem czy nie i zawsze robi 1 ruch i zawsze jeg literki
 	changeCurrentPlayer();
@@ -41,7 +40,7 @@ void Game_GUI::on_pushButton_add_clicked()
 		playerMove(mufasa);
 		gameMap1.computerAction();
 	}
-	else if (gameMap1.getNumberOfPlayers() == 2) {
+	/*else if (gameMap1.getNumberOfPlayers() == 2) {
 		if (mufasa.getCurrentlyPlay() == true) {
 			playerLetterRefresh(mufasa);
 			playerMove(mufasa);
@@ -55,7 +54,7 @@ void Game_GUI::on_pushButton_add_clicked()
 			mufasa.setCurrentlyPlay(true);
 			playerLetterRefresh(mufasa);
 		}
-	}
+	}*/
 	/*if (!computerMove) {
 		gameMap1.board[0][0].setLetter('%');
 	}*/
@@ -63,10 +62,14 @@ void Game_GUI::on_pushButton_add_clicked()
 }
 
 void Game_GUI::on_pushButton_change_clicked() {
-	if (gameMap1.getNumberOfPlayers() == 1) {
-		mufasa.changeEveryPlayerCard(gameMap1.cybant, gameMap1.getFirstMove());
-		playerLetterRefresh(mufasa);
-	}
+	//if (gameMap1.getNumberOfPlayers() == 1) {
+	//	mufasa.changeEveryPlayerCard(gameMap1.cybant, gameMap1.getFirstMove());
+	//	playerLetterRefresh(mufasa);
+	//}
+	// TO DO ZMIANY PO W PIERWSZYM MOVE LOSUJESZ W INF 
+
+	gatherLetterToChange_1(mufasa);
+
 	/*std::random_device rd;
 	std::mt19937 gen(rd());
 	std::uniform_int_distribution<> distrib(65, 90);
@@ -88,12 +91,12 @@ void Game_GUI::on_pushButton_pass_clicked() {
 void Game_GUI::playerLetterRefresh(player player) {
 	auto model = ui.tableWidget_letters->model();
 	for (int i{ 0 }; i < 10; ++i) { // wpisuje w tabelke zawsze literki mufasy bo on jest graczem rozpoczynajcym rozgryke 
-		QString tmp = char(player.playerCards[i].name);
+		QString tmp = char(player.getPlayerCardsName(i));
 		model->setData(model->index(0, i), tmp);
 	}
 }
 
-void Game_GUI::playerMove(player player) {
+void Game_GUI::playerMove(player &playerPlay) {
 	auto model = ui.tableWidget_game->model();
 	std::string word = ui.lineEdit_word->text().toStdString();
 	bool check_word = true;
@@ -104,6 +107,7 @@ void Game_GUI::playerMove(player player) {
 		int x = ui.comboBox_column->currentText().toInt();
 		int y = ui.comboBox_row->currentText().toInt();
 		int cnt = 0;
+		int s = 0;
 		for (auto lett : word) { //sprawdzenie czy na odpowiednich pozycjach jest to samo i czy litery istnieja odpowiednio
 			if (ui.radioButton_horizontal->isChecked()) {
 				if (this->gameMap1.board[y][x + cnt].isOccupied()) {
@@ -114,7 +118,8 @@ void Game_GUI::playerMove(player player) {
 				else {
 					check_word = false;
 					for (int i{ 0 }; i < 10; ++i) {
-						if (lett == char(player.playerCards[i].name)) {
+						if (lett == char(playerPlay.getPlayerCardsName(i)) && playerPlay.getPlayerCardsChoiceToWrite(i) == false) {
+							playerPlay.setPlayerCardsChoiceToWrite(i, true);
 							this->gameMap1.board[y][x + cnt].setSession(1);
 							this->gameMap1.board[y][x + cnt].setLetter(lett);
 							check_word = true;
@@ -135,7 +140,8 @@ void Game_GUI::playerMove(player player) {
 				else {
 					check_word = false;
 					for (int i{ 0 }; i < 10; ++i) {
-						if (lett == char(player.playerCards[i].name)) {
+						if (lett == char(playerPlay.getPlayerCardsName(i)) && playerPlay.getPlayerCardsChoiceToWrite(i) == false) {
+							playerPlay.setPlayerCardsChoiceToWrite(i, true);
 							this->gameMap1.board[y + cnt][x].setSession(1);
 							this->gameMap1.board[y + cnt][x].setLetter(lett);
 							check_word = true;
@@ -148,8 +154,11 @@ void Game_GUI::playerMove(player player) {
 			}
 			++cnt;
 		}
+		for (int i{ 0 }; i < 10; ++i) {
+			playerPlay.setPlayerCardsChoiceToWrite(i, false);
+		}
 		if (check_word == true) {
-			check_word = this->gameMap1.correctMove();
+			check_word = this->gameMap1.correctMove(mufasa);
 			if (check_word == true) {
 				int x = ui.comboBox_column->currentText().toInt();
 				int y = ui.comboBox_row->currentText().toInt();
@@ -163,15 +172,15 @@ void Game_GUI::playerMove(player player) {
 					else {
 						model->setData(model->index(y + cnt, x), QString(lett));
 						this->gameMap1.board[y + cnt][x].setSession(2);
-						this->gameMap1.board[y][x + cnt].setLetter(lett);
+						this->gameMap1.board[y + cnt][x].setLetter(lett);
 					}
 					++cnt;
 				}
-				player.changeUsedCards(word, gameMap1.cybant);
+				playerPlay.changeUsedCards(word, gameMap1.cybant);
 				gameMap1.setFirstMove(false);
 			}
 			ui.lineEdit_word->setText(""); //zmiana tabelki
-			playerLetterRefresh(player);
+			playerLetterRefresh(playerPlay);
 		}
 		if (!check_word) {
 			gameMap1.incorrextMoveOfPlayer();
@@ -196,4 +205,59 @@ void Game_GUI::refreshGameMap() {
 				model->setData(model->index(i, j), QString(gameMap1.board[i][j].getLetter()));
 		}
 	}
+
+
+	QString x = QString::number(gameMap1.getComputerPoints());
+	auto computerPoints = ui.textEdit;
+	computerPoints->setText(x);
+}
+
+void Game_GUI::gatherLetterToChange_1(player &playerGane){
+	if (ui.checkBox->isChecked()) {
+		playerGane.setPlayerCardsToChange(0, true);
+	}
+	if (ui.checkBox_2->isChecked()) {
+		playerGane.setPlayerCardsToChange(1, true);
+	}
+	if (ui.checkBox_3->isChecked()) {
+		playerGane.setPlayerCardsToChange(2, true);
+	}
+	if (ui.checkBox_4->isChecked()) {
+		playerGane.setPlayerCardsToChange(3, true);
+	}
+	if (ui.checkBox_5->isChecked()) {
+		playerGane.setPlayerCardsToChange(4, true);
+	}
+	if (ui.checkBox_6->isChecked()) {
+		playerGane.setPlayerCardsToChange(5, true);
+	}
+	if (ui.checkBox_7->isChecked()) {
+		playerGane.setPlayerCardsToChange(6, true);
+	}
+	if (ui.checkBox_8->isChecked()) {
+		playerGane.setPlayerCardsToChange(7, true);
+	}
+	if (ui.checkBox_9->isChecked()) {
+		playerGane.setPlayerCardsToChange(8, true);
+	}
+	if (ui.checkBox_10->isChecked()) {
+		playerGane.setPlayerCardsToChange(9, true);
+	}
+	playerGane.changeChosenCards(gameMap1.cybant);
+	playerLetterRefresh(mufasa);
+	
+	playerGane.changeChosenCardsUnchecked();
+	ui.checkBox->setCheckState(Qt::Unchecked);
+	ui.checkBox_2->setCheckState(Qt::Unchecked);
+	ui.checkBox_3->setCheckState(Qt::Unchecked);
+	ui.checkBox_4->setCheckState(Qt::Unchecked);
+	ui.checkBox_5->setCheckState(Qt::Unchecked);
+	ui.checkBox_6->setCheckState(Qt::Unchecked);
+	ui.checkBox_7->setCheckState(Qt::Unchecked);
+	ui.checkBox_8->setCheckState(Qt::Unchecked);
+	ui.checkBox_9->setCheckState(Qt::Unchecked);
+	ui.checkBox_10->setCheckState(Qt::Unchecked);
+
+	gameMap1.computerAction();
+	refreshGameMap();
 }
