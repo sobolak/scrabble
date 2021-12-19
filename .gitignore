@@ -1,6 +1,7 @@
 wordsToCheck.txt
 Scrabble_GUI.vcxproj.user
 **/x64/*
+**/.vscode/*
 **/db_config.txt
 **/a.out
 .vs

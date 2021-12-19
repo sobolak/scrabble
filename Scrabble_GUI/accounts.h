@@ -55,7 +55,7 @@ private:
 class Move {
 public:
     static const int MAX_WORD_SIZE = 10;
-    Move(Match*, User*, const string, const int);
+    Move(Match*, User*, const int, const int, const bool, const string, const int);
     ~Move();
 
     // ----- SETTERS -----
@@ -63,6 +63,9 @@ public:
     void setMatch(Match*);
     void setSeq(int);
     void setUser(User*);
+    void setRow(int);
+    void setCol(int);
+    void setIsVert(bool);
     void setWord(string);
     void setScore(int);
 
@@ -71,6 +74,9 @@ public:
     Match* getMatch() const;
     int getSeq() const;
     User* getUser() const;
+    int getRow() const;
+    int getCol() const;
+    bool getIsVert() const;
     string getWord() const;
     int getScore() const;
 
@@ -79,6 +85,9 @@ private:
     Match* match;
     int seq;
     User* user;
+    int row;
+    int col;
+    bool isVert;
     char word[MAX_WORD_SIZE + 1];
     int score;
 };
@@ -129,7 +138,7 @@ class MoveManager: public Manager {
 public:
     MoveManager(const string s1, const string s2, const string s3, const string s4): Manager(s1, s2, s3, s4) {};
 
-    Move* createMove(Match*, User*, const string, const int);
+    Move* createMove(Match*, User*, const int, const int, const bool, const string, const int);
     void printAllMoves();
     void deleteMove(Move*);
 };

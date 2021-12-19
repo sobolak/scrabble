@@ -106,10 +106,13 @@ int Match::getSeq() const {
 
 // ----- Move -----
 
-Move::Move(Match* match, User* user, const string word, const int score) {
+Move::Move(Match* match, User* user, const int row, const int col, const bool isVert, const string word, const int score) {
     setMatch(match);
     setSeq(match->incrementSeq());
     setUser(user);
+    setRow(row);
+    setCol(col);
+    setIsVert(isVert);
     setWord(word);
     setScore(score);
 }
@@ -132,6 +135,18 @@ void Move::setSeq(int seq) {
 
 void Move::setUser(User* user) {
     this->user = user;
+}
+
+void Move::setRow(int row) {
+    this->row = row;
+}
+
+void Move::setCol(int col) {
+    this->col = col;
+}
+
+void Move::setIsVert(bool isVert) {
+    this->isVert = isVert;
 }
 
 void Move::setWord(string word) {
@@ -158,6 +173,18 @@ int Move::getSeq() const {
 
 User* Move::getUser() const {
     return user;
+}
+
+int Move::getCol() const {
+    return col;    
+}
+
+int Move::getRow() const {
+    return row;    
+}
+
+bool Move::getIsVert() const {
+    return isVert;    
 }
 
 string Move::getWord() const {
@@ -189,7 +216,7 @@ void Manager::message(string message) {
 
 string Manager::fetchSingleValue(string query) {
     MYSQL_RES* res;
-    MYSQL_ROW row;
+    MYSQL_ROW mysql_row;
 
     if(mysql_query(DBconnection, query.c_str())) {
         message("Failed to fetch value! ");
@@ -197,8 +224,8 @@ string Manager::fetchSingleValue(string query) {
     }
     res = mysql_use_result(DBconnection);
     if (res) {
-        if(row = mysql_fetch_row(res)) {
-            string result = row[0];
+        if(mysql_row = mysql_fetch_row(res)) {
+            string result = mysql_row[0];
             mysql_free_result(res);
             return result;
 
@@ -213,7 +240,6 @@ string Manager::fetchSingleValue(string query) {
 
 bool UserManager::userIsAvail(const string login) {
     MYSQL_RES* res;
-    MYSQL_ROW row;
     stringstream query;
     query << "SELECT uid FROM users WHERE "
         << "login = '" << login << "'";
@@ -244,7 +270,6 @@ User* UserManager::createUser(const string login, const string password) {
     User* user = new User(login, password);
 
     MYSQL_RES* res;
-    MYSQL_ROW row;
     stringstream query;
     query << "INSERT INTO users(login, password) VALUES ('"
         << user->getLogin() << "', '"
@@ -262,7 +287,7 @@ User* UserManager::createUser(const string login, const string password) {
 
 void UserManager::printAllUsers() {
     MYSQL_RES* res;
-    MYSQL_ROW row;
+    MYSQL_ROW mysql_row;
     string query = "SELECT * FROM users";
     if(mysql_query(DBconnection, query.c_str())) {
         message("Error printing all users! ");
@@ -288,10 +313,10 @@ void UserManager::printAllUsers() {
         << '+' << endl;
 
     if(res) {
-        while((row = mysql_fetch_row(res))) {
-            cout << setfill(' ') << '|' << left << setw(9) << row[0]
-                << '|' << setw(19) << row[1]
-                << '|' << setw(64) << row[2]
+        while((mysql_row = mysql_fetch_row(res))) {
+            cout << setfill(' ') << '|' << left << setw(9) << mysql_row[0]
+                << '|' << setw(19) << mysql_row[1]
+                << '|' << setw(64) << mysql_row[2]
                 << '|' << endl;
         }
         cout << setw(10) << setfill('-') << left << '+'
@@ -321,7 +346,7 @@ void UserManager::deleteUser(User* user) {
 
 User* UserManager::logIn(const string login, const string password) {
     MYSQL_RES* res;
-    MYSQL_ROW row;
+    MYSQL_ROW mysql_row;
     stringstream query;
 
     User* user = new User(login, password);
@@ -336,8 +361,8 @@ User* UserManager::logIn(const string login, const string password) {
     }
 
     res = mysql_use_result(DBconnection);
-    if(row = mysql_fetch_row(res)) {
-        user->setUid(atoi(row[0]));
+    if(mysql_row = mysql_fetch_row(res)) {
+        user->setUid(atoi(mysql_row[0]));
         mysql_free_result(res);
         return user;
     }
@@ -360,7 +385,8 @@ int UserManager::getWonMatches(User* user) {
         << "(SELECT mid, SUM(score) as userscore FROM moves WHERE "
         << "uid = " << user->getUid() << " GROUP BY mid) as l1 "
         << "JOIN "
-        << "(SELECT mid, SUM(score) as allscore FROM moves GROUP BY mid) as l2 USING(mid) WHERE 2*l1.userscore-l2.allscore > 0";
+        << "(SELECT mid, SUM(score) as allscore FROM moves GROUP BY mid) as l2 "
+        << "USING(mid) WHERE 2*l1.userscore-l2.allscore > 0";
 
     return stoi(fetchSingleValue(query.str()));
 }
@@ -386,7 +412,8 @@ int UserManager::getLostMatches(User* user) {
         << "(SELECT mid, SUM(score) as userscore FROM moves WHERE "
         << "uid = " << user->getUid() << " GROUP BY mid) as l1 "
         << "JOIN "
-        << "(SELECT mid, SUM(score) as allscore FROM moves GROUP BY mid) as l2 USING(mid) WHERE 2*l1.userscore-l2.allscore < 0";
+        << "(SELECT mid, SUM(score) as allscore FROM moves GROUP BY mid) as l2 "
+        << "USING(mid) WHERE 2*l1.userscore-l2.allscore < 0";
 
     return stoi(fetchSingleValue(query.str()));
 }
@@ -408,14 +435,15 @@ float UserManager::getLostMatchesPercentage(User* user) {
 
 int UserManager::getWonMatchesTrain(User* user) {
     MYSQL_RES* res;
-    MYSQL_ROW row;
+    MYSQL_ROW mysql_row;
     stringstream query;
 
     query << "SELECT 2*l1.userscore-l2.allscore FROM "
         << "(SELECT mid, SUM(score) as userscore FROM moves WHERE "
         << "uid = " << user->getUid() << " GROUP BY mid) as l1 "
         << "JOIN "
-        << "(SELECT mid, SUM(score) as allscore FROM moves GROUP BY mid) as l2 USING(mid) ORDER BY l1.mid DESC";
+        << "(SELECT mid, SUM(score) as allscore FROM moves GROUP BY mid) as l2 "
+        << "USING(mid) ORDER BY l1.mid DESC";
 
     if(mysql_query(DBconnection, query.str().c_str())) {
         message("Error fetching matches for uid=" + user->getUid());
@@ -424,8 +452,8 @@ int UserManager::getWonMatchesTrain(User* user) {
 
     res = mysql_use_result(DBconnection);
     int train = 0;
-    while(row = mysql_fetch_row(res)) {
-        if(atoi(row[0]) > 0) 
+    while(mysql_row = mysql_fetch_row(res)) {
+        if(atoi(mysql_row[0]) > 0) 
             train++;
         else
             break;
@@ -437,14 +465,15 @@ int UserManager::getWonMatchesTrain(User* user) {
 
 int UserManager::getWonMatchesMax(User* user) {
     MYSQL_RES* res;
-    MYSQL_ROW row;
+    MYSQL_ROW mysql_row;
     stringstream query;
 
     query << "SELECT 2*l1.userscore-l2.allscore FROM "
         << "(SELECT mid, SUM(score) as userscore FROM moves WHERE "
         << "uid = " << user->getUid() << " GROUP BY mid) as l1 "
         << "JOIN "
-        << "(SELECT mid, SUM(score) as allscore FROM moves GROUP BY mid) as l2 USING(mid) ORDER BY l1.mid";
+        << "(SELECT mid, SUM(score) as allscore FROM moves GROUP BY mid) as l2 "
+        << "USING(mid) ORDER BY l1.mid";
 
     if(mysql_query(DBconnection, query.str().c_str())) {
         message("Error fetching matches for uid=" + user->getUid());
@@ -454,8 +483,8 @@ int UserManager::getWonMatchesMax(User* user) {
     res = mysql_use_result(DBconnection);
     int train = 0;
     int maxTrain = 0;
-    while(row = mysql_fetch_row(res)) {
-        if(atoi(row[0]) > 0) {
+    while(mysql_row = mysql_fetch_row(res)) {
+        if(atoi(mysql_row[0]) > 0) {
             train++;
         } else {
             train = 0;
@@ -508,7 +537,6 @@ float UserManager::getMeanWordScore(User* user) {
 
 Match* MatchManager::createMatch(User* firstUser, User* secondUser) {
     MYSQL_RES* res;
-    MYSQL_ROW row;
     stringstream query;
     query << "INSERT INTO matches(fid, sid) VALUES ("
         << firstUser->getUid() << ", "
@@ -525,7 +553,7 @@ Match* MatchManager::createMatch(User* firstUser, User* secondUser) {
 
 void MatchManager::printAllMatches() {
     MYSQL_RES* res;
-    MYSQL_ROW row;
+    MYSQL_ROW mysql_row;
     string query = "SELECT * FROM matches";
     if(mysql_query(DBconnection, query.c_str())) {
         message("Error printing all matchs! ");
@@ -552,10 +580,10 @@ void MatchManager::printAllMatches() {
 
 
     if(res) {
-        while((row = mysql_fetch_row(res))) {
-            cout << setfill(' ') << '|' << left << setw(9) << row[0]
-                << '|' << setw(9) << row[1]
-                << '|' << setw(9) << row[2]
+        while((mysql_row = mysql_fetch_row(res))) {
+            cout << setfill(' ') << '|' << left << setw(9) << mysql_row[0]
+                << '|' << setw(9) << mysql_row[1]
+                << '|' << setw(9) << mysql_row[2]
                 << '|' << endl;
         }
         cout << setw(10) << setfill('-') << left << '+'
@@ -571,7 +599,7 @@ void MatchManager::deleteMatch(Match* match) {
     query << "DELETE FROM matches WHERE mid = "
         << match->getMid();
     if(mysql_query(DBconnection, query.str().c_str())) {
-        message("Failed to delete user! ");
+        message("Failed to delete match! ");
         return;
     }
     delete match;
@@ -581,17 +609,18 @@ void MatchManager::deleteMatch(Match* match) {
 
 // ----- MoveManager -----
 
-Move* MoveManager::createMove(Match* match, User* user, const string word, const int score) {
+Move* MoveManager::createMove(Match* match, User* user, const int row, const int col, const bool isVert, const string word, const int score) {
     MYSQL_RES* res;
-    MYSQL_ROW row;
     stringstream query;
 
-    Move* move = new Move(match, user, word, score);
+    Move* move = new Move(match, user, row, col, isVert, word, score);
 
-    query << "INSERT INTO moves(mid, seq, uid, word, score) VALUES ("
+    query << "INSERT INTO moves(mid, uid, r0w, col, is_vert, word, score) VALUES ("
         << move->getMatch()->getMid() << ", "
-        << move->getSeq() << ", "
-        << move->getUser()->getUid() << ", '"
+        << move->getUser()->getUid() << ", "
+        << move->getRow() << ", "
+        << move->getCol() << ", "
+        << move->getIsVert() << ", '"
         << move->getWord() << "', "
         << move->getScore() << ")";
 
@@ -606,7 +635,7 @@ Move* MoveManager::createMove(Match* match, User* user, const string word, const
 
 void MoveManager::printAllMoves() {
     MYSQL_RES* res;
-    MYSQL_ROW row;
+    MYSQL_ROW mysql_row;
     string query = "SELECT * FROM moves";
     if(mysql_query(DBconnection, query.c_str())) {
         message("Error printing all moves! ");
@@ -619,6 +648,9 @@ void MoveManager::printAllMoves() {
         << setw(10) << left << '+'
         << setw(10) << left << '+'
         << setw(10) << left << '+'
+        << setw(10) << left << '+'
+        << setw(10) << left << '+'
+        << setw(10) << left << '+'
         << setw(14) << left << '+'
         << setw(10) << left << '+'
         << '+' << endl;
@@ -628,6 +660,9 @@ void MoveManager::printAllMoves() {
         << '|' << setw(9) << "mid"
         << '|' << setw(9) << "seq"
         << '|' << setw(9) << "uid"
+        << '|' << setw(9) << "r0w"
+        << '|' << setw(9) << "col"
+        << '|' << setw(9) << "is_vert"
         << '|' << setw(13) << "word"
         << '|' << setw(9) << "score"
         << '|' << endl;
@@ -636,21 +671,30 @@ void MoveManager::printAllMoves() {
         << setw(10) << left << '+'
         << setw(10) << left << '+'
         << setw(10) << left << '+'
+        << setw(10) << left << '+'
+        << setw(10) << left << '+'
+        << setw(10) << left << '+'
         << setw(14) << left << '+'
         << setw(10) << left << '+'
         << '+' << endl;
 
     if(res) {
-        while((row = mysql_fetch_row(res))) {
-            cout << setfill(' ') << '|' << left << setw(9) << row[0]
-                << '|' << setw(9) << row[1]
-                << '|' << setw(9) << row[2]
-                << '|' << setw(9) << row[3]
-                << '|' << setw(13) << row[4]
-                << '|' << setw(9) << row[5]
+        while((mysql_row = mysql_fetch_row(res))) {
+            cout << setfill(' ') << '|' << left << setw(9) << mysql_row[0]
+                << '|' << setw(9) << mysql_row[1]
+                << '|' << setw(9) << mysql_row[2]
+                << '|' << setw(9) << mysql_row[3]
+                << '|' << setw(9) << mysql_row[4]
+                << '|' << setw(9) << mysql_row[5]
+                << '|' << setw(9) << mysql_row[6]
+                << '|' << setw(13) << mysql_row[7]
+                << '|' << setw(9) << mysql_row[8]
                 << '|' << endl;
         }
         cout << setw(10) << setfill('-') << left << '+'
+            << setw(10) << left << '+'
+            << setw(10) << left << '+'
+            << setw(10) << left << '+'
             << setw(10) << left << '+'
             << setw(10) << left << '+'
             << setw(10) << left << '+'
