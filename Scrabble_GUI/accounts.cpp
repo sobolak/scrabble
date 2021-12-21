@@ -24,6 +24,12 @@ User::User(const string login, const string password) {
     setPassword(password);
 }
 
+User::User(const string login, const int uid) {
+    setLogin(login);
+    setPassword("");
+    setUid(uid);
+}
+
 User::~User() {
     // nothing yet
 }
@@ -58,9 +64,10 @@ string User::getPassword() const {
 
 // ----- Match -----
 
-Match::Match(User* firstUser, User* secondUser) {
+Match::Match(User* firstUser, User* secondUser, const int mid) {
     setFirstUser(firstUser);
     setSecondUser(secondUser);
+    setMid(mid);
 }
 
 Match::~Match() {
@@ -106,15 +113,16 @@ int Match::getSeq() const {
 
 // ----- Move -----
 
-Move::Move(Match* match, User* user, const int row, const int col, const bool isVert, const string word, const int score) {
+Move::Move(Match* match, const int seq, User* user, const int row, const int col, const bool isVert, const string word, const int score, const int mvid) {
     setMatch(match);
-    setSeq(match->incrementSeq());
+    setSeq(seq);
     setUser(user);
     setRow(row);
     setCol(col);
     setIsVert(isVert);
     setWord(word);
     setScore(score);
+    setMvid(mvid);
 }
 
 Move::~Move() {
@@ -382,10 +390,10 @@ int UserManager::getPlayedMatches(User* user) {
 int UserManager::getWonMatches(User* user) {
     stringstream query;
     query << "SELECT COUNT(*) FROM "
-        << "(SELECT mid, SUM(score) as userscore FROM moves WHERE "
-        << "uid = " << user->getUid() << " GROUP BY mid) as l1 "
+        << "(SELECT mid, SUM(score) AS userscore FROM moves WHERE "
+        << "uid = " << user->getUid() << " GROUP BY mid) AS l1 "
         << "JOIN "
-        << "(SELECT mid, SUM(score) as allscore FROM moves GROUP BY mid) as l2 "
+        << "(SELECT mid, SUM(score) AS allscore FROM moves GROUP BY mid) AS l2 "
         << "USING(mid) WHERE 2*l1.userscore-l2.allscore > 0";
 
     return stoi(fetchSingleValue(query.str()));
@@ -394,13 +402,13 @@ int UserManager::getWonMatches(User* user) {
 float UserManager::getWonMatchesPercentage(User* user) {
     stringstream query;
     query << "SELECT COALESCE(l3.won/l4.total, 0) FROM "
-        << "(SELECT uid, COUNT(*) as won FROM "
-        << "(SELECT uid, mid, SUM(score) as userscore FROM moves GROUP BY uid, mid) as l1 "
+        << "(SELECT uid, COUNT(*) AS won FROM "
+        << "(SELECT uid, mid, SUM(score) AS userscore FROM moves GROUP BY uid, mid) AS l1 "
         << "JOIN "
-        << "(SELECT mid, SUM(score) as allscore FROM moves GROUP BY mid) as l2 "
-        << "USING(mid) WHERE 2*l1.userscore-l2.allscore > 0 GROUP BY uid) as l3 "
-        << "RIGHT JOIN (SELECT l1.uid, COUNT(*) as total FROM "
-        << "(SELECT uid, mid FROM moves GROUP BY uid, mid) as l1 GROUP BY l1.uid) as l4 "
+        << "(SELECT mid, SUM(score) AS allscore FROM moves GROUP BY mid) AS l2 "
+        << "USING(mid) WHERE 2*l1.userscore-l2.allscore > 0 GROUP BY uid) AS l3 "
+        << "RIGHT JOIN (SELECT l1.uid, COUNT(*) AS total FROM "
+        << "(SELECT uid, mid FROM moves GROUP BY uid, mid) AS l1 GROUP BY l1.uid) AS l4 "
         << "ON(l3.uid = l4.uid) WHERE l4.uid = " << user->getUid();
 
     return stof(fetchSingleValue(query.str()));
@@ -409,10 +417,10 @@ float UserManager::getWonMatchesPercentage(User* user) {
 int UserManager::getLostMatches(User* user) {
     stringstream query;
     query << "SELECT COUNT(*) FROM "
-        << "(SELECT mid, SUM(score) as userscore FROM moves WHERE "
-        << "uid = " << user->getUid() << " GROUP BY mid) as l1 "
+        << "(SELECT mid, SUM(score) AS userscore FROM moves WHERE "
+        << "uid = " << user->getUid() << " GROUP BY mid) AS l1 "
         << "JOIN "
-        << "(SELECT mid, SUM(score) as allscore FROM moves GROUP BY mid) as l2 "
+        << "(SELECT mid, SUM(score) AS allscore FROM moves GROUP BY mid) AS l2 "
         << "USING(mid) WHERE 2*l1.userscore-l2.allscore < 0";
 
     return stoi(fetchSingleValue(query.str()));
@@ -421,13 +429,13 @@ int UserManager::getLostMatches(User* user) {
 float UserManager::getLostMatchesPercentage(User* user) {
     stringstream query;
     query << "SELECT COALESCE(l3.lost/l4.total, 0) FROM "
-        << "(SELECT uid, COUNT(*) as lost FROM "
-        << "(SELECT uid, mid, SUM(score) as userscore FROM moves GROUP BY uid, mid) as l1 "
+        << "(SELECT uid, COUNT(*) AS lost FROM "
+        << "(SELECT uid, mid, SUM(score) AS userscore FROM moves GROUP BY uid, mid) AS l1 "
         << "JOIN "
-        << "(SELECT mid, SUM(score) as allscore FROM moves GROUP BY mid) as l2 "
-        << "USING(mid) WHERE 2*l1.userscore-l2.allscore < 0 GROUP BY uid) as l3 "
-        << "RIGHT JOIN (SELECT l1.uid, COUNT(*) as total FROM "
-        << "(SELECT uid, mid FROM moves GROUP BY uid, mid) as l1 GROUP BY l1.uid) as l4 "
+        << "(SELECT mid, SUM(score) AS allscore FROM moves GROUP BY mid) AS l2 "
+        << "USING(mid) WHERE 2*l1.userscore-l2.allscore < 0 GROUP BY uid) AS l3 "
+        << "RIGHT JOIN (SELECT l1.uid, COUNT(*) AS total FROM "
+        << "(SELECT uid, mid FROM moves GROUP BY uid, mid) AS l1 GROUP BY l1.uid) AS l4 "
         << "ON(l3.uid = l4.uid) WHERE l4.uid = " << user->getUid();
 
     return stof(fetchSingleValue(query.str()));
@@ -439,10 +447,10 @@ int UserManager::getWonMatchesTrain(User* user) {
     stringstream query;
 
     query << "SELECT 2*l1.userscore-l2.allscore FROM "
-        << "(SELECT mid, SUM(score) as userscore FROM moves WHERE "
-        << "uid = " << user->getUid() << " GROUP BY mid) as l1 "
+        << "(SELECT mid, SUM(score) AS userscore FROM moves WHERE "
+        << "uid = " << user->getUid() << " GROUP BY mid) AS l1 "
         << "JOIN "
-        << "(SELECT mid, SUM(score) as allscore FROM moves GROUP BY mid) as l2 "
+        << "(SELECT mid, SUM(score) AS allscore FROM moves GROUP BY mid) AS l2 "
         << "USING(mid) ORDER BY l1.mid DESC";
 
     if(mysql_query(DBconnection, query.str().c_str())) {
@@ -469,10 +477,10 @@ int UserManager::getWonMatchesMax(User* user) {
     stringstream query;
 
     query << "SELECT 2*l1.userscore-l2.allscore FROM "
-        << "(SELECT mid, SUM(score) as userscore FROM moves WHERE "
-        << "uid = " << user->getUid() << " GROUP BY mid) as l1 "
+        << "(SELECT mid, SUM(score) AS userscore FROM moves WHERE "
+        << "uid = " << user->getUid() << " GROUP BY mid) AS l1 "
         << "JOIN "
-        << "(SELECT mid, SUM(score) as allscore FROM moves GROUP BY mid) as l2 "
+        << "(SELECT mid, SUM(score) AS allscore FROM moves GROUP BY mid) AS l2 "
         << "USING(mid) ORDER BY l1.mid";
 
     if(mysql_query(DBconnection, query.str().c_str())) {
@@ -502,21 +510,17 @@ int UserManager::getWordsCount(User* user) {
         << "WHERE uid = " << user->getUid();
 
     int count = stoi(fetchSingleValue(query.str()));
-    if(count == 0) {
-        message("Cannot fetch words count for uid=" + user->getUid());
-        return 0;
-    } 
     return count;
 }
 
 float UserManager::getMeanLetterCount(User* user) {
     stringstream query;
     query << "SELECT uid, l2.sum/l3.total FROM "
-        << "(SELECT l1.uid, SUM(l1.len) as sum FROM "
-        << "(SELECT uid, LENGTH(word) as len FROM moves) as l1 "
-        << "GROUP BY l1.uid) as l2 "
+        << "(SELECT l1.uid, SUM(l1.len) AS sum FROM "
+        << "(SELECT uid, LENGTH(word) AS len FROM moves) AS l1 "
+        << "GROUP BY l1.uid) AS l2 "
         << "JOIN "
-        << "(SELECT uid, COUNT(*) as total FROM moves GROUP BY uid) as l3 "
+        << "(SELECT uid, COUNT(*) AS total FROM moves GROUP BY uid) AS l3 "
         << "USING(uid) WHERE uid = " << user->getUid() << " GROUP BY uid";
 
     return stof(fetchSingleValue(query.str()));
@@ -525,12 +529,39 @@ float UserManager::getMeanLetterCount(User* user) {
 float UserManager::getMeanWordScore(User* user) {
     stringstream query;
     query << "SELECT uid, l1.sum/l2.total FROM "
-        << "(SELECT uid, SUM(score) as sum FROM moves GROUP BY uid) as l1 "
+        << "(SELECT uid, SUM(score) AS sum FROM moves GROUP BY uid) AS l1 "
         << "JOIN "
-        << "(SELECT uid, COUNT(*) as total FROM moves GROUP BY uid) as l2 "
+        << "(SELECT uid, COUNT(*) AS total FROM moves GROUP BY uid) AS l2 "
         << "USING(uid) WHERE uid = " << user->getUid() << " GROUP BY uid";
 
    return stof(fetchSingleValue(query.str()));
+}
+
+vector<Match*>* UserManager::getAllMatchesList(User* user) {
+    MYSQL_RES* res;
+    MYSQL_ROW mysql_row;
+    stringstream query;
+
+    query << "SELECT * FROM "
+        << "(SELECT m.mid, (SELECT uid FROM matches JOIN users ON(uid = fid OR uid = sid) WHERE m.mid = mid AND uid <> u.uid) AS uid, uid AS opp_uid, login AS opp_login "
+        << "FROM matches m JOIN users u ON(u.uid = m.fid OR u.uid = m.sid)) AS l1 "
+        << "WHERE l1.uid = " << user->getUid();
+
+    if(mysql_query(DBconnection, query.str().c_str())) {
+        message("Error fetching matches list for uid=" + user->getUid());
+        return NULL;
+    }
+
+    vector<Match*>* matchesList = new vector<Match*>;
+    res = mysql_use_result(DBconnection);
+    while(mysql_row = mysql_fetch_row(res)) {
+        User* secondUser = new User(mysql_row[3], atoi(mysql_row[2]));
+        Match* match = new Match(user, secondUser, atoi(mysql_row[0]));
+        matchesList->push_back(match);
+    }
+
+    mysql_free_result(res);
+    return matchesList;
 }
 
 // ----- MatchManager -----
@@ -580,7 +611,7 @@ void MatchManager::printAllMatches() {
 
 
     if(res) {
-        while((mysql_row = mysql_fetch_row(res))) {
+        while(mysql_row = mysql_fetch_row(res)) {
             cout << setfill(' ') << '|' << left << setw(9) << mysql_row[0]
                 << '|' << setw(9) << mysql_row[1]
                 << '|' << setw(9) << mysql_row[2]
@@ -607,13 +638,39 @@ void MatchManager::deleteMatch(Match* match) {
     return;
 }
 
+vector<Move*>* MatchManager::getAllMovesList(Match* match) {
+    // returns first user's moves
+    MYSQL_RES* res;
+    MYSQL_ROW mysql_row;
+    stringstream query;
+
+    query << "SELECT mvid, mid, seq, uid, login, r0w, col, is_vert, word, score FROM moves JOIN users USING(uid) "
+    << "WHERE mid = " << match->getMid();
+
+    if(mysql_query(DBconnection, query.str().c_str())) {
+        message("Error fetching moves list for mid=" + match->getMid());
+        return NULL;
+    }
+
+    vector<Move*>* movesList = new vector<Move*>;
+    res = mysql_use_result(DBconnection);
+    while(mysql_row = mysql_fetch_row(res)) {
+        User* user = new User(mysql_row[4], atoi(mysql_row[3]));
+        Move* move = new Move(match, atoi(mysql_row[2]), user, atoi(mysql_row[5]), atoi(mysql_row[6]), atoi(mysql_row[7]), mysql_row[8], atoi(mysql_row[9]), atoi(mysql_row[0]));
+        movesList->push_back(move);
+    }
+
+    mysql_free_result(res);
+    return movesList;
+}
+
 // ----- MoveManager -----
 
 Move* MoveManager::createMove(Match* match, User* user, const int row, const int col, const bool isVert, const string word, const int score) {
     MYSQL_RES* res;
     stringstream query;
 
-    Move* move = new Move(match, user, row, col, isVert, word, score);
+    Move* move = new Move(match, match->incrementSeq(), user, row, col, isVert, word, score);
 
     query << "INSERT INTO moves(mid, uid, r0w, col, is_vert, word, score) VALUES ("
         << move->getMatch()->getMid() << ", "
@@ -679,7 +736,7 @@ void MoveManager::printAllMoves() {
         << '+' << endl;
 
     if(res) {
-        while((mysql_row = mysql_fetch_row(res))) {
+        while(mysql_row = mysql_fetch_row(res)) {
             cout << setfill(' ') << '|' << left << setw(9) << mysql_row[0]
                 << '|' << setw(9) << mysql_row[1]
                 << '|' << setw(9) << mysql_row[2]

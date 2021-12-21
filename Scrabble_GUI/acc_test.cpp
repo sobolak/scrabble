@@ -2,11 +2,15 @@
 #include <mysql/mysql.h>
 #include <fstream>
 #include <cstring>
+#include <iomanip>
 #include "accounts.h"
 #include "sha256.h"
 
 using std::cout;
 using std::endl;
+using std::setw;
+using std::left;
+using std::setfill;
 using std::ifstream;
 
 int main() {
@@ -25,37 +29,63 @@ int main() {
     MatchManager* M = new MatchManager(DBConfig[0], DBConfig[1], DBConfig[2], DBConfig[3]);
     MoveManager* MV = new MoveManager(DBConfig[0], DBConfig[1], DBConfig[2], DBConfig[3]);
     
-    User* user1 = U->createUser("tuta", "tuta1");
+
+    User* user1 = U->logIn("mufasa", "mufasa1");
     User* user2 = U->logIn("esteban", "esteban37");
-    cout << "UID: "                         << user2->getUid()                      << endl;
-    cout << "getPlayedMatches: "            << U->getPlayedMatches(user2)           << endl;
-    cout << "getWonMatches: "               << U->getWonMatches(user2)              << endl;
-    cout << "getWonMatchesPercentage: "     << U->getWonMatchesPercentage(user2)    << endl;
-    cout << "getLostMatches: "              << U->getLostMatches(user2)             << endl;
-    cout << "getLostMatchesPercentage: "    << U->getLostMatchesPercentage(user2)   << endl;
-    cout << "getWonMatchesTrain: "          << U->getWonMatchesTrain(user2)         << endl;
-    cout << "getWonMatchesMax: "            << U->getWonMatchesMax(user2)           << endl;
-    cout << "getWordsCount: "               << U->getWordsCount(user2)              << endl;
-    cout << "getMeanLetterCount: "          << U->getMeanLetterCount(user2)         << endl;
-    cout << "getMeanWordScore: "            << U->getMeanWordScore(user2)           << endl;
+
+    cout << setfill(' ') 
+    << setw(30) << left << "UID"                         << setw(5) << user2->getUid()                      << endl
+    << setw(30) << left << "getPlayedMatches"            << setw(5) << U->getPlayedMatches(user2)           << endl
+    << setw(30) << left << "getWonMatches"               << setw(5) << U->getWonMatches(user2)              << endl
+    << setw(30) << left << "getWonMatchesPercentage"     << setw(5) << U->getWonMatchesPercentage(user2)    << endl
+    << setw(30) << left << "getLostMatches"              << setw(5) << U->getLostMatches(user2)             << endl
+    << setw(30) << left << "getLostMatchesPercentage"    << setw(5) << U->getLostMatchesPercentage(user2)   << endl
+    << setw(30) << left << "getWonMatchesTrain"          << setw(5) << U->getWonMatchesTrain(user2)         << endl
+    << setw(30) << left << "getWonMatchesMax"            << setw(5) << U->getWonMatchesMax(user2)           << endl
+    << setw(30) << left << "getWordsCount"               << setw(5) << U->getWordsCount(user2)              << endl
+    << setw(30) << left << "getMeanLetterCount"          << setw(5) << U->getMeanLetterCount(user2)         << endl
+    << setw(30) << left << "getMeanWordScore"            << setw(5) << U->getMeanWordScore(user2)           << endl;
 
     Match* match = M->createMatch(user1, user2);
     Move* mv1 = MV->createMove(match, user1, 2, 3, true, "slowo", 4);
+    Move* mv2 = MV->createMove(match, user2, 5, 6, false, "inneslowo", 9);
     
+    vector<Match*>* matchesList = U->getAllMatchesList(user2);
+    // if((*matchesList))
+    if(matchesList != NULL && !(*matchesList).empty()) {
+        Match* m1 = (*matchesList).back();
+        cout <<"1\n";
+        vector<Move*>* movesList = M->getAllMovesList(m1);
+        cout <<"2\n";
+        
+        for(Move* currMove : *movesList) {
+            cout <<"NNNN\n";
 
+            cout << setfill(' ') 
+            << setw(9) << left << "mvid"    << setw(3) << currMove->getMvid()               << endl
+            << setw(9) << left << "mid"     << setw(3) << currMove->getMatch()->getMid()    << endl
+            << setw(9) << left << "seq"     << setw(3) << currMove->getSeq()                << endl
+            << setw(9) << left << "login"   << setw(3) << currMove->getUser()->getLogin()   << endl
+            << setw(9) << left << "r0w"     << setw(3) << currMove->getRow()                << endl
+            << setw(9) << left << "col"     << setw(3) << currMove->getCol()                << endl
+            << setw(9) << left << "isVert"  << setw(3) << currMove->getIsVert()             << endl
+            << setw(9) << left << "word"    << setw(3) << currMove->getWord()               << endl
+            << setw(9) << left << "score"   << setw(3) << currMove->getScore()              << endl
+            << setfill('-') << setw(20) << "-" << endl;
+        }
+    }
     // U->printAllUsers();
     // M->printAllMatches();
     // MV->printAllMoves();
 
-    U->deleteUser(user1);
+    // U->deleteUser(user2);
     M->deleteMatch(match);
     MV->deleteMove(mv1);
+    MV->deleteMove(mv2);
 
     delete U;
     delete M;
     delete MV;
-    
-    delete user2;
 
     return 0;
 }

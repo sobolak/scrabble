@@ -1,13 +1,16 @@
 #include <string>
 #include <mysql/mysql.h>
+#include <vector>
 using std::string;
+using std::vector;
 
 class User {
 public:
     static const int MAX_LOGIN_SIZE = 20;
     static const int PASSWORD_SIZE = 65;
 
-    User(const string = "", const string = "");
+    User(const string, const string);
+    User(const string, const int);
     ~User();
 
     // ----- SETTERS -----
@@ -28,7 +31,7 @@ private:
 
 class Match {
 public:
-    Match(User*, User*);
+    Match(User*, User*, const int = 0);
     ~Match();
     int incrementSeq();
 
@@ -45,7 +48,7 @@ public:
     int getSeq() const;
 
 private:
-    int mid = 0;
+    int mid;
     User* firstUser;
     User* secondUser;
 
@@ -55,7 +58,7 @@ private:
 class Move {
 public:
     static const int MAX_WORD_SIZE = 10;
-    Move(Match*, User*, const int, const int, const bool, const string, const int);
+    Move(Match*, const int, User*, const int, const int, const bool, const string, const int, const int = 0);
     ~Move();
 
     // ----- SETTERS -----
@@ -123,6 +126,8 @@ public:
     int getWordsCount(User*);
     float getMeanLetterCount(User*);
     float getMeanWordScore(User*);
+
+    vector<Match*>* getAllMatchesList(User*);
 };
 
 class MatchManager: public Manager {
@@ -132,6 +137,8 @@ public:
     Match* createMatch(User*, User*);
     void printAllMatches();
     void deleteMatch(Match*);
+
+    vector<Move*>* getAllMovesList(Match*);
 };
 
 class MoveManager: public Manager {
