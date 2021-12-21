@@ -31,7 +31,7 @@ int main() {
     
 
     User* user1 = U->logIn("mufasa", "mufasa1");
-    User* user2 = U->logIn("esteban", "esteban37");
+    User* user2 = U->createUser("nowy", "nowy1");
 
     cout << setfill(' ') 
     << setw(30) << left << "UID"                         << setw(5) << user2->getUid()                      << endl
@@ -46,21 +46,16 @@ int main() {
     << setw(30) << left << "getMeanLetterCount"          << setw(5) << U->getMeanLetterCount(user2)         << endl
     << setw(30) << left << "getMeanWordScore"            << setw(5) << U->getMeanWordScore(user2)           << endl;
 
-    Match* match = M->createMatch(user1, user2);
-    Move* mv1 = MV->createMove(match, user1, 2, 3, true, "slowo", 4);
-    Move* mv2 = MV->createMove(match, user2, 5, 6, false, "inneslowo", 9);
+    Match* mch1 = M->createMatch(user1, user2);
+    Move* mv1 = MV->createMove(mch1, user1, 2, 3, true, "slowo", 4);
+    Move* mv2 = MV->createMove(mch1, user2, 5, 6, false, "inneslowo", 9);
     
     vector<Match*>* matchesList = U->getAllMatchesList(user2);
-    // if((*matchesList))
-    if(matchesList != NULL && !(*matchesList).empty()) {
+    if(!(*matchesList).empty()) {
         Match* m1 = (*matchesList).back();
-        cout <<"1\n";
         vector<Move*>* movesList = M->getAllMovesList(m1);
-        cout <<"2\n";
         
         for(Move* currMove : *movesList) {
-            cout <<"NNNN\n";
-
             cout << setfill(' ') 
             << setw(9) << left << "mvid"    << setw(3) << currMove->getMvid()               << endl
             << setw(9) << left << "mid"     << setw(3) << currMove->getMatch()->getMid()    << endl
@@ -73,13 +68,18 @@ int main() {
             << setw(9) << left << "score"   << setw(3) << currMove->getScore()              << endl
             << setfill('-') << setw(20) << "-" << endl;
         }
+        delete m1;
+        delete movesList;
     }
+    delete matchesList;
+
+
     // U->printAllUsers();
     // M->printAllMatches();
     // MV->printAllMoves();
 
-    // U->deleteUser(user2);
-    M->deleteMatch(match);
+    U->deleteUser(user2);
+    M->deleteMatch(mch1);
     MV->deleteMove(mv1);
     MV->deleteMove(mv2);
 
