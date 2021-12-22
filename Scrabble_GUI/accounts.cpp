@@ -11,6 +11,7 @@
 using std::cout;
 using std::endl;
 using std::setfill;
+using std::stoi;
 using std::setw;
 using std::left;
 using std::right;
@@ -370,7 +371,7 @@ User* UserManager::logIn(const string login, const string password) {
 
     res = mysql_use_result(DBconnection);
     if(mysql_row = mysql_fetch_row(res)) {
-        user->setUid(atoi(mysql_row[0]));
+        user->setUid(stoi(mysql_row[0]));
         mysql_free_result(res);
         return user;
     }
@@ -461,7 +462,7 @@ int UserManager::getWonMatchesTrain(User* user) {
     res = mysql_use_result(DBconnection);
     int train = 0;
     while(mysql_row = mysql_fetch_row(res)) {
-        if(atoi(mysql_row[0]) > 0) 
+        if(stoi(mysql_row[0]) > 0) 
             train++;
         else
             break;
@@ -492,7 +493,7 @@ int UserManager::getWonMatchesMax(User* user) {
     int train = 0;
     int maxTrain = 0;
     while(mysql_row = mysql_fetch_row(res)) {
-        if(atoi(mysql_row[0]) > 0) {
+        if(stoi(mysql_row[0]) > 0) {
             train++;
         } else {
             train = 0;
@@ -555,8 +556,8 @@ vector<Match*>* UserManager::getAllMatchesList(User* user) {
     vector<Match*>* matchesList = new vector<Match*>;
     res = mysql_use_result(DBconnection);
     while(mysql_row = mysql_fetch_row(res)) {
-        User* secondUser = new User(mysql_row[3], atoi(mysql_row[2]));
-        Match* match = new Match(user, secondUser, atoi(mysql_row[0]));
+        User* secondUser = new User(mysql_row[3], stoi(mysql_row[2]));
+        Match* match = new Match(user, secondUser, stoi(mysql_row[0]));
         matchesList->push_back(match);
     }
 
@@ -639,7 +640,6 @@ void MatchManager::deleteMatch(Match* match) {
 }
 
 vector<Move*>* MatchManager::getAllMovesList(Match* match) {
-    // returns first user's moves
     MYSQL_RES* res;
     MYSQL_ROW mysql_row;
     stringstream query;
@@ -655,8 +655,8 @@ vector<Move*>* MatchManager::getAllMovesList(Match* match) {
     vector<Move*>* movesList = new vector<Move*>;
     res = mysql_use_result(DBconnection);
     while(mysql_row = mysql_fetch_row(res)) {
-        User* user = new User(mysql_row[4], atoi(mysql_row[3]));
-        Move* move = new Move(match, atoi(mysql_row[2]), user, atoi(mysql_row[5]), atoi(mysql_row[6]), atoi(mysql_row[7]), mysql_row[8], atoi(mysql_row[9]), atoi(mysql_row[0]));
+        User* user = new User(mysql_row[4], stoi(mysql_row[3]));
+        Move* move = new Move(match, stoi(mysql_row[2]), user, stoi(mysql_row[5]), stoi(mysql_row[6]), stoi(mysql_row[7]), mysql_row[8], stoi(mysql_row[9]), stoi(mysql_row[0]));
         movesList->push_back(move);
     }
 
