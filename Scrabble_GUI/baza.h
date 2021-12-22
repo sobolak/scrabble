@@ -21,7 +21,14 @@ private:
     int letterBonus = 1;
     int wordBonus = 1;
     int session = 0;
+    int startEndWord = 0;
 public:
+    void setStartEndWord(int startEndWord) {
+        this->startEndWord = startEndWord;
+    }
+    char getStartEndWord() {
+        return startEndWord;
+    }
     void changeSessionToOccupied() {
         if (getSession() == 1) {
             setSession(2);
@@ -228,6 +235,13 @@ private:
 public:
     card* cybant = new card[79];
     field board[sizeOfTheBoard][sizeOfTheBoard];
+    void flushStartEndWord() {
+        for (int i = 0; i < sizeOfTheBoard; i++) {
+            for (int j = 0; j < sizeOfTheBoard; j++) {
+                board[i][j].setStartEndWord(0);
+            }
+        }
+    }
     int getComputerPoints() {
         return computerPoints;
     }
