@@ -1,5 +1,6 @@
 **/wordsToCheck.txt
 **/x64/*
+**/.vscode/*
 **/db_config.txt
 **/a.out
 .vs

@@ -1,5 +1,5 @@
-#include "Scrabble_GUI.h"
 #include "Logging_GUI.h"
+#include "Scrabble_GUI.h"
 
 Scrabble_GUI::Scrabble_GUI(QWidget *parent)
     : QMainWindow(parent)
