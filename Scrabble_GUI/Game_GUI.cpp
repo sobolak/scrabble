@@ -179,6 +179,7 @@ void Game_GUI::playerMove(player& playerPlay) {
 				playerPlay.changeUsedCards(word, gameMap1.cybant);
 				gameMap1.setFirstMove(false);
 			}
+			gameMap1.playerPointsCount(playerPlay);
 			ui.lineEdit_word->setText(""); //zmiana tabelki
 			playerLetterRefresh(playerPlay);
 		}
@@ -210,6 +211,10 @@ void Game_GUI::refreshGameMap() {
 	QString x = QString::number(gameMap1.getComputerPoints());
 	auto computerPoints = ui.textEdit;
 	computerPoints->setText(x);
+
+	QString y = QString::number(mufasa.getPlayerPoints());
+	auto playerPoints = ui.player_point;
+	playerPoints->setText(y);
 }
 
 void Game_GUI::gatherLetterToChange_1(player& playerGane) {
