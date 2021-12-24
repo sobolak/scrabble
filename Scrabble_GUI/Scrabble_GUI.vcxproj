@@ -62,7 +62,7 @@
     <ClCompile>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalOptions>/utf-8 /Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>C:\Program Files\MySQL\Connector C++ 8.0\include;C:\Program Files\MySQL\MySQL Server 8.0\include;$(Qt_INCLUDEPATH_);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files\MySQL\Connector C++ 8.0\include;C:\Program Files\MySQL\MySQL Server 8.0\include;$(Qt_INCLUDEPATH_);.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ShowIncludes>true</ShowIncludes>
     </ClCompile>
     <Link>
@@ -101,6 +101,7 @@
     <ClCompile Include="acc_test.cpp" />
     <ClCompile Include="Create_Game_GUI.cpp" />
     <ClCompile Include="Game_GUI.cpp" />
+    <ClCompile Include="Game_GUI_2.cpp" />
     <ClCompile Include="Logging_GUI.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu_GUI.cpp" />
@@ -112,6 +113,7 @@
     <QtUic Include="Create_Game_GUI.ui" />
     <QtUic Include="Game.ui" />
     <QtUic Include="Game_GUI.ui" />
+    <QtUic Include="Game_GUI_2.ui" />
     <QtUic Include="Logging_GUI.ui" />
     <QtUic Include="Menu_GUI.ui" />
     <QtUic Include="Player_GUI.ui" />
@@ -134,6 +136,7 @@
   <ItemGroup>
     <ClInclude Include="accounts.h" />
     <ClInclude Include="baza.h" />
+    <QtMoc Include="Game_GUI_2.h" />
     <ClInclude Include="sha256.h" />
     <QtMoc Include="Statistics_GUI.h" />
     <QtMoc Include="Player_GUI.h" />

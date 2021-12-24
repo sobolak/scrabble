@@ -32,7 +32,7 @@ void Create_Game_GUI::on_pushButton_logout_clicked()
 
 void Create_Game_GUI::on_pushButton_return_clicked()
 {
-	Menu_GUI menu;
+	Menu_GUI menu(this->user);
 	this->hide();
 	menu.setModal(true);
 	menu.exec();

@@ -50,7 +50,7 @@ Statistics_GUI::~Statistics_GUI()
 
 void Statistics_GUI::on_pushButton_return_clicked()
 {
-	Menu_GUI menu;
+	Menu_GUI menu(this->user);
 	this->hide();
 	menu.setModal(true);
 	menu.exec();

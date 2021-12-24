@@ -515,7 +515,7 @@ int UserManager::getWordsCount(User* user) {
 
 float UserManager::getMeanLetterCount(User* user) {
     stringstream query;
-    query << "SELECT uid, l2.sum/l3.total FROM "
+    query << "SELECT COALESCE(l2.sum/l3.total, 0) FROM "
         << "(SELECT l1.uid, SUM(l1.len) AS sum FROM "
         << "(SELECT uid, LENGTH(word) AS len FROM moves) AS l1 "
         << "GROUP BY l1.uid) AS l2 "
@@ -528,7 +528,7 @@ float UserManager::getMeanLetterCount(User* user) {
 
 float UserManager::getMeanWordScore(User* user) {
     stringstream query;
-    query << "SELECT uid, l1.sum/l2.total FROM "
+    query << "SELECT COALESCE(l1.sum/l2.total, 0) FROM "
         << "(SELECT uid, SUM(score) AS sum FROM moves GROUP BY uid) AS l1 "
         << "JOIN "
         << "(SELECT uid, COUNT(*) AS total FROM moves GROUP BY uid) AS l2 "
