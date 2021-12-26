@@ -95,6 +95,7 @@
     <ClCompile Include="Create_Game_GUI.cpp" />
     <ClCompile Include="Game_GUI.cpp" />
     <ClCompile Include="Game_GUI_2.cpp" />
+    <ClCompile Include="Game_GUI_3.cpp" />
     <ClCompile Include="Logging_GUI.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu_GUI.cpp" />
@@ -107,6 +108,7 @@
     <QtUic Include="Game.ui" />
     <QtUic Include="Game_GUI.ui" />
     <QtUic Include="Game_GUI_2.ui" />
+    <QtUic Include="Game_GUI_3.ui" />
     <QtUic Include="Logging_GUI.ui" />
     <QtUic Include="Menu_GUI.ui" />
     <QtUic Include="Player_GUI.ui" />
@@ -129,6 +131,7 @@
   <ItemGroup>
     <ClInclude Include="baza.h" />
     <QtMoc Include="Game_GUI_2.h" />
+    <QtMoc Include="Game_GUI_3.h" />
     <ClInclude Include="sha256.h" />
     <QtMoc Include="Statistics_GUI.h" />
     <QtMoc Include="Player_GUI.h" />

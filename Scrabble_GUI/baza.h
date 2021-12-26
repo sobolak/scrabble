@@ -1017,8 +1017,7 @@ public:
                 break;
             }
         }
-
-    }
+         }
     void computerWriteWordToMap(computerPossibilities wordToWrite) {
         cout << "ROW " << wordToWrite.getRow() << " COLUMN " << wordToWrite.getColumn() << endl;
         int startUpLeft, startDownRight;
