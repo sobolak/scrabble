@@ -19,4 +19,5 @@ private slots:
 	void on_pushButton_return_clicked();
 private slots:
 	void on_pushButton_logout_clicked();
+
 };

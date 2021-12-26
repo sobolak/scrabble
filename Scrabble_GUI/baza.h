@@ -184,7 +184,7 @@ public:
         return possibilityToChangeCards;
     }
     void randomCards(card cybant[79]) {
-        srand(time(NULL));
+      //  srand(time(NULL));
         int j;
         for (int i = 0; i < cardQuantity; i++) {
             j = rand() % 79;
