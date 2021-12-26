@@ -3067,32 +3067,6 @@
     <string>&lt;nick2&gt;</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_points1">
-   <property name="geometry">
-    <rect>
-     <x>940</x>
-     <y>400</y>
-     <width>81</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>pkt1</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_points2">
-   <property name="geometry">
-    <rect>
-     <x>940</x>
-     <y>450</y>
-     <width>81</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>pkt2</string>
-   </property>
-  </widget>
   <widget class="QPushButton" name="pushButton_change">
    <property name="geometry">
     <rect>
@@ -3252,8 +3226,8 @@
   <widget class="QTextEdit" name="player_point">
    <property name="geometry">
     <rect>
-     <x>920</x>
-     <y>360</y>
+     <x>890</x>
+     <y>400</y>
      <width>71</width>
      <height>31</height>
     </rect>
@@ -3262,8 +3236,8 @@
   <widget class="QTextEdit" name="textEdit">
    <property name="geometry">
     <rect>
-     <x>850</x>
-     <y>530</y>
+     <x>890</x>
+     <y>440</y>
      <width>81</width>
      <height>31</height>
     </rect>
