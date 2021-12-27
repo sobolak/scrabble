@@ -1,7 +1,9 @@
 #include "Create_Game_GUI.h"
 #include "Menu_GUI.h"
 #include "Game_GUI.h"
-#include "Logging_GUI.h"
+#include "Game_GUI_2.h"
+#include "Game_GUI_3.h"
+#include "Game_GUI_4.h"
 #include "accounts.h"
 
 Create_Game_GUI::Create_Game_GUI(QWidget *parent)
@@ -46,3 +48,4 @@ void Create_Game_GUI::on_pushButton_start_clicked()
 	game.exec();
 
 }
+

@@ -6,25 +6,14 @@ Game_GUI::Game_GUI(QWidget* parent)
 	: QDialog(parent)
 {
 	gameMap gameMap1;
-	if (gameMap1.getNumberOfPlayers() >= 1) {
-		mufasa.randomCards(gameMap1.cybant);
-		mufasa.setNick("mufasa");
-	}
-	/*if (gameMap1.getNumberOfPlayers() >= 2) {
-		esteban.randomCards(gameMap1.cybant);
-		esteban.setNick("esteban");
-	}
-	if (gameMap1.getNumberOfPlayers() >= 3) {
-		zeromski.randomCards(gameMap1.cybant);
-		zeromski.setNick("zeromski");
-	}
-	if (gameMap1.getNumberOfPlayers() == 4) {
-		rokoko.randomCards(gameMap1.cybant);
-		rokoko.setNick("rokoko");
-	}*/
+	srand(time(NULL));
+
+	mufasa.randomCards(gameMap1.cybant);
+	mufasa.setNick("mufasa");
+
 	ui.setupUi(this);
 	// mufasa to zawsze domyslny player 1 czy z kompem czy nie i zawsze robi 1 ruch i zawsze jeg literki
-	changeCurrentPlayer();
+	changeCurrentPlayer(mufasa);
 	playerLetterRefresh(mufasa);
 }
 
@@ -61,30 +50,8 @@ Game_GUI::~Game_GUI()
 
 void Game_GUI::on_pushButton_add_clicked()
 {
-	//zmiana na odpowedniego playera w zaleznosci od ilosci
-	//bool computerMove = 
-	if (gameMap1.getNumberOfPlayers() == 1) {
-		playerMove(mufasa);
-		gameMap1.computerAction();
-	}
-	/*else if (gameMap1.getNumberOfPlayers() == 2) {
-		if (mufasa.getCurrentlyPlay() == true) {
-			playerLetterRefresh(mufasa);
-			playerMove(mufasa);
-			mufasa.setCurrentlyPlay(false);
-			esteban.setCurrentlyPlay(true);
-			playerLetterRefresh(esteban);
-		}else if (esteban.getCurrentlyPlay() == true) {
-			playerLetterRefresh(esteban);
-			playerMove(esteban);
-			esteban.setCurrentlyPlay(false);
-			mufasa.setCurrentlyPlay(true);
-			playerLetterRefresh(mufasa);
-		}
-	}*/
-	/*if (!computerMove) {
-		gameMap1.board[0][0].setLetter('%');
-	}*/
+	playerMove(mufasa);
+	gameMap1.computerAction();
 	refreshGameMap();
 }
 
@@ -111,8 +78,6 @@ void Game_GUI::on_pushButton_change_clicked() {
 void Game_GUI::on_pushButton_pass_clicked() {
 	gameMap1.computerAction();
 	refreshGameMap();
-	//zmiana playera i zmian jego dymow
-
 }
 
 void Game_GUI::playerLetterRefresh(player player) {
@@ -206,6 +171,7 @@ void Game_GUI::playerMove(player& playerPlay) {
 				playerPlay.changeUsedCards(word, gameMap1.cybant);
 				gameMap1.setFirstMove(false);
 			}
+			gameMap1.playerPointsCount(playerPlay);
 			ui.lineEdit_word->setText(""); //zmiana tabelki
 			playerLetterRefresh(playerPlay);
 		}
@@ -217,7 +183,7 @@ void Game_GUI::playerMove(player& playerPlay) {
 
 }
 
-void Game_GUI::changeCurrentPlayer() {
+void Game_GUI::changeCurrentPlayer(player playerPLay) {
 	cout << "";
 	mufasa.setCurrentlyPlay(true);
 	cout << "";
@@ -237,6 +203,10 @@ void Game_GUI::refreshGameMap() {
 	QString x = QString::number(gameMap1.getComputerPoints());
 	auto computerPoints = ui.textEdit;
 	computerPoints->setText(x);
+
+	QString y = QString::number(mufasa.getPlayerPoints());
+	auto playerPoints = ui.player_point;
+	playerPoints->setText(y);
 }
 
 void Game_GUI::gatherLetterToChange_1(player& playerGane) {

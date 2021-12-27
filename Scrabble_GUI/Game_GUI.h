@@ -26,7 +26,7 @@ private:
 	void refreshGameMap();
 	void playerMove(player &player);
 	void playerLetterRefresh(player player);
-	void changeCurrentPlayer();
+	void changeCurrentPlayer(player playerPlay);
 	void gatherLetterToChange_1(player& playerGane);
 private slots:
 	void on_pushButton_add_clicked();
