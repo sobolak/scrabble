@@ -1,5 +1,7 @@
+#ifndef ACCOUNTS_H
+#define ACCOUNTS_H
 #include <string>
-#include <mysql/mysql.h>
+#include <mysql.h>
 #include <vector>
 using std::string;
 using std::vector;
@@ -149,3 +151,4 @@ public:
     void printAllMoves();
     void deleteMove(Move*);
 };
+#endif 

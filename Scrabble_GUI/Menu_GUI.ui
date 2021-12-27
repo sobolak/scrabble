@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
+    <width>802</width>
     <height>600</height>
    </rect>
   </property>
@@ -42,8 +42,8 @@
   <widget class="QPushButton" name="pushButton_logout">
    <property name="geometry">
     <rect>
-     <x>680</x>
-     <y>20</y>
+     <x>630</x>
+     <y>30</y>
      <width>101</width>
      <height>31</height>
     </rect>
@@ -52,7 +52,7 @@
     <string>Logout</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_ranking">
+  <widget class="QPushButton" name="pushButton_statistics">
    <property name="geometry">
     <rect>
      <x>460</x>
@@ -62,15 +62,15 @@
     </rect>
    </property>
    <property name="text">
-    <string>Ranking</string>
+    <string>Statistics</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_user">
    <property name="geometry">
     <rect>
-     <x>460</x>
-     <y>20</y>
-     <width>55</width>
+     <x>630</x>
+     <y>10</y>
+     <width>31</width>
      <height>16</height>
     </rect>
    </property>
@@ -94,27 +94,14 @@
   <widget class="QLabel" name="label_name">
    <property name="geometry">
     <rect>
-     <x>530</x>
-     <y>20</y>
+     <x>670</x>
+     <y>10</y>
      <width>55</width>
      <height>16</height>
     </rect>
    </property>
    <property name="text">
     <string>&lt;login&gt;</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_avatar">
-   <property name="geometry">
-    <rect>
-     <x>610</x>
-     <y>10</y>
-     <width>51</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>&lt;avatar&gt;</string>
    </property>
   </widget>
  </widget>

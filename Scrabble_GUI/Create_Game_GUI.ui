@@ -36,19 +36,6 @@
     </rect>
    </property>
   </widget>
-  <widget class="QLabel" name="label_user">
-   <property name="geometry">
-    <rect>
-     <x>440</x>
-     <y>20</y>
-     <width>55</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>User:</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="label_second_player">
    <property name="geometry">
     <rect>
@@ -88,19 +75,6 @@
     <string>Name</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_logout">
-   <property name="geometry">
-    <rect>
-     <x>660</x>
-     <y>20</y>
-     <width>101</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Logout</string>
-   </property>
-  </widget>
   <widget class="QComboBox" name="comboBox_name">
    <property name="geometry">
     <rect>
@@ -109,19 +83,6 @@
      <width>111</width>
      <height>22</height>
     </rect>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_avatar">
-   <property name="geometry">
-    <rect>
-     <x>590</x>
-     <y>10</y>
-     <width>51</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>&lt;avatar&gt;</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_difficulty">
@@ -140,14 +101,40 @@
   <widget class="QLabel" name="label_name">
    <property name="geometry">
     <rect>
-     <x>510</x>
-     <y>20</y>
+     <x>690</x>
+     <y>10</y>
      <width>55</width>
      <height>16</height>
     </rect>
    </property>
    <property name="text">
     <string>&lt;login&gt;</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_logout">
+   <property name="geometry">
+    <rect>
+     <x>650</x>
+     <y>30</y>
+     <width>101</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Logout</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_user">
+   <property name="geometry">
+    <rect>
+     <x>650</x>
+     <y>10</y>
+     <width>31</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>User:</string>
    </property>
   </widget>
  </widget>

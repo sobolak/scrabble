@@ -1,12 +1,39 @@
 #include "Game_GUI.h"
-#include "ui_Game_GUI.h"
-#include<string>
+#include "baza.h"
+//#include "Create_Game_GUI.h" //poderjzeane
 
-Game_GUI::Game_GUI(QWidget *parent)
+Game_GUI::Game_GUI(QWidget* parent)
 	: QDialog(parent)
 {
 	gameMap gameMap1;
-	if (gameMap1.getNumberOfPlayers() >= 1 ) {
+	if (gameMap1.getNumberOfPlayers() >= 1) {
+		mufasa.randomCards(gameMap1.cybant);
+		mufasa.setNick("mufasa");
+	}
+	/*if (gameMap1.getNumberOfPlayers() >= 2) {
+		esteban.randomCards(gameMap1.cybant);
+		esteban.setNick("esteban");
+	}
+	if (gameMap1.getNumberOfPlayers() >= 3) {
+		zeromski.randomCards(gameMap1.cybant);
+		zeromski.setNick("zeromski");
+	}
+	if (gameMap1.getNumberOfPlayers() == 4) {
+		rokoko.randomCards(gameMap1.cybant);
+		rokoko.setNick("rokoko");
+	}*/
+	ui.setupUi(this);
+	// mufasa to zawsze domyslny player 1 czy z kompem czy nie i zawsze robi 1 ruch i zawsze jeg literki
+	changeCurrentPlayer();
+	playerLetterRefresh(mufasa);
+}
+
+Game_GUI::Game_GUI(User* user, QWidget* parent)
+	: QDialog(parent)
+{
+	this->user = user;
+	gameMap gameMap1;
+	if (gameMap1.getNumberOfPlayers() >= 1) {
 		mufasa.randomCards(gameMap1.cybant);
 		mufasa.setNick("mufasa");
 	}
@@ -85,7 +112,7 @@ void Game_GUI::on_pushButton_pass_clicked() {
 	gameMap1.computerAction();
 	refreshGameMap();
 	//zmiana playera i zmian jego dymow
-	
+
 }
 
 void Game_GUI::playerLetterRefresh(player player) {
@@ -96,7 +123,7 @@ void Game_GUI::playerLetterRefresh(player player) {
 	}
 }
 
-void Game_GUI::playerMove(player &playerPlay) {
+void Game_GUI::playerMove(player& playerPlay) {
 	auto model = ui.tableWidget_game->model();
 	std::string word = ui.lineEdit_word->text().toStdString();
 	bool check_word = true;
@@ -212,7 +239,7 @@ void Game_GUI::refreshGameMap() {
 	computerPoints->setText(x);
 }
 
-void Game_GUI::gatherLetterToChange_1(player &playerGane){
+void Game_GUI::gatherLetterToChange_1(player& playerGane) {
 	if (ui.checkBox->isChecked()) {
 		playerGane.setPlayerCardsToChange(0, true);
 	}
@@ -245,7 +272,7 @@ void Game_GUI::gatherLetterToChange_1(player &playerGane){
 	}
 	playerGane.changeChosenCards(gameMap1.cybant);
 	playerLetterRefresh(mufasa);
-	
+
 	playerGane.changeChosenCardsUnchecked();
 	ui.checkBox->setCheckState(Qt::Unchecked);
 	ui.checkBox_2->setCheckState(Qt::Unchecked);

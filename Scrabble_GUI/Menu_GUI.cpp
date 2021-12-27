@@ -9,13 +9,21 @@ Menu_GUI::Menu_GUI(QWidget *parent)
 	ui.setupUi(this);
 }
 
+Menu_GUI::Menu_GUI(User* user, QWidget* parent)
+	: QDialog(parent)
+{
+	this->user = user;
+	ui.setupUi(this);
+	ui.label_name->setText(QString::fromStdString(this->user->getLogin()));
+}
+
 Menu_GUI::~Menu_GUI()
 {
 }
 
 void Menu_GUI::on_pushButton_play_clicked()
 {
-	Create_Game_GUI create_game;
+	Create_Game_GUI create_game(this->user);
 	this->hide();
 	create_game.setModal(true);
 	create_game.exec();
@@ -29,9 +37,9 @@ void Menu_GUI::on_pushButton_logout_clicked()
 	login.exec();
 }
 
-void Menu_GUI::on_pushButton_ranking_clicked()
+void Menu_GUI::on_pushButton_statistics_clicked()
 {
-	Statistics_GUI stats;
+	Statistics_GUI stats(this->user);
 	this->hide();
 	stats.setModal(true);
 	stats.exec();
