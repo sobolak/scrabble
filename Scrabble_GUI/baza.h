@@ -439,13 +439,11 @@ public:
 
         if (board[rowPointer + 1][columnPointer].getSession() == 1 || board[rowPointer + 1][columnPointer].getSession() == 2) {
             if (wordUnityCheck(rowPointer, columnPointer, "column") == false) {
-                cout << "WPISALES NIECIAGLY WYRAZ" << endl;
                 correctness = false;
             }
         }
         else if (board[rowPointer][columnPointer + 1].getSession() == 1 || board[rowPointer][columnPointer + 1].getSession() == 2) {
             if (wordUnityCheck(rowPointer, columnPointer, "row") == false) {
-                cout << "WPISALES NIEPOPRAAWNY WYRAZ" << endl;
                 correctness = false;
             }
         }

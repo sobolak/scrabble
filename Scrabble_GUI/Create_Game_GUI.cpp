@@ -4,6 +4,7 @@
 #include "Game_GUI_2.h"
 #include "Game_GUI_3.h"
 #include "Game_GUI_4.h"
+#include "Logging_GUI.h"
 #include "accounts.h"
 
 Create_Game_GUI::Create_Game_GUI(QWidget *parent)

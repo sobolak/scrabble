@@ -40,7 +40,7 @@ Game_GUI::Game_GUI(User* user, QWidget* parent)
 	}*/
 	ui.setupUi(this);
 	// mufasa to zawsze domyslny player 1 czy z kompem czy nie i zawsze robi 1 ruch i zawsze jeg literki
-	changeCurrentPlayer();
+	changeCurrentPlayer(mufasa);
 	playerLetterRefresh(mufasa);
 }
 
