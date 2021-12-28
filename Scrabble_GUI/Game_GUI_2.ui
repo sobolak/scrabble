@@ -3233,14 +3233,17 @@
   <widget class="QLabel" name="mufasaLabel">
    <property name="geometry">
     <rect>
-     <x>940</x>
+     <x>890</x>
      <y>10</y>
-     <width>111</width>
-     <height>16</height>
+     <width>201</width>
+     <height>21</height>
     </rect>
    </property>
    <property name="text">
     <string/>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
   <widget class="QCheckBox" name="checkBox_11">
@@ -3791,17 +3794,17 @@
     <string/>
    </property>
   </widget>
-  <widget class="QLabel" name="label_user_2">
+  <widget class="QLabel" name="estebanLabel">
    <property name="geometry">
     <rect>
-     <x>950</x>
+     <x>880</x>
      <y>350</y>
-     <width>111</width>
+     <width>211</width>
      <height>16</height>
     </rect>
    </property>
    <property name="text">
-    <string>TextLabel</string>
+    <string/>
    </property>
   </widget>
   <widget class="QTextEdit" name="estebanPoint">
@@ -3827,8 +3830,8 @@
   <widget class="QTimeEdit" name="mufasaTimer">
    <property name="geometry">
     <rect>
-     <x>800</x>
-     <y>340</y>
+     <x>940</x>
+     <y>250</y>
      <width>118</width>
      <height>22</height>
     </rect>
@@ -3894,7 +3897,7 @@
   <zorder>checkBox_18</zorder>
   <zorder>checkBox_19</zorder>
   <zorder>checkBox_20</zorder>
-  <zorder>label_user_2</zorder>
+  <zorder>estebanLabel</zorder>
   <zorder>estebanPoint</zorder>
   <zorder>mufasaPoint</zorder>
   <zorder>mufasaTimer</zorder>
