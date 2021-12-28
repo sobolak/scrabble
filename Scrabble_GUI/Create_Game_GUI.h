@@ -22,5 +22,13 @@ private slots:
 	void on_pushButton_return_clicked();
 private slots:
 	void on_pushButton_logout_clicked();
+private slots:
+	void on_radioButton_computer_clicked();
+private slots:
+	void on_radioButton_second_clicked();
+private slots:
+	void on_radioButton_third_clicked();
+private slots:
+	void on_radioButton_forth_clicked();
 
 };

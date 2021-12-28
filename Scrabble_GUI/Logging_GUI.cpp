@@ -58,7 +58,7 @@ void Logging_GUI::on_pushButton_register_clicked()
 				DBconfigFile >> DBConfig[i++];
 			}
 		}
-
+		
 		UserManager* U = new UserManager(DBConfig[0], DBConfig[1], DBConfig[2], DBConfig[3]);
 		User* user = U->createUser(login.toStdString(), reg_password.toStdString());
 

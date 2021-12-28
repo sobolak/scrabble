@@ -19,6 +19,7 @@ Create_Game_GUI::Create_Game_GUI(User* user, QWidget* parent)
 	this->user = user;
 	ui.setupUi(this);
 	ui.label_name->setText(QString::fromStdString(this->user->getLogin()));
+	ui.radioButton_computer->clicked();
 }
 
 Create_Game_GUI::~Create_Game_GUI()
@@ -43,10 +44,66 @@ void Create_Game_GUI::on_pushButton_return_clicked()
 
 void Create_Game_GUI::on_pushButton_start_clicked()
 {
-	this->hide();
-	Game_GUI_2 game(this->user);
-	game.setModal(true);
-	game.exec();
+	if (ui.radioButton_computer->isChecked())
+	{
+		Game_GUI game;
+		this->hide();
+		game.setModal(true);
+		game.exec();
+	}
+	else if (ui.radioButton_second->isChecked())
+	{
+		Game_GUI_2 game(this->user);
+		this->hide();
+		game.setModal(true);
+		game.exec();
+	}
+	else if (ui.radioButton_second->isChecked())
+	{
+		Game_GUI_3 game(this->user);
+		this->hide();
+		game.setModal(true);
+		game.exec();
+	}
+	else if (ui.radioButton_second->isChecked())
+	{
+		Game_GUI_4 game(this->user);
+		this->hide();
+		game.setModal(true);
+		game.exec();
+	}
+}
+
+void Create_Game_GUI::on_radioButton_computer_clicked()
+{
+	ui.comboBox_computer_difficulty->show();
+	ui.comboBox_second_name->hide();
+	ui.comboBox_third_name->hide();
+	ui.comboBox_forth_name->hide();
+}
+
+void Create_Game_GUI::on_radioButton_second_clicked()
+{
+	ui.comboBox_second_name->show();
+	ui.comboBox_third_name->hide();
+	ui.comboBox_forth_name->hide();
+	ui.comboBox_computer_difficulty->hide();
 
 }
 
+void Create_Game_GUI::on_radioButton_third_clicked()
+{
+	ui.comboBox_second_name->show();
+	ui.comboBox_third_name->show();
+	ui.comboBox_forth_name->hide();
+	ui.comboBox_computer_difficulty->hide();
+}
+
+void Create_Game_GUI::on_radioButton_forth_clicked()
+{
+	ui.comboBox_second_name->show();
+	ui.comboBox_third_name->show();
+	ui.comboBox_forth_name->show();
+	ui.comboBox_computer_difficulty->hide();
+
+}
