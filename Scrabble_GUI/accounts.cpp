@@ -83,28 +83,12 @@ void Match::setMid(int mid) {
     this->mid = mid;
 }
 
-void Match::setFirstUser(User* firstUser) {
-    this->firstUser = firstUser;
-}
-
-void Match::setSecondUser(User* secondUser) {
-    this->secondUser = secondUser;
-}
-
 void Match::setSeq(int seq) {
     this->seq = seq;
 }
 
 int Match::getMid() const {
     return mid;
-}
-
-User* Match::getFirstUser() const {
-    return firstUser;
-}
-
-User* Match::getSecondUser() const {
-    return secondUser;
 }
 
 int Match::getSeq() const {
@@ -379,6 +363,7 @@ User* UserManager::logIn(const string login, const string password) {
     return NULL;
 }
 
+// TO BE CORRECTED (no fid, no sid)
 int UserManager::getPlayedMatches(User* user) {
     stringstream query;
     query << "SELECT COUNT(*) FROM matches WHERE "
@@ -537,6 +522,7 @@ float UserManager::getMeanWordScore(User* user) {
    return stof(fetchSingleValue(query.str()));
 }
 
+// TO BE CORRECTED (no fid, no sid)
 vector<Match*>* UserManager::getAllMatchesList(User* user) {
     MYSQL_RES* res;
     MYSQL_ROW mysql_row;
@@ -566,18 +552,16 @@ vector<Match*>* UserManager::getAllMatchesList(User* user) {
 
 // ----- MatchManager -----
 
-Match* MatchManager::createMatch(User* firstUser, User* secondUser) {
+Match* MatchManager::createMatch() {
     MYSQL_RES* res;
     stringstream query;
-    query << "INSERT INTO matches(fid, sid) VALUES ("
-        << firstUser->getUid() << ", "
-        << secondUser->getUid() << ")";
+    query << "INSERT INTO matches() VALUES ()";
 
     if(mysql_query(DBconnection, query.str().c_str())) {
         message("Failed to create match! ");
         return NULL;
     }
-    Match* match = new Match(firstUser, secondUser);
+    Match* match = new Match();
     match->setMid(mysql_insert_id(DBconnection));
     return match;
 }
@@ -594,32 +578,21 @@ void MatchManager::printAllMatches() {
     res = mysql_use_result(DBconnection);
 
     cout << setw(10) << setfill('-') << left << '+'
-        << setw(10) << left << '+'
-        << setw(10) << left << '+'
         << '+' << endl;
 
     cout << setfill(' ') << '|' << left << setw(9)
         << "mid"
-        << '|' << setw(9) << "fid"
-        << '|' << setw(9) << "sid"
         << '|' << endl;
 
     cout << setw(10) << setfill('-') << left << '+'
-        << setw(10) << left << '+'
-        << setw(10) << left << '+'
         << '+' << endl;
-
 
     if(res) {
         while(mysql_row = mysql_fetch_row(res)) {
             cout << setfill(' ') << '|' << left << setw(9) << mysql_row[0]
-                << '|' << setw(9) << mysql_row[1]
-                << '|' << setw(9) << mysql_row[2]
                 << '|' << endl;
         }
         cout << setw(10) << setfill('-') << left << '+'
-            << setw(10) << left << '+'
-            << setw(10) << left << '+'
             << '+' << endl;
     }
     mysql_free_result(res);

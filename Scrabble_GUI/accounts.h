@@ -33,26 +33,20 @@ private:
 
 class Match {
 public:
-    Match(User*, User*, const int = 0);
+    Match(const int = 0);
     ~Match();
     int incrementSeq();
 
     // ----- SETTERS -----
     void setMid(int);
-    void setFirstUser(User*);
-    void setSecondUser(User*);
     void setSeq(int);
 
     // ----- GETTERS -----
     int getMid() const;
-    User* getFirstUser() const;
-    User* getSecondUser() const;
     int getSeq() const;
 
 private:
     int mid;
-    User* firstUser;
-    User* secondUser;
 
     int seq = 0;
 };
@@ -136,7 +130,7 @@ class MatchManager: public Manager {
 public:
     MatchManager(const string s1, const string s2, const string s3, const string s4): Manager(s1, s2, s3, s4) {};
 
-    Match* createMatch(User*, User*);
+    Match* createMatch();
     void printAllMatches();
     void deleteMatch(Match*);
 
