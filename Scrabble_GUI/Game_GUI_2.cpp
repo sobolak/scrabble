@@ -309,7 +309,7 @@ void Game_GUI_2::playerMove(player& playerPlay, char c) {
 					}
 					playerPlay.changeUsedCards(word, gameMap1.cybant);
 				}
-				gameMap1.playerPointsCount(playerPlay,user);
+				gameMap1.playerPointsCount(playerPlay,user,match);
 				ui.mufasaWord->setText(""); //zmiana tabelki
 				playerLetterRefresh('m');
 			}
@@ -401,7 +401,7 @@ void Game_GUI_2::playerMove(player& playerPlay, char c) {
 					}
 					playerPlay.changeUsedCards(word, gameMap1.cybant);
 				}
-				gameMap1.playerPointsCount(playerPlay,user);
+				gameMap1.playerPointsCount(playerPlay,user,match);
 				ui.estebanWord->setText(""); //zmiana tabelki
 				playerLetterRefresh('e');
 			}

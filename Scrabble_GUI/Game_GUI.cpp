@@ -21,27 +21,26 @@ Game_GUI::Game_GUI(User* user, QWidget* parent)
 	: QDialog(parent)
 {
 	this->user = user;
+	string DBConfig[4];
+
+	std::ifstream DBconfigFile("db_config.txt");
+
+	if (DBconfigFile.is_open()) {
+		int i = 0;
+		while (DBconfigFile.good() && i < 4) {
+			DBconfigFile >> DBConfig[i++];
+		}
+	}
+	MatchManager* M = new MatchManager(DBConfig[0], DBConfig[1], DBConfig[2], DBConfig[3]);
+	this->match = M->createMatch();
 	gameMap gameMap1;
-	if (gameMap1.getNumberOfPlayers() >= 1) {
-		mufasa.randomCards(gameMap1.cybant);
-		mufasa.setNick("mufasa");
-	}
-	/*if (gameMap1.getNumberOfPlayers() >= 2) {
-		esteban.randomCards(gameMap1.cybant);
-		esteban.setNick("esteban");
-	}
-	if (gameMap1.getNumberOfPlayers() >= 3) {
-		zeromski.randomCards(gameMap1.cybant);
-		zeromski.setNick("zeromski");
-	}
-	if (gameMap1.getNumberOfPlayers() == 4) {
-		rokoko.randomCards(gameMap1.cybant);
-		rokoko.setNick("rokoko");
-	}*/
+	mufasa.randomCards(gameMap1.cybant);
+	mufasa.setNick("mufasa");
 	ui.setupUi(this);
 	// mufasa to zawsze domyslny player 1 czy z kompem czy nie i zawsze robi 1 ruch i zawsze jeg literki
 	changeCurrentPlayer(mufasa);
 	playerLetterRefresh(mufasa);
+
 }
 
 Game_GUI::~Game_GUI()
@@ -171,7 +170,7 @@ void Game_GUI::playerMove(player& playerPlay) {
 				playerPlay.changeUsedCards(word, gameMap1.cybant);
 				gameMap1.setFirstMove(false);
 			}
-			gameMap1.playerPointsCount(playerPlay,user);
+			gameMap1.playerPointsCount(playerPlay,user,match);
 			ui.lineEdit_word->setText(""); //zmiana tabelki
 			playerLetterRefresh(playerPlay);
 		}

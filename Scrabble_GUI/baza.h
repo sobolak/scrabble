@@ -1120,11 +1120,12 @@ public:
             }
         }
     }
-    void playerPointsCount(player& playerGame, User* user) {
+    void playerPointsCount(player& playerGame, User* user, Match* match) {
         int points = 0;
         int wordBonus = 1;
         int numberOfWord = 0;
         int row;
+        bool isVer;
         int column;
         string word = "";
         do {
@@ -1132,6 +1133,7 @@ public:
                 row = startEndPointers[4 * numberOfWord];
                 points = 0;
                 wordBonus = 1;
+                isVer = false;
                 word = "";
                 for (int column = startEndPointers[4 * numberOfWord + 1]; column <= startEndPointers[4 * numberOfWord + 3]; column++) {
                     points += board[row][column].getLetterBonus() * getPointsOfLetter(board[row][column].getLetter());
@@ -1145,6 +1147,7 @@ public:
                 column = startEndPointers[4 * numberOfWord + 1];
                 points = 0;
                 wordBonus = 1;
+                isVer = true;
                 word = "";
                 for (int row = startEndPointers[4 * numberOfWord]; row <= startEndPointers[4 * numberOfWord + 2]; row++) {
                     points += board[row][column].getLetterBonus() * getPointsOfLetter(board[row][column].getLetter());
@@ -1155,6 +1158,18 @@ public:
                 }
             }
             playerGame.setPlayerPoints(playerGame.getPlayerPoints() + points * wordBonus);
+            string DBConfig[4];
+
+            std::ifstream DBconfigFile("db_config.txt");
+            if (DBconfigFile.is_open()) {     
+                int i = 0;
+                while (DBconfigFile.good() && i < 4) {
+                    DBconfigFile >> DBConfig[i++];
+                }    
+            }
+            MoveManager* MV = new MoveManager(DBConfig[0], DBConfig[1], DBConfig[2], DBConfig[3]);
+            //(Match* match, User* user, const int row, const int col, const bool isVert, const string word, const int score)
+            MV->createMove(match, user, startEndPointers[4 * numberOfWord], startEndPointers[4 * numberOfWord + 1], isVer, word, points * wordBonus);
 
             numberOfWord++;
         } while (startEndPointers[4 * numberOfWord] != -1);

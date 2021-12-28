@@ -46,7 +46,7 @@ void Create_Game_GUI::on_pushButton_start_clicked()
 {
 	if (ui.radioButton_computer->isChecked())
 	{
-		Game_GUI game;
+		Game_GUI game(this->user);
 		this->hide();
 		game.setModal(true);
 		game.exec();
@@ -58,14 +58,14 @@ void Create_Game_GUI::on_pushButton_start_clicked()
 		game.setModal(true);
 		game.exec();
 	}
-	else if (ui.radioButton_second->isChecked())
+	else if (ui.radioButton_third->isChecked())
 	{
 		Game_GUI_3 game(this->user);
 		this->hide();
 		game.setModal(true);
 		game.exec();
 	}
-	else if (ui.radioButton_second->isChecked())
+	else if (ui.radioButton_forth->isChecked())
 	{
 		Game_GUI_4 game(this->user);
 		this->hide();

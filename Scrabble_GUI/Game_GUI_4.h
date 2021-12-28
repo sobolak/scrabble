@@ -16,6 +16,7 @@ public:
 	Game_GUI_4(User* user, QWidget* parent = Q_NULLPTR);
 	~Game_GUI_4();
 	User* user;
+	Match* match;
 	gameMap gameMap1;
 	player mufasa;
 	player esteban;

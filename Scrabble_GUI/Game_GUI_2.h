@@ -19,6 +19,7 @@ public:
 	Game_GUI_2(User* user, QWidget* parent = Q_NULLPTR);
 	~Game_GUI_2();
 	User* user;
+	Match* match;
 	QTimer timer;
 	gameMap gameMap1;
 	player mufasa;
