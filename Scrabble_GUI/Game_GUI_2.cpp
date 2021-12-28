@@ -25,10 +25,11 @@ Game_GUI_2::Game_GUI_2(QWidget *parent)
 	ui.mufasaHorizontal->setCheckable(true);
 	ui.mufasaVertical->setCheckable(true);
 	ui.mufasaHorizontal->setChecked(true);
-	QTime time = QTime::fromString("8.30", "m.s");
+
+	/*QTime time = QTime::fromString("8.30", "m.s");
 	ui.mufasaTimer->setTime(time);
 	connect(&timer, SIGNAL(timeout()), this, SLOT(mufasaTimer()));
-	timer.start(1000);
+	timer.start(1000);*/
 }
 
 Game_GUI_2::Game_GUI_2(User* user,QWidget* parent)
@@ -59,6 +60,9 @@ Game_GUI_2::Game_GUI_2(User* user,QWidget* parent)
 	ui.mufasaTimer->setTime(time);
 	connect(&timer, SIGNAL(timeout()), this, SLOT(mufasaTimer()));
 	timer.start(1000);
+
+	ui.mufasaLabel->setStyleSheet("QLabel { background-color : darkRed; color : cyan; }");
+	ui.estebanLabel->setStyleSheet("QLabel { background-color : darkBlue; color : white; }");
 }
 
 Game_GUI_2::~Game_GUI_2()
@@ -77,6 +81,8 @@ void Game_GUI_2::on_mufasaAdd_clicked()
 		playerMove(mufasa, 'm');
 		mufasa.setCurrentlyPlay(false);
 		esteban.setCurrentlyPlay(true);
+		ui.mufasaLabel->setStyleSheet("QLabel { background-color :darkBlue; color : white; }");
+		ui.estebanLabel->setStyleSheet("QLabel { background-color :darkRed; color : cyan;}");
 		refreshGameMap();
 		playerLetterRefresh('e');
 		privacyBoard('m');
@@ -96,6 +102,8 @@ void Game_GUI_2::on_estebanAdd_clicked()
 		playerMove(esteban, 'e');
 		mufasa.setCurrentlyPlay(true);
 		esteban.setCurrentlyPlay(false);
+		ui.mufasaLabel->setStyleSheet("QLabel { background-color : darkRed; color : cyan; }");
+		ui.estebanLabel->setStyleSheet("QLabel { background-color : darkBlue; color : white; }");
 		refreshGameMap();
 		playerLetterRefresh('m');
 		privacyBoard('e');
@@ -114,6 +122,8 @@ void Game_GUI_2::on_mufasaChange_clicked() {
 		gatherLetterToChange_1(mufasa, 'm');
 		mufasa.setCurrentlyPlay(false);
 		esteban.setCurrentlyPlay(true);
+		ui.mufasaLabel->setStyleSheet("QLabel { background-color :  darkBlue; color : white; }");
+		ui.estebanLabel->setStyleSheet("QLabel { background-color : darkRed; color : cyan;}");
 		playerLetterRefresh('e');
 		privacyBoard('m');
 		ui.mufasaHorizontal->setChecked(false);
@@ -131,6 +141,8 @@ void Game_GUI_2::on_estebanChange_clicked() {
 		gatherLetterToChange_1(esteban, 'e');
 		mufasa.setCurrentlyPlay(true);
 		esteban.setCurrentlyPlay(false);
+		ui.mufasaLabel->setStyleSheet("QLabel { background-color : darkRed; color : cyan; }");
+		ui.estebanLabel->setStyleSheet("QLabel { background-color : darkBlue; color : white; }");
 		playerLetterRefresh('m');
 		privacyBoard('e');
 		ui.estebanHorizontal->setChecked(false);
@@ -147,6 +159,8 @@ void Game_GUI_2::on_mufasaPass_clicked() {
 	if (mufasa.getCurrentlyPlay() == true) {
 		mufasa.setCurrentlyPlay(false);
 		esteban.setCurrentlyPlay(true);
+		ui.mufasaLabel->setStyleSheet("QLabel { background-color :  darkBlue; color : white;  }");
+		ui.estebanLabel->setStyleSheet("QLabel { background-color : darkRed; color : cyan; }");
 		refreshGameMap();
 		playerLetterRefresh('e');
 		privacyBoard('m');
@@ -164,6 +178,8 @@ void Game_GUI_2::on_estebanPass_clicked() {
 	if (esteban.getCurrentlyPlay() == true) {
 		mufasa.setCurrentlyPlay(true);
 		esteban.setCurrentlyPlay(false);
+		ui.mufasaLabel->setStyleSheet("QLabel { background-color : darkRed; color : cyan; }");
+		ui.estebanLabel->setStyleSheet("QLabel { background-color : darkBlue; color : white; }");
 		refreshGameMap();
 		playerLetterRefresh('m');
 		privacyBoard('e');

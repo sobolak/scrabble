@@ -44,7 +44,7 @@ void Create_Game_GUI::on_pushButton_return_clicked()
 void Create_Game_GUI::on_pushButton_start_clicked()
 {
 	this->hide();
-	Game_GUI_4 game(this->user);
+	Game_GUI_2 game(this->user);
 	game.setModal(true);
 	game.exec();
 
