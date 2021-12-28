@@ -171,7 +171,7 @@ void Game_GUI::playerMove(player& playerPlay) {
 				playerPlay.changeUsedCards(word, gameMap1.cybant);
 				gameMap1.setFirstMove(false);
 			}
-			gameMap1.playerPointsCount(playerPlay);
+			gameMap1.playerPointsCount(playerPlay,user);
 			ui.lineEdit_word->setText(""); //zmiana tabelki
 			playerLetterRefresh(playerPlay);
 		}

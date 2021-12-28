@@ -1,4 +1,5 @@
-#pragma once
+#ifndef BAZA_H
+#define BAZA_H
 #include <iostream>
 #include <string>
 #include <time.h>
@@ -7,6 +8,7 @@
 #include <conio.h>
 #include <string.h>
 #include <fstream>
+#include "accounts.h"
 constexpr auto sizeOfTheBoard = 15;
 constexpr auto cardQuantity = 10;
 using namespace std;
@@ -1118,36 +1120,42 @@ public:
             }
         }
     }
-    void playerPointsCount(player& playerGame) {
+    void playerPointsCount(player& playerGame, User* user) {
         int points = 0;
         int wordBonus = 1;
         int numberOfWord = 0;
         int row;
         int column;
+        string word = "";
         do {
-            if (startEndPointers[4 * numberOfWord] == startEndPointers[4 * numberOfWord + 2]) {
+            if (startEndPointers[4 * numberOfWord] == startEndPointers[4 * numberOfWord + 2]) { //wiersz
                 row = startEndPointers[4 * numberOfWord];
                 points = 0;
                 wordBonus = 1;
+                word = "";
                 for (int column = startEndPointers[4 * numberOfWord + 1]; column <= startEndPointers[4 * numberOfWord + 3]; column++) {
                     points += board[row][column].getLetterBonus() * getPointsOfLetter(board[row][column].getLetter());
                     wordBonus *= board[row][column].getWordBonus();
                     board[row][column].setLetterBonnus(1);
                     board[row][column].setWordBonus(1);
+                    word.push_back(board[row][column].getLetter());
                 }
             }
-            else {
+            else { //kolumna
                 column = startEndPointers[4 * numberOfWord + 1];
                 points = 0;
                 wordBonus = 1;
+                word = "";
                 for (int row = startEndPointers[4 * numberOfWord]; row <= startEndPointers[4 * numberOfWord + 2]; row++) {
                     points += board[row][column].getLetterBonus() * getPointsOfLetter(board[row][column].getLetter());
                     wordBonus *= board[row][column].getWordBonus();
                     board[row][column].setLetterBonnus(1);
                     board[row][column].setWordBonus(1);
+                    word.push_back(board[row][column].getLetter());
                 }
             }
             playerGame.setPlayerPoints(playerGame.getPlayerPoints() + points * wordBonus);
+
             numberOfWord++;
         } while (startEndPointers[4 * numberOfWord] != -1);
         flushStartEndWord();
@@ -1191,3 +1199,4 @@ public:
         return numberOfPlayers;
     }
 };
+#endif 
