@@ -541,7 +541,7 @@ void Game_GUI_4::playerMove(player& playerPlay, char c) {
 					}
 					playerPlay.changeUsedCards(word, gameMap1.cybant);
 				}
-				gameMap1.playerPointsCount(playerPlay);
+				gameMap1.playerPointsCount(playerPlay,user);
 				ui.mufasaWord->setText(""); //zmiana tabelki
 				playerLetterRefresh('m');
 			}
@@ -633,7 +633,7 @@ void Game_GUI_4::playerMove(player& playerPlay, char c) {
 					}
 					playerPlay.changeUsedCards(word, gameMap1.cybant);
 				}
-				gameMap1.playerPointsCount(playerPlay);
+				gameMap1.playerPointsCount(playerPlay,user);
 				ui.estebanWord->setText(""); //zmiana tabelki
 				playerLetterRefresh('e');
 			}
@@ -725,7 +725,7 @@ void Game_GUI_4::playerMove(player& playerPlay, char c) {
 				}
 				playerPlay.changeUsedCards(word, gameMap1.cybant);
 			}
-			gameMap1.playerPointsCount(playerPlay);
+			gameMap1.playerPointsCount(playerPlay,user);
 			ui.zeromskiWord->setText(""); //zmiana tabelki
 			playerLetterRefresh('e');
 		}
@@ -817,7 +817,7 @@ void Game_GUI_4::playerMove(player& playerPlay, char c) {
 				}
 				playerPlay.changeUsedCards(word, gameMap1.cybant);
 			}
-			gameMap1.playerPointsCount(playerPlay);
+			gameMap1.playerPointsCount(playerPlay,user);
 			ui.rokokoWord->setText(""); //zmiana tabelki
 			playerLetterRefresh('e');
 		}
