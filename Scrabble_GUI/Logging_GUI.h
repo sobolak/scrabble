@@ -15,4 +15,6 @@ private:
 	Ui::Logging_GUI ui;
 private slots:
 	void on_pushButton_login_clicked();
+private slots:
+	void on_pushButton_register_clicked();
 };
