@@ -3824,6 +3824,28 @@
     </rect>
    </property>
   </widget>
+  <widget class="QTimeEdit" name="mufasaTimer">
+   <property name="geometry">
+    <rect>
+     <x>800</x>
+     <y>340</y>
+     <width>118</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="date">
+    <date>
+     <year>2000</year>
+     <month>1</month>
+     <day>5</day>
+    </date>
+   </property>
+   <property name="displayFormat">
+    <string>mm:ss</string>
+   </property>
+  </widget>
+  <zorder>pushButton_change</zorder>
+  <zorder>label_points2</zorder>
   <zorder>estebanBoard</zorder>
   <zorder>mufasaBoard</zorder>
   <zorder>checkBox_8</zorder>
@@ -3875,6 +3897,7 @@
   <zorder>label_user_2</zorder>
   <zorder>estebanPoint</zorder>
   <zorder>mufasaPoint</zorder>
+  <zorder>mufasaTimer</zorder>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>

@@ -1,4 +1,6 @@
 #include "Game_GUI_2.h"
+#include <QDateTime>
+
 
 Game_GUI_2::Game_GUI_2(QWidget *parent)
 	: QDialog(parent)
@@ -22,10 +24,21 @@ Game_GUI_2::Game_GUI_2(QWidget *parent)
 	ui.mufasaHorizontal->setCheckable(true);
 	ui.mufasaVertical->setCheckable(true);
 	ui.mufasaHorizontal->setChecked(true);
+	QTime time = QTime::fromString("8.30", "m.s");
+	ui.mufasaTimer->setTime(time);
+	QTimer timer;
+	timer.start(1000);
+	connect(&timer, SIGNAL(timeout()), this, SLOT(mufasaTimer()));
+
 }
 
 Game_GUI_2::~Game_GUI_2()
 {
+}
+
+void Game_GUI_2::mufasaTimer() {
+	QTime time = ui.mufasaTimer->time().addSecs(-1);
+	ui.mufasaTimer->setTime(time);
 }
 
 void Game_GUI_2::on_mufasaAdd_clicked()

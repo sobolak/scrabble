@@ -1,10 +1,13 @@
 #pragma once
 
 #include <QDialog>
+#include <QTimeEdit>
+#include <QTimer>
 #include "ui_Game_GUI_2.h"
 #include "baza.h"
 #include <random>
 #include <string>
+#include "time.h"
 
 class Game_GUI_2 : public QDialog
 {
@@ -23,7 +26,9 @@ private:
 	void playerMove(player& player, char c);
 	void playerLetterRefresh(char c);
 	void gatherLetterToChange_1(player& playerGane , char c);
-	void privacyBoard(char c);
+	void privacyBoard(char c); 
+	void mufasaTimer();
+	void delay();
 private slots:
 	void on_mufasaAdd_clicked();
 private slots:
