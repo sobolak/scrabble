@@ -64,9 +64,7 @@ string User::getPassword() const {
 
 // ----- Match -----
 
-Match::Match(User* firstUser, User* secondUser, const int mid) {
-    setFirstUser(firstUser);
-    setSecondUser(secondUser);
+Match::Match(const int mid) {
     setMid(mid);
 }
 
@@ -541,8 +539,7 @@ vector<Match*>* UserManager::getAllMatchesList(User* user) {
     vector<Match*>* matchesList = new vector<Match*>;
     res = mysql_use_result(DBconnection);
     while(mysql_row = mysql_fetch_row(res)) {
-        User* secondUser = new User(mysql_row[3], atoi(mysql_row[2]));
-        Match* match = new Match(user, secondUser, atoi(mysql_row[0]));
+        Match* match = new Match(atoi(mysql_row[0]));
         matchesList->push_back(match);
     }
 
