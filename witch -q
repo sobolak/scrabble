@@ -1,0 +1,452 @@
+[33mcommit 122069ff97406b4bd4398fe70512a8ac3586e1d1[m[33m ([m[1;36mHEAD[m[33m)[m
+Merge: 4ba013e 5d4e802
+Author: baluszynski <pawelbaluszynski@wp.pl>
+Date:   Sun Dec 26 12:59:08 2021 +0100
+
+    Merge branch 'master' of https://github.com/sobolak/scrabble
+
+[33mcommit 4ba013eb72bea6a73ba607de5cfe3a2a75f25c87[m
+Author: Flight3R <michaal747@gmail.com>
+Date:   Fri Dec 24 16:44:41 2021 +0100
+
+    corrected words count and letter score
+
+[33mcommit 5d4e802989f4118a5b71f5440be7f7e9dacee6c0[m
+Author: Flight3R <michaal747@gmail.com>
+Date:   Fri Dec 24 16:44:41 2021 +0100
+
+    corrected words count and letter score
+
+[33mcommit d0662a3de49e6a98249880952dce91927d798101[m
+Author: baluszynski <pawelbaluszynski@wp.pl>
+Date:   Fri Dec 24 16:42:51 2021 +0100
+
+    added accounts
+
+[33mcommit 5a1e5a80812cc00fb71eb87ef96e25c02ab3e600[m
+Author: baluszynski <pawelbaluszynski@wp.pl>
+Date:   Fri Dec 24 16:35:00 2021 +0100
+
+    database works :)
+
+[33mcommit 7486f5da57a15e76aec9cc719aa6c876a9c30f89[m
+Author: unknown <sobolak>
+Date:   Wed Dec 22 21:01:27 2021 +0100
+
+    feedback
+
+[33mcommit 56db96232f6ab7d600df9d1c3c5ee37127747231[m
+Author: unknown <sobolak>
+Date:   Tue Dec 21 18:11:48 2021 +0100
+
+    ss
+
+[33mcommit 2ede35569a3eb965b3550b32af07b9e6d15228bf[m
+Author: unknown <sobolak>
+Date:   Sun Dec 12 00:53:55 2021 +0100
+
+    computer count points perfectly finally
+
+[33mcommit 89a10b26be93ff601f1866ffcde0f4c7b8e67199[m
+Merge: 3ccbb58 88d1654
+Author: unknown <sobolak>
+Date:   Sun Dec 12 00:53:00 2021 +0100
+
+    computer count points perfectly finally
+
+[33mcommit 3ccbb58f7eab5ee2a2dc06ea80d0769b334bb3c8[m
+Author: unknown <sobolak>
+Date:   Sun Dec 12 00:45:31 2021 +0100
+
+    computer count points perfectly finally
+
+[33mcommit 88d16549f18017b5a83467315669dcc21e6fc75a[m
+Merge: 358aebc 8616e55
+Author: unknown <sobolak>
+Date:   Sun Dec 12 00:31:29 2021 +0100
+
+    computer count points perfectly
+
+[33mcommit 358aebc88c03fd6bd42806e48ffe8ada9addb091[m
+Author: unknown <sobolak>
+Date:   Sun Dec 12 00:24:22 2021 +0100
+
+    computer count points perfectly
+
+[33mcommit 8616e5595050a0d6eda153a4ba02804f6a457536[m
+Merge: fccf4b0 46c8199
+Author: sobolak <56030605+sobolak@users.noreply.github.com>
+Date:   Sun Dec 12 00:12:21 2021 +0100
+
+    Merge branch 'main' into differentLetterChange
+
+[33mcommit fccf4b0621219a5484e523e5baf398aa178b5903[m
+Author: unknown <sobolak>
+Date:   Sun Dec 12 00:08:55 2021 +0100
+
+    computer count points perfectly
+
+[33mcommit 46c819958d9f6158c2cf3297b6c633f1a3503cd2[m
+Merge: f7e6d34 398e3ef
+Author: unknown <sobolak>
+Date:   Sat Dec 11 15:42:50 2021 +0100
+
+    merging
+
+[33mcommit f7e6d34d2be799409ba6c94a00f214e5a71c34dd[m
+Merge: 916eb9b 6a5b92e
+Author: unknown <sobolak>
+Date:   Sat Dec 11 15:41:07 2021 +0100
+
+    merging
+
+[33mcommit 398e3ef842db3b671e1c4c965b7683a29280697d[m
+Merge: d88d5e8 6a5b92e
+Author: sobolak <56030605+sobolak@users.noreply.github.com>
+Date:   Sat Dec 11 15:36:03 2021 +0100
+
+    Merge pull request #2 from sobolak/differentLetterChange
+    
+    count points without bonuses - end for now cause it's tine to tricks
+
+[33mcommit 6a5b92e39fbc4b9b785e18be0d162e213e2ed103[m
+Author: unknown <sobolak>
+Date:   Sat Dec 11 15:34:54 2021 +0100
+
+    count points without bonuses - end for now cause it's tine to tricks
+
+[33mcommit d88d5e80eb8cb42f97143306cb10c7dd261ae9d2[m
+Merge: 916eb9b b4c22bd
+Author: sobolak <56030605+sobolak@users.noreply.github.com>
+Date:   Sat Dec 11 01:25:14 2021 +0100
+
+    Merge pull request #1 from sobolak/differentLetterChange
+    
+    checkbox start
+
+[33mcommit 916eb9b7a286d8d6aa0791589394718d17972cc7[m
+Author: unknown <sobolak>
+Date:   Sat Dec 11 01:20:30 2021 +0100
+
+    checkbox start
+
+[33mcommit b4c22bd0b2e8d22f38939ae53e9991fa9d2e4151[m
+Author: unknown <sobolak>
+Date:   Sat Dec 11 01:19:03 2021 +0100
+
+    checkbox start
+
+[33mcommit e48f9248dc94c705bb472a972dacc8150e73cf49[m
+Author: unknown <sobolak>
+Date:   Fri Dec 10 23:53:43 2021 +0100
+
+    problem solved with my favourite c++ dev
+
+[33mcommit 67ae6969af9c5dc5b9f8d15b01f2afd7be49be02[m
+Author: unknown <sobolak>
+Date:   Fri Dec 10 21:10:23 2021 +0100
+
+    initial
+
+[33mcommit 96372fa2021d267fb17f18410a19910aaec31807[m
+Author: unknown <sobolak>
+Date:   Fri Dec 10 20:51:58 2021 +0100
+
+    hermetization of player and gameMap
+
+[33mcommit dd48cc8dece14155b0c91b7952d3a86918ec97bb[m
+Author: unknown <sobolak>
+Date:   Fri Dec 10 19:21:23 2021 +0100
+
+    updating .gitignore - because I want to do my job
+
+[33mcommit 3fef8939fcc636e16dfd52d69ae4a5d90137bcf4[m
+Author: unknown <sobolak>
+Date:   Fri Dec 10 13:23:00 2021 +0100
+
+    regards from data base
+
+[33mcommit 37bff6ed13b116f7667702d9ec259a33277c9218[m
+Author: unknown <sobolak>
+Date:   Fri Dec 10 01:29:18 2021 +0100
+
+    sql problem
+
+[33mcommit 4b4749bdd89521700c148b515a9fbd671807cf20[m
+Author: unknown <sobolak>
+Date:   Fri Dec 10 00:45:49 2021 +0100
+
+    trick
+
+[33mcommit ff0f6181aeaabd53bd9430f022727f6484a7e815[m
+Author: baluszynski <56030600+baluszynski@users.noreply.github.com>
+Date:   Thu Dec 9 22:59:59 2021 +0100
+
+    Delete Scrabble_GUI.vcxproj.user
+
+[33mcommit 215f101cad89d97b1e261cd7987d64b55fb83744[m
+Author: baluszynski <56030600+baluszynski@users.noreply.github.com>
+Date:   Thu Dec 9 22:59:49 2021 +0100
+
+    Delete Scrabble_GUI.vcxproj.filters
+
+[33mcommit 1cb700070b6e441cf6e13d8c6d7dd3418b7f233c[m
+Author: baluszynski <56030600+baluszynski@users.noreply.github.com>
+Date:   Thu Dec 9 22:59:37 2021 +0100
+
+    Delete Scrabble_GUI.vcxproj
+
+[33mcommit 0c213877a659cb65521e62e3f1fa73e92a99f17d[m
+Author: baluszynski <56030600+baluszynski@users.noreply.github.com>
+Date:   Thu Dec 9 22:57:16 2021 +0100
+
+    Update .gitignore
+
+[33mcommit 6c7b50eea6a9b127aea1d3f3ac6013d48df7a712[m
+Author: baluszynski <pawelbaluszynski@wp.pl>
+Date:   Thu Dec 9 22:53:18 2021 +0100
+
+    change password window
+
+[33mcommit 6fd509624d74d95832f1fffe8d7befbd5dbb2da0[m
+Author: Flight3R <michaal747@gmail.com>
+Date:   Thu Dec 9 18:35:02 2021 +0100
+
+    git cleanup
+
+[33mcommit 7cd6c87b222ccc9040aa2c1503082cc779fb6d51[m
+Author: Michał Błaszczyna <56034802+Flight3R@users.noreply.github.com>
+Date:   Thu Dec 9 18:29:55 2021 +0100
+
+    Delete qqq.txt
+
+[33mcommit eb029db869635bfabd7a5360470e852f096b1104[m
+Author: Michał Błaszczyna <56034802+Flight3R@users.noreply.github.com>
+Date:   Thu Dec 9 18:29:42 2021 +0100
+
+    Delete db_config.txt
+
+[33mcommit 49f9fb57b6a3d045d10f0633a702f21f28474a15[m
+Author: Michał Błaszczyna <56034802+Flight3R@users.noreply.github.com>
+Date:   Thu Dec 9 18:29:30 2021 +0100
+
+    Delete a.out
+
+[33mcommit 7977763bf3d963b64f89f658665f3769a5e53f05[m
+Author: Michał Błaszczyna <56034802+Flight3R@users.noreply.github.com>
+Date:   Thu Dec 9 18:29:16 2021 +0100
+
+    Delete Scrabble_GUI/x64 directory
+
+[33mcommit 584fd0df793cf7809cb084115e5636d4f2fae395[m
+Author: Michał Błaszczyna <56034802+Flight3R@users.noreply.github.com>
+Date:   Thu Dec 9 18:28:53 2021 +0100
+
+    Delete Scrabble_GUI/.vscode directory
+
+[33mcommit 62771550cb6fac7cdb9de6ef6c6798140b6866a6[m
+Author: Flight3R <michaal747@gmail.com>
+Date:   Thu Dec 9 18:27:54 2021 +0100
+
+    ignore update
+
+[33mcommit 0570002b9a2f479ce8a4a9da15059e7676957d01[m
+Merge: 41a0032 f85c8b9
+Author: Flight3R <michaal747@gmail.com>
+Date:   Thu Dec 9 18:25:57 2021 +0100
+
+    Merge branch 'main' of github.com:sobolak/scrabble
+
+[33mcommit 41a0032525825c27077bea5e057105af8f528d49[m
+Author: Flight3R <michaal747@gmail.com>
+Date:   Thu Dec 9 18:25:45 2021 +0100
+
+    user stats with sql queries
+
+[33mcommit f85c8b9048b1b9a9a6f81ca5998f879fd1372f69[m
+Author: unknown <sobolak>
+Date:   Thu Dec 9 16:00:20 2021 +0100
+
+    start of 1vs1 game - something strange with function playerLetterRefresh
+
+[33mcommit eb5b9bf12fb5b16be0f8a52313a331a2a9cab024[m
+Author: unknown <sobolak>
+Date:   Thu Dec 9 14:42:05 2021 +0100
+
+    endless changing of cards when map is empty
+
+[33mcommit e8669d77217425058f59f58ed98666b3333358c6[m
+Author: unknown <sobolak>
+Date:   Thu Dec 9 13:27:33 2021 +0100
+
+    1vsAI almost perfect
+
+[33mcommit e52c20528ecfb0f26cb054b03ffd4a1657adabd4[m
+Author: unknown <sobolak>
+Date:   Thu Dec 9 12:43:21 2021 +0100
+
+    more than one player - first try
+
+[33mcommit 3ffc6a0fd56e88d1e08d3f7a6172771f077e6525[m
+Author: unknown <sobolak>
+Date:   Thu Dec 9 12:17:32 2021 +0100
+
+    fancy void function to refresh map
+
+[33mcommit 0a88528e0b7613476e3cf6fd68850f41e2939d31[m
+Author: unknown <sobolak>
+Date:   Thu Dec 9 12:13:35 2021 +0100
+
+    bonus fieldon board and pass function
+
+[33mcommit 249c353f76d7f38d1ce801fa5b2aa4de4e7987c5[m
+Author: baluszynski <pawelbaluszynski@wp.pl>
+Date:   Thu Dec 9 01:03:07 2021 +0100
+
+    a few tricks my viewers ;)
+
+[33mcommit 46d1940467c38f1c890f5bfb675ade8d0c2b8cb7[m
+Author: unknown <sobolak>
+Date:   Wed Dec 8 21:41:39 2021 +0100
+
+    player outside the gameMap
+
+[33mcommit 56434294524afd613ae71c2250e15fc4cf3c5c16[m
+Author: unknown <sobolak>
+Date:   Wed Dec 8 20:19:54 2021 +0100
+
+    computer engine correcction
+
+[33mcommit d8d6475624f74b3be21acf822f558650def2e9e3[m
+Author: unknown <sobolak>
+Date:   Wed Dec 8 19:05:19 2021 +0100
+
+    correc
+
+[33mcommit fff258a69e5af36def02e075e9b3ca5aedfa064a[m
+Merge: afe841e 776fd77
+Author: baluszynski <pawelbaluszynski@wp.pl>
+Date:   Wed Dec 8 18:51:36 2021 +0100
+
+    cMerge branch 'main' of https://github.com/sobolak/scrabble
+
+[33mcommit afe841e05011978f17c4239eec7bae605ba966b7[m
+Author: baluszynski <pawelbaluszynski@wp.pl>
+Date:   Wed Dec 8 18:47:41 2021 +0100
+
+    delete syf
+
+[33mcommit 776fd774023bae657ccd4b32433fde00dd7bc974[m
+Author: baluszynski <56030600+baluszynski@users.noreply.github.com>
+Date:   Wed Dec 8 18:38:53 2021 +0100
+
+    Delete wordsToCheck.txt
+
+[33mcommit 9c7894e002ba1044532194767c13da4baee8c117[m
+Author: baluszynski <56030600+baluszynski@users.noreply.github.com>
+Date:   Wed Dec 8 18:38:14 2021 +0100
+
+    Delete x64 directory
+
+[33mcommit ce118a9356513a20d972231608a4a2fba9287e3c[m
+Author: baluszynski <56030600+baluszynski@users.noreply.github.com>
+Date:   Wed Dec 8 18:35:08 2021 +0100
+
+    Create .gitignore
+
+[33mcommit a598444a48b9cb26cfba95abffdd4383b8e3b9e9[m
+Author: baluszynski <pawelbaluszynski@wp.pl>
+Date:   Wed Dec 8 17:46:56 2021 +0100
+
+    Added stats window
+
+[33mcommit 2c6ef5cbef6094df0c82c235841ad8eb774e0c02[m
+Author: unknown <sobolak>
+Date:   Wed Dec 8 18:16:22 2021 +0100
+
+    problem with first move solved
+
+[33mcommit b1734eb34a24186020214eac97d898d23f0d8dad[m
+Author: unknown <sobolak>
+Date:   Wed Dec 8 17:49:35 2021 +0100
+
+    computer changes
+
+[33mcommit f9ff03fa1a715985215898316b2c6f305b10055f[m
+Author: unknown <sobolak>
+Date:   Wed Dec 8 17:48:31 2021 +0100
+
+    computer correction
+
+[33mcommit 91bc2bc7999f65cf3e1383f519e3a962296167e4[m
+Author: unknown <sobolak>
+Date:   Wed Dec 8 17:16:51 2021 +0100
+
+    playing with computer
+
+[33mcommit 36987c2614c0003666a06953959ca45c36ee9aef[m
+Merge: 89297e5 a30e6dd
+Author: Flight3R <michaal747@gmail.com>
+Date:   Wed Dec 8 13:23:32 2021 +0100
+
+    Merge branch 'main' of github.com:sobolak/scrabble
+
+[33mcommit 89297e50fd7600a6223bf7f88f69bdca92615f03[m
+Author: Flight3R <michaal747@gmail.com>
+Date:   Wed Dec 8 13:23:20 2021 +0100
+
+    database files added
+
+[33mcommit a30e6dddc8a83c463ed6c68505528f741c9d2919[m
+Author: unknown <sobolak>
+Date:   Wed Dec 8 00:33:07 2021 +0100
+
+    cos tam
+
+[33mcommit e6248ddacc791c3a43759d2a6fc227be0b6f6502[m
+Author: baluszynski <pawelbaluszynski@wp.pl>
+Date:   Tue Dec 7 20:42:46 2021 +0100
+
+    fixed wrong QTableWidget swap
+
+[33mcommit 39fd26f4b5bd7e3db5127f3b4da7fabefd40bb9c[m
+Author: baluszynski <pawelbaluszynski@wp.pl>
+Date:   Tue Dec 7 20:28:37 2021 +0100
+
+    add txt files and edit gui
+
+[33mcommit f78717e508602d867f48a6d3595b22815d602928[m
+Author: sobolak <56030605+sobolak@users.noreply.github.com>
+Date:   Tue Dec 7 19:40:23 2021 +0100
+
+    gui
+
+[33mcommit 4a7fa4487e168cb77ffdc405748fea02aef8ff58[m
+Author: sobolak <56030605+sobolak@users.noreply.github.com>
+Date:   Tue Dec 7 19:38:58 2021 +0100
+
+    gui
+
+[33mcommit 1229e1b65bb334b27a272dac3fa91f0997ec1c82[m
+Author: sobolak <56030605+sobolak@users.noreply.github.com>
+Date:   Tue Dec 7 19:37:23 2021 +0100
+
+    gui
+
+[33mcommit 3854605e959c6af6c0ac1e3720f76b358bfea454[m
+Author: sobolak <56030605+sobolak@users.noreply.github.com>
+Date:   Tue Dec 7 19:36:35 2021 +0100
+
+    x64
+
+[33mcommit 43cb06b00b114645b91dfe394bc5f77f09023d8d[m
+Author: sobolak <56030605+sobolak@users.noreply.github.com>
+Date:   Tue Dec 7 19:36:06 2021 +0100
+
+    solution file
+
+[33mcommit c5bbdd6aa39bb2f8e939933ed1f13bf5f1b31b21[m
+Author: sobolak <56030605+sobolak@users.noreply.github.com>
+Date:   Tue Dec 7 19:29:24 2021 +0100
+
+    Initial commit
