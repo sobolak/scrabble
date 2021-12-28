@@ -60,6 +60,11 @@ Game_GUI_3::Game_GUI_3(User* user, QWidget* parent)
 	ui.mufasaHorizontal->setCheckable(true);
 	ui.mufasaVertical->setCheckable(true);
 	ui.mufasaHorizontal->setChecked(true);
+
+	ui.mufasaLabel->setStyleSheet("QLabel { background-color : darkRed; color : cyan; }");
+	ui.estebanLabel->setStyleSheet("QLabel { background-color : darkBlue; color : white; }");
+	ui.zeromskiLabel->setStyleSheet("QLabel { background-color : darkBlue; color : white; }");
+
 }
 
 
@@ -73,6 +78,10 @@ void Game_GUI_3::on_mufasaAdd_clicked()
 		playerMove(mufasa, 'm');
 		mufasa.setCurrentlyPlay(false);
 		esteban.setCurrentlyPlay(true);
+
+		ui.mufasaLabel->setStyleSheet("QLabel { background-color : darkBlue; color : white; }");
+		ui.estebanLabel->setStyleSheet("QLabel { background-color :  darkRed; color : cyan; }");
+		ui.zeromskiLabel->setStyleSheet("QLabel { background-color : darkBlue; color : white; }");
 		refreshGameMap();
 		playerLetterRefresh('e');
 		playerLetterRefresh('z');
@@ -97,6 +106,9 @@ void Game_GUI_3::on_estebanAdd_clicked()
 		playerMove(esteban, 'e');
 		zeromski.setCurrentlyPlay(true);
 		esteban.setCurrentlyPlay(false);
+		ui.mufasaLabel->setStyleSheet("QLabel { background-color :  darkBlue; color : white; }");
+		ui.estebanLabel->setStyleSheet("QLabel { background-color : darkBlue; color : white; }");
+		ui.zeromskiLabel->setStyleSheet("QLabel { background-color : darkRed; color : cyan; }");
 		refreshGameMap();
 		playerLetterRefresh('m');
 		playerLetterRefresh('z');
@@ -120,6 +132,9 @@ void Game_GUI_3::on_zeromskiAdd_clicked() {
 		playerMove(zeromski, 'z');
 		mufasa.setCurrentlyPlay(true);
 		zeromski.setCurrentlyPlay(false);
+		ui.mufasaLabel->setStyleSheet("QLabel { background-color : darkRed; color : cyan; }");
+		ui.estebanLabel->setStyleSheet("QLabel { background-color : darkBlue; color : white; }");
+		ui.zeromskiLabel->setStyleSheet("QLabel { background-color : darkBlue; color : white; }");
 		refreshGameMap();
 		playerLetterRefresh('m');
 		playerLetterRefresh('z');
@@ -143,6 +158,9 @@ void Game_GUI_3::on_mufasaChange_clicked() {
 		gatherLetterToChange_1(mufasa, 'm');
 		mufasa.setCurrentlyPlay(false);
 		esteban.setCurrentlyPlay(true);
+		ui.mufasaLabel->setStyleSheet("QLabel { background-color : darkBlue; color : white; }");
+		ui.estebanLabel->setStyleSheet("QLabel { background-color : darkRed; color : cyan; }");
+		ui.zeromskiLabel->setStyleSheet("QLabel { background-color : darkBlue; color : white; }");
 		refreshGameMap();
 		playerLetterRefresh('e');
 		playerLetterRefresh('z');
@@ -166,6 +184,9 @@ void Game_GUI_3::on_estebanChange_clicked() {
 		gatherLetterToChange_1(esteban, 'e');
 		zeromski.setCurrentlyPlay(true);
 		esteban.setCurrentlyPlay(false);
+		ui.mufasaLabel->setStyleSheet("QLabel { background-color : darkBlue; color : white;  }");
+		ui.estebanLabel->setStyleSheet("QLabel { background-color : darkBlue; color : white; }");
+		ui.zeromskiLabel->setStyleSheet("QLabel { background-color : darkRed; color : cyan; }");
 		refreshGameMap();
 		playerLetterRefresh('m');
 		playerLetterRefresh('z');
@@ -189,6 +210,9 @@ void Game_GUI_3::on_zeromskiChange_clicked() {
 		gatherLetterToChange_1(zeromski, 'z');
 		mufasa.setCurrentlyPlay(true);
 		zeromski.setCurrentlyPlay(false);
+		ui.mufasaLabel->setStyleSheet("QLabel { background-color : darkRed; color : cyan; }");
+		ui.estebanLabel->setStyleSheet("QLabel { background-color : darkBlue; color : white; }");
+		ui.zeromskiLabel->setStyleSheet("QLabel { background-color : darkBlue; color : white; }");
 		refreshGameMap();
 		playerLetterRefresh('m');
 		playerLetterRefresh('z');
@@ -211,6 +235,9 @@ void Game_GUI_3::on_mufasaPass_clicked() {
 	if (mufasa.getCurrentlyPlay() == true) {
 		mufasa.setCurrentlyPlay(false);
 		esteban.setCurrentlyPlay(true);
+		ui.mufasaLabel->setStyleSheet("QLabel { background-color : darkBlue; color : white; }");
+		ui.estebanLabel->setStyleSheet("QLabel { background-color :  darkRed; color : cyan; }");
+		ui.zeromskiLabel->setStyleSheet("QLabel { background-color : darkBlue; color : white; }");
 		refreshGameMap();
 		playerLetterRefresh('e');
 		playerLetterRefresh('z');
@@ -233,6 +260,9 @@ void Game_GUI_3::on_estebanPass_clicked() {
 	if (esteban.getCurrentlyPlay() == true) {
 		zeromski.setCurrentlyPlay(true);
 		esteban.setCurrentlyPlay(false);
+		ui.mufasaLabel->setStyleSheet("QLabel { background-color :  darkBlue; color : white; }");
+		ui.estebanLabel->setStyleSheet("QLabel { background-color : darkBlue; color : white; }");
+		ui.zeromskiLabel->setStyleSheet("QLabel { background-color : darkRed; color : cyan; }");
 		refreshGameMap();
 		playerLetterRefresh('m');
 		playerLetterRefresh('z');
@@ -255,6 +285,9 @@ void Game_GUI_3::on_zeromskiPass_clicked() {
 	if (zeromski.getCurrentlyPlay() == true) {
 		mufasa.setCurrentlyPlay(true);
 		zeromski.setCurrentlyPlay(false);
+		ui.mufasaLabel->setStyleSheet("QLabel { background-color : darkRed; color : cyan; }");
+		ui.estebanLabel->setStyleSheet("QLabel { background-color : darkBlue; color : white; }");
+		ui.zeromskiLabel->setStyleSheet("QLabel { background-color : darkBlue; color : white; }");
 		refreshGameMap();
 		playerLetterRefresh('m');
 		playerLetterRefresh('z');

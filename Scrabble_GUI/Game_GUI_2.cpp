@@ -414,15 +414,6 @@ void Game_GUI_2::playerMove(player& playerPlay, char c) {
 }
 
 void Game_GUI_2::refreshGameMap() {
-/*	if (esteban.getCurrentlyPlay() == true) {
-		mufasa.setPossibilityToChangeCards(true);
-		esteban.setPossibilityToChangeCards(false);
-	}
-	else {
-		mufasa.setPossibilityToChangeCards(false);
-		esteban.setPossibilityToChangeCards(true);
-	}
-	*/
 	auto model = ui.tableWidget_game->model();
 	for (int i = 0; i < 15; i++) { // refresh tablicy
 		for (int j = 0; j < 15; j++) {

@@ -20,7 +20,9 @@ Game_GUI::Game_GUI(QWidget* parent)
 Game_GUI::Game_GUI(User* user, QWidget* parent)
 	: QDialog(parent)
 {
+	ui.setupUi(this);
 	this->user = user;
+	ui.label_user->setText(QString::fromStdString(this->user->getLogin()));
 	string DBConfig[4];
 
 	std::ifstream DBconfigFile("db_config.txt");
@@ -36,10 +38,10 @@ Game_GUI::Game_GUI(User* user, QWidget* parent)
 	gameMap gameMap1;
 	mufasa.randomCards(gameMap1.cybant);
 	mufasa.setNick("mufasa");
-	ui.setupUi(this);
 	// mufasa to zawsze domyslny player 1 czy z kompem czy nie i zawsze robi 1 ruch i zawsze jeg literki
 	changeCurrentPlayer(mufasa);
 	playerLetterRefresh(mufasa);
+	ui.label_user->setStyleSheet("QLabel { background-color : darkRed; color : cyan; }");
 
 }
 

@@ -3181,14 +3181,17 @@
   <widget class="QLabel" name="mufasaLabel">
    <property name="geometry">
     <rect>
-     <x>160</x>
+     <x>90</x>
      <y>10</y>
-     <width>111</width>
+     <width>201</width>
      <height>16</height>
     </rect>
    </property>
    <property name="text">
     <string/>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
   <widget class="QCheckBox" name="checkBox_11">
@@ -3739,19 +3742,6 @@
     <string/>
    </property>
   </widget>
-  <widget class="QLabel" name="label_user_2">
-   <property name="geometry">
-    <rect>
-     <x>160</x>
-     <y>350</y>
-     <width>111</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>TextLabel</string>
-   </property>
-  </widget>
   <widget class="QTextEdit" name="estebanPoint">
    <property name="geometry">
     <rect>
@@ -4236,19 +4226,6 @@
     <string/>
    </property>
   </widget>
-  <widget class="QLabel" name="label_user_3">
-   <property name="geometry">
-    <rect>
-     <x>1340</x>
-     <y>210</y>
-     <width>111</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>TextLabel</string>
-   </property>
-  </widget>
   <widget class="QCheckBox" name="checkBox_27">
    <property name="geometry">
     <rect>
@@ -4343,6 +4320,38 @@
     <string>Add word</string>
    </property>
   </widget>
+  <widget class="QLabel" name="estebanLabel">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>350</y>
+     <width>201</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="zeromskiLabel">
+   <property name="geometry">
+    <rect>
+     <x>1280</x>
+     <y>210</y>
+     <width>201</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
   <zorder>estebanBoard</zorder>
   <zorder>mufasaBoard</zorder>
   <zorder>checkBox_8</zorder>
@@ -4389,7 +4398,6 @@
   <zorder>checkBox_18</zorder>
   <zorder>checkBox_19</zorder>
   <zorder>checkBox_20</zorder>
-  <zorder>label_user_2</zorder>
   <zorder>estebanPoint</zorder>
   <zorder>mufasaPoint</zorder>
   <zorder>zeromskiBoard</zorder>
@@ -4408,7 +4416,6 @@
   <zorder>label_column_3</zorder>
   <zorder>zeromskiVertical</zorder>
   <zorder>checkBox_24</zorder>
-  <zorder>label_user_3</zorder>
   <zorder>checkBox_27</zorder>
   <zorder>zeromskiPoint</zorder>
   <zorder>checkBox_22</zorder>
@@ -4416,6 +4423,8 @@
   <zorder>zeromskiChange</zorder>
   <zorder>zeromskiPass</zorder>
   <zorder>zeromskiAdd</zorder>
+  <zorder>estebanLabel</zorder>
+  <zorder>zeromskiLabel</zorder>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>

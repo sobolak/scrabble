@@ -18,9 +18,6 @@ public:
 	~Game_GUI();
 	gameMap gameMap1;
 	player mufasa;
-	//player esteban;
-	//player zeromski;
-	//player rokoko;
 
 private:
 	Ui::Game_GUI ui;

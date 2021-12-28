@@ -3181,14 +3181,17 @@
   <widget class="QLabel" name="mufasaLabel">
    <property name="geometry">
     <rect>
-     <x>160</x>
+     <x>110</x>
      <y>10</y>
-     <width>111</width>
+     <width>181</width>
      <height>16</height>
     </rect>
    </property>
    <property name="text">
     <string/>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
   <widget class="QCheckBox" name="checkBox_11">
@@ -3739,19 +3742,6 @@
     <string/>
    </property>
   </widget>
-  <widget class="QLabel" name="label_user_2">
-   <property name="geometry">
-    <rect>
-     <x>160</x>
-     <y>350</y>
-     <width>111</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>TextLabel</string>
-   </property>
-  </widget>
   <widget class="QTextEdit" name="estebanPoint">
    <property name="geometry">
     <rect>
@@ -4236,19 +4226,6 @@
     <string/>
    </property>
   </widget>
-  <widget class="QLabel" name="label_user_3">
-   <property name="geometry">
-    <rect>
-     <x>1340</x>
-     <y>10</y>
-     <width>111</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>TextLabel</string>
-   </property>
-  </widget>
   <widget class="QCheckBox" name="checkBox_27">
    <property name="geometry">
     <rect>
@@ -4647,19 +4624,6 @@
     </property>
    </item>
   </widget>
-  <widget class="QLabel" name="label_user_4">
-   <property name="geometry">
-    <rect>
-     <x>1342</x>
-     <y>340</y>
-     <width>111</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>TextLabel</string>
-   </property>
-  </widget>
   <widget class="QComboBox" name="rokokoRow">
    <property name="geometry">
     <rect>
@@ -4914,6 +4878,54 @@
     <string/>
    </property>
   </widget>
+  <widget class="QLabel" name="estebanLabel">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>350</y>
+     <width>181</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="zeromskiLabel">
+   <property name="geometry">
+    <rect>
+     <x>1300</x>
+     <y>10</y>
+     <width>181</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="rokokoLabel">
+   <property name="geometry">
+    <rect>
+     <x>1300</x>
+     <y>340</y>
+     <width>181</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
   <zorder>estebanBoard</zorder>
   <zorder>mufasaBoard</zorder>
   <zorder>checkBox_8</zorder>
@@ -4960,7 +4972,6 @@
   <zorder>checkBox_18</zorder>
   <zorder>checkBox_19</zorder>
   <zorder>checkBox_20</zorder>
-  <zorder>label_user_2</zorder>
   <zorder>estebanPoint</zorder>
   <zorder>mufasaPoint</zorder>
   <zorder>zeromskiBoard</zorder>
@@ -4979,7 +4990,6 @@
   <zorder>label_column_3</zorder>
   <zorder>zeromskiVertical</zorder>
   <zorder>checkBox_24</zorder>
-  <zorder>label_user_3</zorder>
   <zorder>checkBox_27</zorder>
   <zorder>zeromskiPoint</zorder>
   <zorder>checkBox_22</zorder>
@@ -4996,7 +5006,6 @@
   <zorder>rokokoVertical</zorder>
   <zorder>rokokoPass</zorder>
   <zorder>rokokoColumn</zorder>
-  <zorder>label_user_4</zorder>
   <zorder>rokokoRow</zorder>
   <zorder>checkBox_33</zorder>
   <zorder>rokokoPoint</zorder>
@@ -5011,6 +5020,9 @@
   <zorder>rokokoChange</zorder>
   <zorder>label_row_4</zorder>
   <zorder>checkBox_32</zorder>
+  <zorder>estebanLabel</zorder>
+  <zorder>zeromskiLabel</zorder>
+  <zorder>rokokoLabel</zorder>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
