@@ -3178,7 +3178,7 @@
     </property>
    </item>
   </widget>
-  <widget class="QLabel" name="label_user">
+  <widget class="QLabel" name="mufasaLabel">
    <property name="geometry">
     <rect>
      <x>160</x>
@@ -3188,7 +3188,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>TextLabel</string>
+    <string/>
    </property>
   </widget>
   <widget class="QCheckBox" name="checkBox_11">
@@ -4938,7 +4938,7 @@
   <zorder>checkBox_10</zorder>
   <zorder>mufasaColumn</zorder>
   <zorder>mufasaRow</zorder>
-  <zorder>label_user</zorder>
+  <zorder>mufasaLabel</zorder>
   <zorder>checkBox_11</zorder>
   <zorder>label_word_2</zorder>
   <zorder>estebanRow</zorder>

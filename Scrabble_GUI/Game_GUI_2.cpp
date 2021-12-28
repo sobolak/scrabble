@@ -1,17 +1,18 @@
 #include "Game_GUI_2.h"
-#include <QDateTime>
 
 
 Game_GUI_2::Game_GUI_2(QWidget *parent)
 	: QDialog(parent)
 {	
+	ui.setupUi(this);
+	//this->user = user;
+	//ui.mufasaLabel->setText(QString::fromStdString(this->user->getLogin()));
 	gameMap gameMap1;
 	mufasa.setNick("mufasa");
 	esteban.setNick("esteban");
 	srand(time(NULL));
 	mufasa.randomCards(gameMap1.cybant);
 	esteban.randomCards(gameMap1.cybant);
-	ui.setupUi(this);
 	mufasa.setCurrentlyPlay(true);
 	playerLetterRefresh('m');
 	playerLetterRefresh('e');
@@ -26,15 +27,44 @@ Game_GUI_2::Game_GUI_2(QWidget *parent)
 	ui.mufasaHorizontal->setChecked(true);
 	QTime time = QTime::fromString("8.30", "m.s");
 	ui.mufasaTimer->setTime(time);
-	QTimer timer;
-	timer.start(1000);
 	connect(&timer, SIGNAL(timeout()), this, SLOT(mufasaTimer()));
+	timer.start(1000);
+}
 
+Game_GUI_2::Game_GUI_2(User* user,QWidget* parent)
+	: QDialog(parent)
+{
+	ui.setupUi(this);
+	this->user = user;
+	ui.mufasaLabel->setText(QString::fromStdString(this->user->getLogin()));
+	gameMap gameMap1;
+	mufasa.setNick("mufasa");
+	esteban.setNick("esteban");
+	srand(time(NULL));
+	mufasa.randomCards(gameMap1.cybant);
+	esteban.randomCards(gameMap1.cybant);
+	mufasa.setCurrentlyPlay(true);
+	playerLetterRefresh('m');
+	playerLetterRefresh('e');
+	refreshGameMap();
+	privacyBoard('e');
+	ui.estebanHorizontal->setChecked(false);
+	ui.estebanVertical->setChecked(false);
+	ui.estebanHorizontal->setCheckable(false);
+	ui.estebanVertical->setCheckable(false);
+	ui.mufasaHorizontal->setCheckable(true);
+	ui.mufasaVertical->setCheckable(true);
+	ui.mufasaHorizontal->setChecked(true);
+	QTime time = QTime::fromString("8.30", "m.s");
+	ui.mufasaTimer->setTime(time);
+	connect(&timer, SIGNAL(timeout()), this, SLOT(mufasaTimer()));
+	timer.start(1000);
 }
 
 Game_GUI_2::~Game_GUI_2()
 {
 }
+
 
 void Game_GUI_2::mufasaTimer() {
 	QTime time = ui.mufasaTimer->time().addSecs(-1);
@@ -384,7 +414,6 @@ void Game_GUI_2::refreshGameMap() {
 				model->setData(model->index(i, j), QString(gameMap1.board[i][j].getLetter()));
 		}
 	}
-
 
 	QString x = QString::number(mufasa.getPlayerPoints());
 	auto bufforM = ui.mufasaPoint;

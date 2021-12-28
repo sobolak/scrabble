@@ -30,6 +30,39 @@ Game_GUI_3::Game_GUI_3(QWidget *parent)
 	ui.mufasaHorizontal->setChecked(true);
 }
 
+Game_GUI_3::Game_GUI_3(User* user, QWidget* parent)
+	: QDialog(parent)
+{
+	ui.setupUi(this);
+	this->user = user;
+	ui.mufasaLabel->setText(QString::fromStdString(this->user->getLogin()));
+	gameMap gameMap1;
+	mufasa.setNick("mufasa");
+	esteban.setNick("esteban");
+	zeromski.setNick("zeromski");
+	srand(time(NULL));
+	mufasa.randomCards(gameMap1.cybant);
+	esteban.randomCards(gameMap1.cybant);
+	zeromski.randomCards(gameMap1.cybant);
+	mufasa.setCurrentlyPlay(true);
+	playerLetterRefresh('m');
+	playerLetterRefresh('e');
+	playerLetterRefresh('z');
+	refreshGameMap();
+	privacyBoard('e');
+	privacyBoard('z');
+	ui.estebanHorizontal->setChecked(false);
+	ui.estebanVertical->setChecked(false);
+	ui.estebanHorizontal->setCheckable(false);
+	ui.estebanVertical->setCheckable(false);
+	ui.zeromskiHorizontal->setCheckable(false);
+	ui.zeromskiVertical->setCheckable(false);
+	ui.mufasaHorizontal->setCheckable(true);
+	ui.mufasaVertical->setCheckable(true);
+	ui.mufasaHorizontal->setChecked(true);
+}
+
+
 Game_GUI_3::~Game_GUI_3()
 {
 }

@@ -2,9 +2,10 @@
 
 #include <QDialog>
 #include "ui_Game_GUI_3.h"
-#include "baza.h"
 #include <random>
 #include <string>
+#include "accounts.h"
+#include "baza.h"
 
 class Game_GUI_3 : public QDialog
 {
@@ -12,7 +13,9 @@ class Game_GUI_3 : public QDialog
 
 public:
 	Game_GUI_3(QWidget *parent = Q_NULLPTR);
+	Game_GUI_3(User* user, QWidget* parent = Q_NULLPTR);
 	~Game_GUI_3();
+	User* user;
 	gameMap gameMap1;
 	player mufasa;
 	player esteban;

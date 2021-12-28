@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1241</width>
+    <width>1204</width>
     <height>781</height>
    </rect>
   </property>
@@ -381,7 +381,7 @@
   <widget class="QTableWidget" name="tableWidget_game">
    <property name="geometry">
     <rect>
-     <x>0</x>
+     <x>10</x>
      <y>0</y>
      <width>781</width>
      <height>781</height>
@@ -3230,17 +3230,17 @@
     <string>pkt2</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_user">
+  <widget class="QLabel" name="mufasaLabel">
    <property name="geometry">
     <rect>
-     <x>950</x>
+     <x>940</x>
      <y>10</y>
      <width>111</width>
      <height>16</height>
     </rect>
    </property>
    <property name="text">
-    <string>TextLabel</string>
+    <string/>
    </property>
   </widget>
   <widget class="QCheckBox" name="checkBox_11">
@@ -3872,7 +3872,7 @@
   <zorder>checkBox_10</zorder>
   <zorder>mufasaColumn</zorder>
   <zorder>mufasaRow</zorder>
-  <zorder>label_user</zorder>
+  <zorder>mufasaLabel</zorder>
   <zorder>checkBox_11</zorder>
   <zorder>label_word_2</zorder>
   <zorder>estebanRow</zorder>
