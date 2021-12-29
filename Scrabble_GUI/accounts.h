@@ -121,7 +121,7 @@ public:
     int getWonMatchesMax(User*);
     int getWordsCount(User*);
     float getMeanLetterCount(User*);
-    float getMeanWorScore(User*);
+    float getMeanWordScore(User*);
 
     vector<string>* getRemainingLogins(User*);
     vector<Match*>* getAllMatchesList(User*);
@@ -146,4 +146,9 @@ public:
     void printAllMoves();
     void deleteMove(Move*);
 };
+
+extern UserManager* globalUserManager;
+extern MatchManager* globalMatchManager;
+extern MoveManager* globalMoveManager;
+
 #endif 

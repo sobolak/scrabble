@@ -525,7 +525,7 @@ vector<string>* UserManager::getRemainingLogins(User* user) {
     MYSQL_ROW mysql_row;
     stringstream query;
 
-    query << "SELECT login FROM logins "
+    query << "SELECT login FROM users "
         << "WHERE user <> '" << user->getLogin() << "'";
 
     if(mysql_query(DBconnection, query.str().c_str())) {

@@ -3,20 +3,12 @@
 #include <fstream>
 #include "mysql.h"
 
+UserManager* globalUserManager;
+
 Logging_GUI::Logging_GUI(QWidget *parent)
 	: QDialog(parent)
 {
 	ui.setupUi(this);
-}
-
-Logging_GUI::~Logging_GUI()
-{
-}
-
-void Logging_GUI::on_pushButton_login_clicked()
-{
-	QString login = ui.lineEdit_login->text();
-	QString password = ui.lineEdit_password->text();
 	string DBConfig[4];
 
 	std::ifstream DBconfigFile("db_config.txt");
@@ -27,9 +19,19 @@ void Logging_GUI::on_pushButton_login_clicked()
 			DBconfigFile >> DBConfig[i++];
 		}
 	}
+	globalUserManager = new UserManager(DBConfig[0], DBConfig[1], DBConfig[2], DBConfig[3]);
+}
 
-	UserManager* U = new UserManager(DBConfig[0], DBConfig[1], DBConfig[2], DBConfig[3]);
-	User* user = U->logIn(login.toStdString(), password.toStdString());
+Logging_GUI::~Logging_GUI()
+{
+}
+
+void Logging_GUI::on_pushButton_login_clicked()
+{
+	QString login = ui.lineEdit_login->text();
+	QString password = ui.lineEdit_password->text();
+	
+	User* user = globalUserManager->logIn(login.toStdString(), password.toStdString());
 
 	if (user != NULL)
 	{
@@ -50,17 +52,7 @@ void Logging_GUI::on_pushButton_register_clicked()
 	std::string reg_passwordS = reg_password.toStdString();
 	if (std::strcmp(confirm_passwordS.c_str(), reg_passwordS.c_str()) == 0)
 	{
-		std::ifstream DBconfigFile("db_config.txt");
-
-		if (DBconfigFile.is_open()) {
-			int i = 0;
-			while (DBconfigFile.good() && i < 4) {
-				DBconfigFile >> DBConfig[i++];
-			}
-		}
-		
-		UserManager* U = new UserManager(DBConfig[0], DBConfig[1], DBConfig[2], DBConfig[3]);
-		User* user = U->createUser(login.toStdString(), reg_password.toStdString());
+		User* user = globalUserManager->createUser(login.toStdString(), reg_password.toStdString());
 
 		if (user != NULL)
 		{
