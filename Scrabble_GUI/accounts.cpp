@@ -520,6 +520,29 @@ float UserManager::getMeanWordScore(User* user) {
    return stof(fetchSingleValue(query.str()));
 }
 
+vector<string>* UserManager::getRemainingLogins(User* user) {
+    MYSQL_RES* res;
+    MYSQL_ROW mysql_row;
+    stringstream query;
+
+    query << "SELECT login FROM logins "
+        << "WHERE user <> '" << user->getLogin() << "'";
+
+    if(mysql_query(DBconnection, query.str().c_str())) {
+        message("Error fetching remaining logins list for uid=" + user->getLogin());
+        return NULL;
+    }
+
+    vector<string>* loginsList = new vector<string>;
+    res = mysql_use_result(DBconnection);
+    while(mysql_row = mysql_fetch_row(res)) {
+        loginsList->push_back(mysql_row[0]);
+    }
+
+    mysql_free_result(res);
+    return loginsList;
+}
+
 // TO BE CORRECTED (no fid, no sid)
 vector<Match*>* UserManager::getAllMatchesList(User* user) {
     MYSQL_RES* res;

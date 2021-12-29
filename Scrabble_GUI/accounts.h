@@ -121,8 +121,9 @@ public:
     int getWonMatchesMax(User*);
     int getWordsCount(User*);
     float getMeanLetterCount(User*);
-    float getMeanWordScore(User*);
+    float getMeanWorScore(User*);
 
+    vector<string>* getRemainingLogins(User*);
     vector<Match*>* getAllMatchesList(User*);
 };
 
