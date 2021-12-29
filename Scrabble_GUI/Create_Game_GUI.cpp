@@ -88,6 +88,7 @@ void Create_Game_GUI::on_radioButton_second_clicked()
 	ui.comboBox_third_name->hide();
 	ui.comboBox_forth_name->hide();
 	ui.comboBox_computer_difficulty->hide();
+	ui.comboBox_second_name->clear();
 	vector<string>* logins = globalUserManager->getRemainingLogins(this->user);
 	for (string login : *logins)
 	{
@@ -101,6 +102,15 @@ void Create_Game_GUI::on_radioButton_third_clicked()
 	ui.comboBox_third_name->show();
 	ui.comboBox_forth_name->hide();
 	ui.comboBox_computer_difficulty->hide();
+	ui.comboBox_second_name->clear();
+	ui.comboBox_third_name->clear();
+	vector<string>* logins = globalUserManager->getRemainingLogins(this->user);
+	for (string login : *logins)
+	{
+		ui.comboBox_second_name->addItem(QString::fromStdString(login));
+		ui.comboBox_third_name->addItem(QString::fromStdString(login));
+
+	}
 }
 
 void Create_Game_GUI::on_radioButton_forth_clicked()
@@ -109,5 +119,14 @@ void Create_Game_GUI::on_radioButton_forth_clicked()
 	ui.comboBox_third_name->show();
 	ui.comboBox_forth_name->show();
 	ui.comboBox_computer_difficulty->hide();
-
+	ui.comboBox_second_name->clear();
+	ui.comboBox_third_name->clear();
+	ui.comboBox_forth_name->clear();
+	vector<string>* logins = globalUserManager->getRemainingLogins(this->user);
+	for (string login : *logins)
+	{
+		ui.comboBox_second_name->addItem(QString::fromStdString(login));
+		ui.comboBox_third_name->addItem(QString::fromStdString(login));
+		ui.comboBox_forth_name->addItem(QString::fromStdString(login));
+	}
 }

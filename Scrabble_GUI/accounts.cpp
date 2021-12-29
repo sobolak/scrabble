@@ -526,7 +526,7 @@ vector<string>* UserManager::getRemainingLogins(User* user) {
     stringstream query;
 
     query << "SELECT login FROM users "
-        << "WHERE user <> '" << user->getLogin() << "'";
+        << "WHERE login <> '" << user->getLogin() << "'";
 
     if(mysql_query(DBconnection, query.str().c_str())) {
         message("Error fetching remaining logins list for uid=" + user->getLogin());
