@@ -88,9 +88,10 @@ void Create_Game_GUI::on_radioButton_second_clicked()
 	ui.comboBox_third_name->hide();
 	ui.comboBox_forth_name->hide();
 	ui.comboBox_computer_difficulty->hide();
-	for (vector<string>::iterator itr = *(globalUserManager->getRemainingLogins(this->user))->begin(); )
+	vector<string>* logins = globalUserManager->getRemainingLogins(this->user)
+	for (vector<string>::iterator itr = *logins->begin(); itr != *logins->end(); ++itr)
 	{
-		ui.comboBox_second_name->addItem(QString::fromStdString(login));
+		ui.comboBox_second_name->addItem(QString::fromStdString(*itr));
 	}
 }
 
