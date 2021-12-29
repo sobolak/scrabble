@@ -29,7 +29,7 @@
     <cursorShape>ArrowCursor</cursorShape>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(0, 85, 0);</string>
+    <string notr="true">background:url(:/new/prefix1/x.png)</string>
    </property>
    <attribute name="horizontalHeaderDefaultSectionSize">
     <number>50</number>
@@ -3248,7 +3248,9 @@
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="map.qrc"/>
+ </resources>
  <connections/>
  <buttongroups>
   <buttongroup name="buttonGroup_direction"/>

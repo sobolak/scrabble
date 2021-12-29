@@ -1,0 +1,5 @@
+<RCC>
+    <qresource lang="cpp" prefix="/new/prefix1">
+        <file>x.png</file>
+    </qresource>
+</RCC>
