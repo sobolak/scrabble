@@ -24,7 +24,7 @@ Game_GUI::Game_GUI(User* user, QWidget* parent)
 	this->user = user;
 	ui.label_user->setText(QString::fromStdString(this->user->getLogin()));
 	string DBConfig[4];
-
+	srand(time(NULL));
 	std::ifstream DBconfigFile("db_config.txt");
 
 	if (DBconfigFile.is_open()) {
@@ -171,10 +171,10 @@ void Game_GUI::playerMove(player& playerPlay) {
 				}
 				playerPlay.changeUsedCards(word, gameMap1.cybant);
 				gameMap1.setFirstMove(false);
+				gameMap1.playerPointsCount(playerPlay, user, match);
+				ui.lineEdit_word->setText(""); //zmiana tabelki
+				playerLetterRefresh(playerPlay);
 			}
-			gameMap1.playerPointsCount(playerPlay,user,match);
-			ui.lineEdit_word->setText(""); //zmiana tabelki
-			playerLetterRefresh(playerPlay);
 		}
 		if (!check_word) {
 			gameMap1.incorrextMoveOfPlayer();

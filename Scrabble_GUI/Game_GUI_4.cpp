@@ -594,10 +594,10 @@ void Game_GUI_4::playerMove(player& playerPlay, char c) {
 						++cnt;
 					}
 					playerPlay.changeUsedCards(word, gameMap1.cybant);
+					gameMap1.playerPointsCount(playerPlay, user, match);
+					ui.mufasaWord->setText(""); //zmiana tabelki
+					playerLetterRefresh('m');
 				}
-				gameMap1.playerPointsCount(playerPlay,user,match);
-				ui.mufasaWord->setText(""); //zmiana tabelki
-				playerLetterRefresh('m');
 			}
 			if (!check_word) {
 				gameMap1.incorrextMoveOfPlayer();
@@ -686,10 +686,10 @@ void Game_GUI_4::playerMove(player& playerPlay, char c) {
 						++cnt;
 					}
 					playerPlay.changeUsedCards(word, gameMap1.cybant);
+					gameMap1.playerPointsCount(playerPlay, user, match);
+					ui.estebanWord->setText(""); //zmiana tabelki
+					playerLetterRefresh('e');
 				}
-				gameMap1.playerPointsCount(playerPlay,user,match);
-				ui.estebanWord->setText(""); //zmiana tabelki
-				playerLetterRefresh('e');
 			}
 			if (!check_word) {
 				gameMap1.incorrextMoveOfPlayer();
@@ -778,10 +778,10 @@ void Game_GUI_4::playerMove(player& playerPlay, char c) {
 					++cnt;
 				}
 				playerPlay.changeUsedCards(word, gameMap1.cybant);
+				gameMap1.playerPointsCount(playerPlay, user, match);
+				ui.zeromskiWord->setText(""); //zmiana tabelki
+				playerLetterRefresh('z');
 			}
-			gameMap1.playerPointsCount(playerPlay,user,match);
-			ui.zeromskiWord->setText(""); //zmiana tabelki
-			playerLetterRefresh('e');
 		}
 		if (!check_word) {
 			gameMap1.incorrextMoveOfPlayer();
@@ -870,10 +870,10 @@ void Game_GUI_4::playerMove(player& playerPlay, char c) {
 					++cnt;
 				}
 				playerPlay.changeUsedCards(word, gameMap1.cybant);
+				gameMap1.playerPointsCount(playerPlay, user, match);
+				ui.rokokoWord->setText(""); //zmiana tabelki
+				playerLetterRefresh('r');
 			}
-			gameMap1.playerPointsCount(playerPlay,user,match);
-			ui.rokokoWord->setText(""); //zmiana tabelki
-			playerLetterRefresh('e');
 		}
 		if (!check_word) {
 			gameMap1.incorrextMoveOfPlayer();
