@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/new/map" lang="cybant">
+        <file>x.png</file>
+    </qresource>
+</RCC>
