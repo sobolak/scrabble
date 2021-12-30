@@ -2995,7 +2995,7 @@
     </property>
    </item>
   </widget>
-  <widget class="QPushButton" name="mufasaChange">
+  <widget class="QPushButton" name="sdadsa">
    <property name="geometry">
     <rect>
      <x>870</x>
@@ -3008,7 +3008,7 @@
     <string>pkt1</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_change">
+  <widget class="QPushButton" name="mufasaChange">
    <property name="geometry">
     <rect>
      <x>930</x>
@@ -3847,7 +3847,7 @@
     <string>mm:ss</string>
    </property>
   </widget>
-  <zorder>pushButton_change</zorder>
+  <zorder>mufasaChange</zorder>
   <zorder>label_points2</zorder>
   <zorder>estebanBoard</zorder>
   <zorder>mufasaBoard</zorder>
@@ -3870,7 +3870,7 @@
   <zorder>checkBox_1</zorder>
   <zorder>mufasaPass</zorder>
   <zorder>tableWidget_game</zorder>
-  <zorder>mufasaChange</zorder>
+  <zorder>sdadsa</zorder>
   <zorder>checkBox_5</zorder>
   <zorder>checkBox_10</zorder>
   <zorder>mufasaColumn</zorder>
