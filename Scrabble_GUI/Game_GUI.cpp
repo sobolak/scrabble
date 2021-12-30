@@ -1,6 +1,6 @@
 #include "Game_GUI.h"
+#include "Results_GUI.h"
 #include "baza.h"
-//#include "Create_Game_GUI.h" //poderjzeane
 
 Game_GUI::Game_GUI(QWidget* parent)
 	: QDialog(parent)
@@ -258,4 +258,12 @@ void Game_GUI::gatherLetterToChange_1(player& playerGane) {
 
 	gameMap1.computerAction();
 	refreshGameMap();
+}
+
+void Game_GUI::on_pushButton_end_clicked()
+{
+	Results_GUI results(this->user);
+	this->hide();
+	results.setModal(true);
+	results.exec();
 }

@@ -1,23 +1,73 @@
-<UI version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>Results_GUI</class>
- <widget class="QDialog" name="Results_GUI" >
-  <property name="objectName" >
-   <string notr="true">Results_GUI</string>
-  </property>
-  <property name="geometry" >
+ <widget class="QDialog" name="Results_GUI">
+  <property name="geometry">
    <rect>
-	<x>0</x>
-	<y>0</y>
-	<width>400</width>
-	<height>300</height>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Results_GUI</string>
   </property>
+  <widget class="QTableWidget" name="tableWidget">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>40</y>
+     <width>221</width>
+     <height>151</height>
+    </rect>
+   </property>
+   <row>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>4</string>
+    </property>
+   </row>
+   <column>
+    <property name="text">
+     <string>User</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Score</string>
+    </property>
+   </column>
+  </widget>
+  <widget class="QPushButton" name="pushButton_continue">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>220</y>
+     <width>161</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Continue</string>
+   </property>
+  </widget>
  </widget>
- <layoutDefault spacing="6" margin="11" />
- <pixmapfunction></pixmapfunction>
+ <layoutdefault spacing="6" margin="11"/>
  <resources/>
  <connections/>
-</UI>
+</ui>
