@@ -34,9 +34,21 @@ Game_GUI_3::Game_GUI_3(User* user, QWidget* parent)
 	: QDialog(parent)
 {
 	ui.setupUi(this);
+	string DBConfig[4];
+
+	std::ifstream DBconfigFile("db_config.txt");
+
+	if (DBconfigFile.is_open()) {
+		int i = 0;
+		while (DBconfigFile.good() && i < 4) {
+			DBconfigFile >> DBConfig[i++];
+		}
+	}
 	this->user = user;
 	ui.mufasaLabel->setText(QString::fromStdString(this->user->getLogin()));
 	gameMap gameMap1;
+	MatchManager* M = new MatchManager(DBConfig[0], DBConfig[1], DBConfig[2], DBConfig[3]);
+	this->match = M->createMatch();
 	mufasa.setNick("mufasa");
 	esteban.setNick("esteban");
 	zeromski.setNick("zeromski");
