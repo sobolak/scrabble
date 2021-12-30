@@ -104,6 +104,7 @@
     <ClCompile Include="Scrabble_GUI.cpp" />
     <ClCompile Include="sha256.cpp" />
     <ClCompile Include="Statistics_GUI.cpp" />
+    <QtRcc Include="map.qrc" />
     <QtRcc Include="Scrabble_GUI.qrc" />
     <QtUic Include="Create_Game_GUI.ui" />
     <QtUic Include="Game.ui" />
