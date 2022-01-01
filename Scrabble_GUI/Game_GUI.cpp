@@ -17,25 +17,18 @@ Game_GUI::Game_GUI(QWidget* parent)
 	playerLetterRefresh(mufasa);
 }
 
-Game_GUI::Game_GUI(User* user, QWidget* parent)
+Game_GUI::Game_GUI(User* user, User* userComputer, QWidget* parent)
 	: QDialog(parent)
 {
 	ui.setupUi(this);
 	this->user = user;
+	this->userComputer = userComputer;
 	ui.label_user->setText(QString::fromStdString(this->user->getLogin()));
 	string DBConfig[4];
 	srand(time(NULL));
-	std::ifstream DBconfigFile("db_config.txt");
-
-	if (DBconfigFile.is_open()) {
-		int i = 0;
-		while (DBconfigFile.good() && i < 4) {
-			DBconfigFile >> DBConfig[i++];
-		}
-	}
-	MatchManager* M = new MatchManager(DBConfig[0], DBConfig[1], DBConfig[2], DBConfig[3]);
-	this->match = M->createMatch();
-	gameMap gameMap1;
+	this->match = globalMatchManager->createMatch();
+	//gameMap gameMap1;
+	gameMap1.setDifficultyLevel(userComputer->getLogin()[0]);
 	mufasa.randomCards(gameMap1.cybant);
 	mufasa.setNick("mufasa");
 	// mufasa to zawsze domyslny player 1 czy z kompem czy nie i zawsze robi 1 ruch i zawsze jeg literki
@@ -52,7 +45,7 @@ Game_GUI::~Game_GUI()
 void Game_GUI::on_pushButton_add_clicked()
 {
 	playerMove(mufasa);
-	gameMap1.computerAction();
+	gameMap1.computerAction(match, userComputer);
 	refreshGameMap();
 }
 
@@ -77,7 +70,7 @@ void Game_GUI::on_pushButton_change_clicked() {
 }
 
 void Game_GUI::on_pushButton_pass_clicked() {
-	gameMap1.computerAction();
+	gameMap1.computerAction(match, userComputer);
 	refreshGameMap();
 }
 
@@ -256,7 +249,7 @@ void Game_GUI::gatherLetterToChange_1(player& playerGane) {
 	ui.checkBox_9->setCheckState(Qt::Unchecked);
 	ui.checkBox_10->setCheckState(Qt::Unchecked);
 
-	gameMap1.computerAction();
+	gameMap1.computerAction(match, userComputer);
 	refreshGameMap();
 }
 

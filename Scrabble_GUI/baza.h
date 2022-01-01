@@ -237,7 +237,7 @@ private:
     bool firstMove = true;
     int computerPoints = 0;
     int numberOfPlayers = 1; // 1 2 3 4 // przekazanie od poprzedniej planszy
-    int difficultyLevel = 3; //2 3; // wpierdalam do konstruktora potem
+    //int difficultyLevel = 3; //2 3; // wpierdalam do konstruktora potem
 public:
     gameMap() {
         cybant[0] = { 'A',1 };
@@ -393,27 +393,27 @@ public:
     card* cybant = new card[79];
     field board[sizeOfTheBoard][sizeOfTheBoard];
     int startEndPointers[60];
-
+    int difficultyLevel; //2 3; // wpierdalam do konstruktora potem
     // -----COMPUTER -----
 
-    bool computerAction() {
+    bool computerAction(Match* match, User* computerUser) {
     if (!getFirstMove()) {
         bool corectness = false;
         computerPossibilities buffor(0, 0);
         buffor = computerPlaceSelection(buffor);
-        corectness = computerWordSelection(buffor);
+        corectness = computerWordSelection(buffor,  match,  computerUser);
         return corectness;
     }
     }
     bool checkLettersAvability(string wordToCheck) {
         return true;
     }
-    bool computerWordSelection(computerPossibilities computerFieldCandidate) {
+    bool computerWordSelection(computerPossibilities computerFieldCandidate, Match* match, User* computerUser) {
         ifstream dictonary;
         bool corectness = false;
         dictonary.open("sortedDic.txt");
         srand(time(NULL));
-        int difficultyLevel = 3; //2 3; // wpierdalam do konstruktora potem
+        //int difficultyLevel = 3; //2 3; // wpierdalam do konstruktora potem
         int startWordIterator = 0;
         if (difficultyLevel == 1) {
             startWordIterator = rand() % 6000; //TUTAJ ZMIENIAMY TRUDNOŚĆ!!!
@@ -492,7 +492,7 @@ public:
 
 
         if (corectness == true) {
-            computerWriteWordToMap(computerFieldCandidate);
+            computerWriteWordToMap(computerFieldCandidate, match, computerUser);
         }
         return corectness;
     }
@@ -544,15 +544,20 @@ public:
         } while (choice == false && counter > 0);
         return x;
     }
-    void computerWriteWordToMap(computerPossibilities wordToWrite) {
+    void computerWriteWordToMap(computerPossibilities wordToWrite, Match* match, User* computerUser) {
         int startUpLeft, startDownRight;
         string word = wordToWrite.getWord();
         int pointsFromWord = 0;
         int localWordBonus = 1;
         int i;
+        bool isVer;
+        int x, y;
         if (wordToWrite.getUp() > 0 || wordToWrite.getDown() > 0) {
             startUpLeft = wordToWrite.getRow() - wordToWrite.getUp();
+            x = startUpLeft;
+            y = wordToWrite.getColumn();
             startDownRight = wordToWrite.getRow() + 1;
+            isVer = true;
             for (i = 0; i < wordToWrite.getUp(); i++) {
                 pointsFromWord += board[startUpLeft][wordToWrite.getColumn()].getLetterBonus() * getPointsOfLetter(word[i]);
                 localWordBonus *= board[startUpLeft][wordToWrite.getColumn()].getWordBonus();
@@ -577,6 +582,9 @@ public:
         else if (wordToWrite.getLeft() > 0 || wordToWrite.getRight() > 0) {
             startUpLeft = wordToWrite.getColumn() - wordToWrite.getLeft();
             startDownRight = wordToWrite.getColumn() + 1;
+            x = wordToWrite.getRow();
+            y = startUpLeft;
+            isVer = false;
             for (i = 0; i < wordToWrite.getLeft(); i++) {
                 pointsFromWord += board[wordToWrite.getRow()][startUpLeft].getLetterBonus() * getPointsOfLetter(word[i]);
                 localWordBonus *= board[wordToWrite.getRow()][startUpLeft].getWordBonus();
@@ -599,6 +607,7 @@ public:
             }
         }
         setComputerPoints(getComputerPoints() + pointsFromWord * localWordBonus);
+        globalMoveManager->createMove(match, computerUser, x,y, isVer, wordToWrite.getWord(), pointsFromWord * localWordBonus);
     }
     computerPossibilities computerCheckSpaceAvability(computerPossibilities computerFieldCandidate) {
         bool correction = false;
@@ -1158,18 +1167,8 @@ public:
                 }
             }
             playerGame.setPlayerPoints(playerGame.getPlayerPoints() + points * wordBonus);
-            string DBConfig[4];
-
-            std::ifstream DBconfigFile("db_config.txt");
-            if (DBconfigFile.is_open()) {     
-                int i = 0;
-                while (DBconfigFile.good() && i < 4) {
-                    DBconfigFile >> DBConfig[i++];
-                }    
-            }
-            MoveManager* MV = new MoveManager(DBConfig[0], DBConfig[1], DBConfig[2], DBConfig[3]);
-            //(Match* match, User* user, const int row, const int col, const bool isVert, const string word, const int score)
-            MV->createMove(match, user, startEndPointers[4 * numberOfWord], startEndPointers[4 * numberOfWord + 1], isVer, word, points * wordBonus);
+         
+            globalMoveManager->createMove(match, user, startEndPointers[4 * numberOfWord], startEndPointers[4 * numberOfWord + 1], isVer, word, points * wordBonus);
 
             numberOfWord++;
         } while (startEndPointers[4 * numberOfWord] != -1);
@@ -1190,6 +1189,18 @@ public:
     void setNumberOfPlayers(int numberOfPlayers) {
         this->numberOfPlayers = numberOfPlayers;
     }
+    void setDifficultyLevel(char level) {
+        if (level == 'e') {
+            difficultyLevel = 3;
+        }
+        else if (level == 'm') {
+            difficultyLevel = 2;
+        }
+        else {
+            difficultyLevel = 1;
+        }
+    }
+
 
     // ----- GETTERS -----
 

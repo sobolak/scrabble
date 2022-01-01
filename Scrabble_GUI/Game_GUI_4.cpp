@@ -35,24 +35,20 @@ Game_GUI_4::Game_GUI_4(QWidget *parent)
 	ui.mufasaHorizontal->setChecked(true);
 }
 
-Game_GUI_4::Game_GUI_4(User* user, QWidget* parent)
+Game_GUI_4::Game_GUI_4(User* user, User* user2, User* user3, User* user4, QWidget* parent)
 	: QDialog(parent)
 {
 	ui.setupUi(this);
-	string DBConfig[4];
 
-	std::ifstream DBconfigFile("db_config.txt");
-
-	if (DBconfigFile.is_open()) {
-		int i = 0;
-		while (DBconfigFile.good() && i < 4) {
-			DBconfigFile >> DBConfig[i++];
-		}
-	}
 	this->user = user;
+	this->user2 = user2;
+	this->user3 = user3;
+	this->user4 = user4;
 	ui.mufasaLabel->setText(QString::fromStdString(this->user->getLogin()));
-	MatchManager* M = new MatchManager(DBConfig[0], DBConfig[1], DBConfig[2], DBConfig[3]);
-	this->match = M->createMatch();
+	ui.estebanLabel->setText(QString::fromStdString(this->user2->getLogin()));
+	ui.zeromskiLabel->setText(QString::fromStdString(this->user3->getLogin()));
+	ui.rokokoLabel->setText(QString::fromStdString(this->user4->getLogin()));
+	this->match = globalMatchManager->createMatch();
 	gameMap gameMap1;
 	mufasa.setNick("mufasa");
 	esteban.setNick("esteban");
@@ -698,7 +694,7 @@ void Game_GUI_4::playerMove(player& playerPlay, char c) {
 						++cnt;
 					}
 					playerPlay.changeUsedCards(word, gameMap1.cybant);
-					gameMap1.playerPointsCount(playerPlay, user, match);
+					gameMap1.playerPointsCount(playerPlay, user2, match);
 					ui.estebanWord->setText(""); //zmiana tabelki
 					playerLetterRefresh('e');
 				}
@@ -790,7 +786,7 @@ void Game_GUI_4::playerMove(player& playerPlay, char c) {
 					++cnt;
 				}
 				playerPlay.changeUsedCards(word, gameMap1.cybant);
-				gameMap1.playerPointsCount(playerPlay, user, match);
+				gameMap1.playerPointsCount(playerPlay, user3, match);
 				ui.zeromskiWord->setText(""); //zmiana tabelki
 				playerLetterRefresh('z');
 			}
@@ -882,7 +878,7 @@ void Game_GUI_4::playerMove(player& playerPlay, char c) {
 					++cnt;
 				}
 				playerPlay.changeUsedCards(word, gameMap1.cybant);
-				gameMap1.playerPointsCount(playerPlay, user, match);
+				gameMap1.playerPointsCount(playerPlay, user4, match);
 				ui.rokokoWord->setText(""); //zmiana tabelki
 				playerLetterRefresh('r');
 			}

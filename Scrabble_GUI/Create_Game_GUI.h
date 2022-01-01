@@ -10,6 +10,7 @@ class Create_Game_GUI : public QDialog
 
 public:
 	User* user;
+
 	Create_Game_GUI(QWidget *parent = Q_NULLPTR);
 	Create_Game_GUI::Create_Game_GUI(User* user, QWidget *parent = Q_NULLPTR);
 	~Create_Game_GUI();

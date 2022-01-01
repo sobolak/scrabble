@@ -12,9 +12,10 @@ class Game_GUI : public QDialog
 
 public:
 	User* user;
+	User* userComputer;
 	Match* match;
 	Game_GUI(QWidget *parent = Q_NULLPTR);
-	Game_GUI(User* user, QWidget* parent = Q_NULLPTR);
+	Game_GUI(User* user, User* userComputer, QWidget* parent = Q_NULLPTR);
 	~Game_GUI();
 	gameMap gameMap1;
 	player mufasa;

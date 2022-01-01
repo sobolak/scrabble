@@ -4,6 +4,8 @@
 #include "mysql.h"
 
 UserManager* globalUserManager;
+MatchManager* globalMatchManager;
+MoveManager* globalMoveManager;
 
 Logging_GUI::Logging_GUI(QWidget *parent)
 	: QDialog(parent)
@@ -20,6 +22,8 @@ Logging_GUI::Logging_GUI(QWidget *parent)
 		}
 	}
 	globalUserManager = new UserManager(DBConfig[0], DBConfig[1], DBConfig[2], DBConfig[3]);
+	globalMatchManager = new MatchManager(DBConfig[0], DBConfig[1], DBConfig[2], DBConfig[3]);
+	globalMoveManager = new MoveManager(DBConfig[0], DBConfig[1], DBConfig[2], DBConfig[3]);
 }
 
 Logging_GUI::~Logging_GUI()

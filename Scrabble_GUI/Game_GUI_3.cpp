@@ -30,25 +30,18 @@ Game_GUI_3::Game_GUI_3(QWidget *parent)
 	ui.mufasaHorizontal->setChecked(true);
 }
 
-Game_GUI_3::Game_GUI_3(User* user, QWidget* parent)
+Game_GUI_3::Game_GUI_3(User* user, User* user2, User* user3, QWidget* parent)
 	: QDialog(parent)
 {
 	ui.setupUi(this);
-	string DBConfig[4];
-
-	std::ifstream DBconfigFile("db_config.txt");
-
-	if (DBconfigFile.is_open()) {
-		int i = 0;
-		while (DBconfigFile.good() && i < 4) {
-			DBconfigFile >> DBConfig[i++];
-		}
-	}
 	this->user = user;
+	this->user2 = user2;
+	this->user3 = user3;
 	ui.mufasaLabel->setText(QString::fromStdString(this->user->getLogin()));
+	ui.estebanLabel->setText(QString::fromStdString(this->user2->getLogin()));
+	ui.zeromskiLabel->setText(QString::fromStdString(this->user3->getLogin()));
 	gameMap gameMap1;
-	MatchManager* M = new MatchManager(DBConfig[0], DBConfig[1], DBConfig[2], DBConfig[3]);
-	this->match = M->createMatch();
+	this->match = globalMatchManager->createMatch();
 	mufasa.setNick("mufasa");
 	esteban.setNick("esteban");
 	zeromski.setNick("zeromski");
@@ -538,7 +531,7 @@ void Game_GUI_3::playerMove(player& playerPlay, char c) {
 						++cnt;
 					}
 					playerPlay.changeUsedCards(word, gameMap1.cybant);
-					gameMap1.playerPointsCount(playerPlay, user, match);
+					gameMap1.playerPointsCount(playerPlay, user2, match);
 					ui.estebanWord->setText(""); //zmiana tabelki
 					playerLetterRefresh('e');
 				}
@@ -630,7 +623,7 @@ void Game_GUI_3::playerMove(player& playerPlay, char c) {
 					++cnt;
 				}
 				playerPlay.changeUsedCards(word, gameMap1.cybant);
-				gameMap1.playerPointsCount(playerPlay, user, match);
+				gameMap1.playerPointsCount(playerPlay, user3, match);
 				ui.zeromskiWord->setText(""); //zmiana tabelki
 				playerLetterRefresh('z');
 			}

@@ -16,9 +16,10 @@ class Game_GUI_2 : public QDialog
 
 public:
 	Game_GUI_2(QWidget *parent = Q_NULLPTR);
-	Game_GUI_2(User* user, QWidget* parent = Q_NULLPTR);
+	Game_GUI_2(User* user, User* user2, QWidget* parent = Q_NULLPTR);
 	~Game_GUI_2();
 	User* user;
+	User* user2;
 	Match* match;
 	QTimer timer;
 	gameMap gameMap1;
