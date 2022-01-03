@@ -396,8 +396,8 @@ int UserManager::getWonMatches(User* user) {
 
 float UserManager::getWonMatchesPercentage(User* user) {
     stringstream query;
-    query << "SELECT COALESCE(l2.cnt/l3.cnt, 0) FROM (SELECT uid, COUNT(*) AS cnt FROM users JOIN (SELECT DISTINCT m.mid, (SELECT uid FROM moves JOIN users USING(uid) WHERE mid = m.mid GROUP BY uid ORDER BY SUM(score) DESC LIMIT 1) AS uid FROM moves m JOIN users USING(uid)) AS l1 USING(uid) GROUP BY uid) AS l2 RIGHT JOIN (SELECT COUNT(DISTINCT mid) AS cnt, uid FROM moves GROUP BY uid) AS l3 USING(uid) "
-        << "WHERE l3.uid = " << user->getUid();
+    query << "SELECT COALESCE(l2.cnt/l3.cnt, 0) FROM (SELECT uid, COUNT(*) AS cnt FROM users JOIN (SELECT DISTINCT m.mid, (SELECT uid FROM moves JOIN users USING(uid) WHERE mid = m.mid GROUP BY uid ORDER BY SUM(score) DESC LIMIT 1) AS uid FROM moves m JOIN users USING(uid)) AS l1 USING(uid) GROUP BY uid) AS l2 RIGHT JOIN (SELECT COUNT(DISTINCT mid) AS cnt, uid FROM moves GROUP BY uid) AS l3 USING(uid) RIGHT JOIN users u USING(uid) "
+        << "WHERE u.uid = " << user->getUid();
 
     return stof(fetchSingleValue(query.str()));
 }
@@ -413,8 +413,8 @@ int UserManager::getLostMatches(User* user) {
 
 float UserManager::getLostMatchesPercentage(User* user) {
     stringstream query;
-    query << "SELECT COALESCE(l2.cnt/l3.cnt, 0) FROM (SELECT uid, COUNT(*) AS cnt FROM users JOIN (SELECT DISTINCT m.mid, (SELECT uid FROM moves JOIN users USING(uid) WHERE mid = m.mid GROUP BY uid ORDER BY SUM(score) LIMIT 1) AS uid FROM moves m JOIN users USING(uid)) AS l1 USING(uid) GROUP BY uid) AS l2 RIGHT JOIN (SELECT COUNT(DISTINCT mid) AS cnt, uid FROM moves GROUP BY uid) AS l3 USING(uid) "
-        << "WHERE l3.uid = " << user->getUid();
+    query << "SELECT COALESCE(l2.cnt/l3.cnt, 0) FROM (SELECT uid, COUNT(*) AS cnt FROM users JOIN (SELECT DISTINCT m.mid, (SELECT uid FROM moves JOIN users USING(uid) WHERE mid = m.mid GROUP BY uid ORDER BY SUM(score) LIMIT 1) AS uid FROM moves m JOIN users USING(uid)) AS l1 USING(uid) GROUP BY uid) AS l2 RIGHT JOIN (SELECT COUNT(DISTINCT mid) AS cnt, uid FROM moves GROUP BY uid) AS l3 USING(uid) RIGHT JOIN users u USING(uid) "
+        << "WHERE u.uid = " << user->getUid();
 
     return stof(fetchSingleValue(query.str()));
 }
@@ -424,7 +424,7 @@ int UserManager::getWonMatchesTrain(User* user) {
     MYSQL_ROW mysql_row;
     stringstream query;
 
-    query << "SELECT DISTINCT m.mid, (SELECT SUM(score) FROM moves WHERE mid = m.mid AND uid = m.uid)-(SELECT MAX(score) FROM MOVES WHERE mid = m.mid) AS diff FROM moves m "
+    query << "SELECT DISTINCT m.mid, (SELECT SUM(score) FROM moves WHERE mid = m.mid AND uid = m.uid)-(SELECT MAX(score) FROM moves WHERE mid = m.mid) AS diff FROM moves m "
         << "WHERE uid = " << user->getUid();
 
     if(mysql_query(DBconnection, query.str().c_str())) {
@@ -450,7 +450,7 @@ int UserManager::getWonMatchesMax(User* user) {
     MYSQL_ROW mysql_row;
     stringstream query;
 
-    query << "SELECT DISTINCT m.mid, (SELECT SUM(score) FROM moves WHERE mid = m.mid AND uid = m.uid)-(SELECT MAX(score) FROM MOVES WHERE mid = m.mid) AS diff FROM moves m "
+    query << "SELECT DISTINCT m.mid, (SELECT SUM(score) FROM moves WHERE mid = m.mid AND uid = m.uid)-(SELECT MAX(score) FROM moves WHERE mid = m.mid) AS diff FROM moves m "
         << "WHERE uid = " << user->getUid();
 
     if(mysql_query(DBconnection, query.str().c_str())) {
