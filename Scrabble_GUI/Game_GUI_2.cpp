@@ -62,9 +62,6 @@ Game_GUI_2::Game_GUI_2(User* user, User* user2, QWidget* parent)
 	ui.mufasaVertical->setCheckable(true);
 	ui.mufasaHorizontal->setChecked(true);
 	QTime time = QTime::fromString("8.30", "m.s");
-	ui.mufasaTimer->setTime(time);
-	connect(&timer, SIGNAL(timeout()), this, SLOT(mufasaTimer()));
-	timer.start(1000);
 
 	ui.mufasaLabel->setStyleSheet("QLabel { background-color : darkRed; color : cyan; }");
 	ui.estebanLabel->setStyleSheet("QLabel { background-color : darkBlue; color : white; }");
@@ -74,11 +71,6 @@ Game_GUI_2::~Game_GUI_2()
 {
 }
 
-
-void Game_GUI_2::mufasaTimer() {
-	QTime time = ui.mufasaTimer->time().addSecs(-1);
-	ui.mufasaTimer->setTime(time);
-}
 
 void Game_GUI_2::on_mufasaAdd_clicked()
 {
