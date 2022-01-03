@@ -1,6 +1,6 @@
 #include "Game_GUI.h"
 #include "Results_GUI.h"
-#include "baza.h"
+
 
 Game_GUI::Game_GUI(QWidget* parent)
 	: QDialog(parent)
@@ -21,6 +21,7 @@ Game_GUI::Game_GUI(User* user, User* userComputer, QWidget* parent)
 	: QDialog(parent)
 {
 	ui.setupUi(this);
+	this->passCounter = 0;
 	this->user = user;
 	this->userComputer = userComputer;
 	ui.label_user->setText(QString::fromStdString(this->user->getLogin()));
@@ -34,7 +35,7 @@ Game_GUI::Game_GUI(User* user, User* userComputer, QWidget* parent)
 	changeCurrentPlayer(mufasa);
 	playerLetterRefresh(mufasa);
 	ui.label_user->setStyleSheet("QLabel { background-color : darkRed; color : cyan; }");
-
+	ui.label_name->setText(QString::fromStdString(this->user->getLogin()));
 }
 
 Game_GUI::~Game_GUI()
@@ -43,6 +44,7 @@ Game_GUI::~Game_GUI()
 
 void Game_GUI::on_pushButton_add_clicked()
 {
+	this->passCounter = 0;
 	playerMove(mufasa);
 	gameMap1.computerAction(match, userComputer);
 	refreshGameMap();
@@ -54,7 +56,11 @@ void Game_GUI::on_pushButton_change_clicked() {
 	//	playerLetterRefresh(mufasa);
 	//}
 	// TO DO ZMIANY PO W PIERWSZYM MOVE LOSUJESZ W INF 
-
+	this->passCounter++;
+	if (this->passCounter == 4)
+	{
+		on_pushButton_end_clicked();
+	}
 	gatherLetterToChange_1(mufasa);
 
 	/*std::random_device rd;
@@ -69,6 +75,11 @@ void Game_GUI::on_pushButton_change_clicked() {
 }
 
 void Game_GUI::on_pushButton_pass_clicked() {
+	this->passCounter++;
+	if (this->passCounter == 4)
+	{
+		on_pushButton_end_clicked();
+	}
 	gameMap1.computerAction(match, userComputer);
 	refreshGameMap();
 }
@@ -254,7 +265,7 @@ void Game_GUI::gatherLetterToChange_1(player& playerGane) {
 
 void Game_GUI::on_pushButton_end_clicked()
 {
-	Results_GUI results(this->user);
+	Results_GUI results(this->user, this->userComputer, nullptr, nullptr, this->match);
 	this->hide();
 	results.setModal(true);
 	results.exec();

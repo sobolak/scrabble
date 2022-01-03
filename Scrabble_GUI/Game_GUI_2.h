@@ -25,6 +25,7 @@ public:
 	gameMap gameMap1;
 	player mufasa;
 	player esteban;
+	short int passCounter;
 
 private:
 	Ui::Game_GUI_2 ui;
@@ -46,4 +47,6 @@ private slots:
 	void on_mufasaPass_clicked();
 private slots:
 	void on_estebanPass_clicked();
+private slots:
+	void on_pushButton_end_clicked();
 };

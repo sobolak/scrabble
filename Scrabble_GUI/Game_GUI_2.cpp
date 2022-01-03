@@ -1,4 +1,5 @@
 #include "Game_GUI_2.h"
+#include "Results_GUI.h"
 
 
 Game_GUI_2::Game_GUI_2(QWidget *parent)
@@ -38,6 +39,7 @@ Game_GUI_2::Game_GUI_2(User* user, User* user2, QWidget* parent)
 	ui.setupUi(this);
 	this->user = user;
 	this->user2 = user2;
+	this->passCounter = 0;
 	ui.mufasaLabel->setText(QString::fromStdString(this->user->getLogin()));
 	ui.estebanLabel->setText(QString::fromStdString(this->user2->getLogin()));
 	gameMap gameMap1;
@@ -81,6 +83,7 @@ void Game_GUI_2::mufasaTimer() {
 void Game_GUI_2::on_mufasaAdd_clicked()
 {
 	if (mufasa.getCurrentlyPlay() == true && (ui.mufasaHorizontal->isChecked() || ui.mufasaVertical->isChecked())) {
+		this->passCounter = 0;
 		playerMove(mufasa, 'm');
 		mufasa.setCurrentlyPlay(false);
 		esteban.setCurrentlyPlay(true);
@@ -102,6 +105,7 @@ void Game_GUI_2::on_mufasaAdd_clicked()
 void Game_GUI_2::on_estebanAdd_clicked()
 {
 	if (esteban.getCurrentlyPlay() == true && (ui.estebanHorizontal->isChecked() || ui.estebanVertical->isChecked() )) {
+		this->passCounter = 0;
 		playerMove(esteban, 'e');
 		mufasa.setCurrentlyPlay(true);
 		esteban.setCurrentlyPlay(false);
@@ -122,6 +126,7 @@ void Game_GUI_2::on_estebanAdd_clicked()
 
 void Game_GUI_2::on_mufasaChange_clicked() {
 	if (mufasa.getCurrentlyPlay() == true) {
+		this->passCounter++;
 		gatherLetterToChange_1(mufasa, 'm');
 		mufasa.setCurrentlyPlay(false);
 		esteban.setCurrentlyPlay(true);
@@ -137,10 +142,15 @@ void Game_GUI_2::on_mufasaChange_clicked() {
 		ui.estebanVertical->setCheckable(true);
 		ui.estebanHorizontal->setChecked(true);
 	}
+	if (this->passCounter == 6)
+	{
+		on_pushButton_end_clicked();
+	}
 }
 
 void Game_GUI_2::on_estebanChange_clicked() {
 	if (esteban.getCurrentlyPlay() == true) {
+		this->passCounter++;
 		gatherLetterToChange_1(esteban, 'e');
 		mufasa.setCurrentlyPlay(true);
 		esteban.setCurrentlyPlay(false);
@@ -156,10 +166,15 @@ void Game_GUI_2::on_estebanChange_clicked() {
 		ui.mufasaVertical->setCheckable(true);
 		ui.mufasaHorizontal->setChecked(true);
 	}
+	if (this->passCounter == 6)
+	{
+		on_pushButton_end_clicked();
+	}
 }
 
 void Game_GUI_2::on_mufasaPass_clicked() {
 	if (mufasa.getCurrentlyPlay() == true) {
+		this->passCounter++;
 		mufasa.setCurrentlyPlay(false);
 		esteban.setCurrentlyPlay(true);
 		ui.mufasaLabel->setStyleSheet("QLabel { background-color :  darkBlue; color : white;  }");
@@ -175,10 +190,15 @@ void Game_GUI_2::on_mufasaPass_clicked() {
 		ui.estebanVertical->setCheckable(true);
 		ui.estebanHorizontal->setChecked(true);
 	}
+	if (this->passCounter == 6)
+	{
+		on_pushButton_end_clicked();
+	}
 }
 
 void Game_GUI_2::on_estebanPass_clicked() {
 	if (esteban.getCurrentlyPlay() == true) {
+		this->passCounter++;
 		mufasa.setCurrentlyPlay(true);
 		esteban.setCurrentlyPlay(false);
 		ui.mufasaLabel->setStyleSheet("QLabel { background-color : darkRed; color : cyan; }");
@@ -193,6 +213,10 @@ void Game_GUI_2::on_estebanPass_clicked() {
 		ui.mufasaHorizontal->setCheckable(true);
 		ui.mufasaVertical->setCheckable(true);
 		ui.mufasaHorizontal->setChecked(true);
+	}
+	if (this->passCounter == 6)
+	{
+		on_pushButton_end_clicked();
 	}
 }
 
@@ -528,4 +552,12 @@ void Game_GUI_2::gatherLetterToChange_1(player& playerGane, char c) {
 		ui.checkBox_20->setCheckState(Qt::Unchecked);
 	}
 	refreshGameMap();
+}
+
+void Game_GUI_2::on_pushButton_end_clicked()
+{
+	Results_GUI results(this->user, this->user2, nullptr, nullptr, this->match);
+	this->hide();
+	results.setModal(true);
+	results.exec();
 }

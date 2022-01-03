@@ -23,6 +23,7 @@ public:
 	player mufasa;
 	player esteban;
 	player zeromski;
+	short int passCounter;
 
 private:
 	Ui::Game_GUI_3 ui;
@@ -49,4 +50,6 @@ private slots:
 	void on_estebanPass_clicked();
 private slots:
 	void on_zeromskiPass_clicked();
+private slots:
+	void on_pushButton_end_clicked();
 };

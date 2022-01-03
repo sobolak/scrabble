@@ -19,6 +19,7 @@ public:
 	~Game_GUI();
 	gameMap gameMap1;
 	player mufasa;
+	short int passCounter;
 
 private:
 	Ui::Game_GUI ui;

@@ -115,7 +115,6 @@
     <QtRcc Include="map.qrc" />
     <QtRcc Include="Scrabble_GUI.qrc" />
     <QtUic Include="Create_Game_GUI.ui" />
-    <QtUic Include="Game.ui" />
     <QtUic Include="Game_GUI.ui" />
     <QtUic Include="Game_GUI_2.ui" />
     <QtUic Include="Game_GUI_3.ui" />
