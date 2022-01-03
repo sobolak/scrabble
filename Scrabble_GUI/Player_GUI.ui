@@ -6,43 +6,17 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
+    <width>403</width>
     <height>300</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Player_GUI</string>
   </property>
-  <widget class="QPushButton" name="pushButton_logout">
-   <property name="geometry">
-    <rect>
-     <x>480</x>
-     <y>20</y>
-     <width>101</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Logout</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_avatar">
-   <property name="geometry">
-    <rect>
-     <x>410</x>
-     <y>10</y>
-     <width>51</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>&lt;avatar&gt;</string>
-   </property>
-  </widget>
   <widget class="QPushButton" name="pushButton_change">
    <property name="geometry">
     <rect>
-     <x>130</x>
+     <x>140</x>
      <y>190</y>
      <width>111</width>
      <height>31</height>
@@ -55,7 +29,7 @@
   <widget class="QPushButton" name="pushButton_menu">
    <property name="geometry">
     <rect>
-     <x>130</x>
+     <x>140</x>
      <y>240</y>
      <width>111</width>
      <height>31</height>
@@ -78,7 +52,20 @@
     <string>&lt;login&gt;</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_logout_2">
+  <widget class="QLabel" name="label_user">
+   <property name="geometry">
+    <rect>
+     <x>290</x>
+     <y>10</y>
+     <width>31</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>User:</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_logout">
    <property name="geometry">
     <rect>
      <x>290</x>
@@ -91,17 +78,56 @@
     <string>Logout</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_user">
+  <widget class="QLabel" name="label_confirm_password">
    <property name="geometry">
     <rect>
-     <x>290</x>
-     <y>10</y>
-     <width>31</width>
+     <x>80</x>
+     <y>130</y>
+     <width>101</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Confirm password:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_password">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>100</y>
+     <width>55</width>
      <height>16</height>
     </rect>
    </property>
    <property name="text">
-    <string>User:</string>
+    <string>Password:</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_reg_password">
+   <property name="geometry">
+    <rect>
+     <x>200</x>
+     <y>100</y>
+     <width>113</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="echoMode">
+    <enum>QLineEdit::Password</enum>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_confirm_password">
+   <property name="geometry">
+    <rect>
+     <x>200</x>
+     <y>130</y>
+     <width>113</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="echoMode">
+    <enum>QLineEdit::Password</enum>
    </property>
   </widget>
  </widget>

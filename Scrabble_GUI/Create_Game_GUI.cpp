@@ -117,6 +117,7 @@ void Create_Game_GUI::on_pushButton_start_clicked()
 
 void Create_Game_GUI::on_radioButton_computer_clicked()
 {
+	ui.comboBox_computer_difficulty->clear();
 	ui.comboBox_computer_difficulty->show();
 	ui.comboBox_second_name->hide();
 	ui.comboBox_third_name->hide();

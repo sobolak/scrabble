@@ -104,10 +104,12 @@
     <ClCompile Include="Game_GUI_2.cpp" />
     <ClCompile Include="Game_GUI_3.cpp" />
     <ClCompile Include="Game_GUI_4.cpp" />
+    <ClCompile Include="History_GUI.cpp" />
     <ClCompile Include="Logging_GUI.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu_GUI.cpp" />
     <ClCompile Include="Player_GUI.cpp" />
+    <ClCompile Include="Replay_GUI.cpp" />
     <ClCompile Include="Results_GUI.cpp" />
     <ClCompile Include="Scrabble_GUI.cpp" />
     <ClCompile Include="sha256.cpp" />
@@ -119,9 +121,11 @@
     <QtUic Include="Game_GUI_2.ui" />
     <QtUic Include="Game_GUI_3.ui" />
     <QtUic Include="Game_GUI_4.ui" />
+    <QtUic Include="History_GUI.ui" />
     <QtUic Include="Logging_GUI.ui" />
     <QtUic Include="Menu_GUI.ui" />
     <QtUic Include="Player_GUI.ui" />
+    <QtUic Include="Replay_GUI.ui" />
     <QtUic Include="Results_GUI.ui" />
     <QtUic Include="Scrabble_GUI.ui" />
     <QtMoc Include="Scrabble_GUI.h" />
@@ -146,6 +150,8 @@
     <QtMoc Include="Game_GUI_3.h" />
     <QtMoc Include="Game_GUI_4.h" />
     <QtMoc Include="Results_GUI.h" />
+    <QtMoc Include="History_GUI.h" />
+    <QtMoc Include="Replay_GUI.h" />
     <ClInclude Include="sha256.h" />
     <QtMoc Include="Statistics_GUI.h" />
     <QtMoc Include="Player_GUI.h" />

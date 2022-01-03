@@ -22,6 +22,8 @@ private slots:
 	void on_pushButton_logout_clicked();
 private slots:
 	void on_pushButton_statistics_clicked();
-	//private slots:
-	//	void on_pushButton_settings_clicked();
+private slots:
+	void on_pushButton_history_clicked();
+private slots:
+	void on_pushButton_profile_clicked();
 };
