@@ -1,4 +1,6 @@
 #include "Game_GUI_3.h"
+#include "Results_GUI.h"
+
 
 Game_GUI_3::Game_GUI_3(QWidget *parent)
 	: QDialog(parent)
@@ -37,6 +39,7 @@ Game_GUI_3::Game_GUI_3(User* user, User* user2, User* user3, QWidget* parent)
 	this->user = user;
 	this->user2 = user2;
 	this->user3 = user3;
+	this->passCounter = 0;
 	ui.mufasaLabel->setText(QString::fromStdString(this->user->getLogin()));
 	ui.estebanLabel->setText(QString::fromStdString(this->user2->getLogin()));
 	ui.zeromskiLabel->setText(QString::fromStdString(this->user3->getLogin()));
@@ -80,6 +83,7 @@ Game_GUI_3::~Game_GUI_3()
 void Game_GUI_3::on_mufasaAdd_clicked()
 {
 	if (mufasa.getCurrentlyPlay() == true && (ui.mufasaHorizontal->isChecked() || ui.mufasaVertical->isChecked())) {
+		this->passCounter = 0;
 		playerMove(mufasa, 'm');
 		mufasa.setCurrentlyPlay(false);
 		esteban.setCurrentlyPlay(true);
@@ -108,6 +112,7 @@ void Game_GUI_3::on_mufasaAdd_clicked()
 void Game_GUI_3::on_estebanAdd_clicked()
 {
 	if (esteban.getCurrentlyPlay() == true && (ui.estebanHorizontal->isChecked() || ui.estebanVertical->isChecked() )) {
+		this->passCounter = 0;
 		playerMove(esteban, 'e');
 		zeromski.setCurrentlyPlay(true);
 		esteban.setCurrentlyPlay(false);
@@ -134,6 +139,7 @@ void Game_GUI_3::on_estebanAdd_clicked()
 
 void Game_GUI_3::on_zeromskiAdd_clicked() {
 	if (zeromski.getCurrentlyPlay() == true && (ui.zeromskiHorizontal->isChecked() || ui.zeromskiVertical->isChecked())) {
+		this->passCounter = 0;
 		playerMove(zeromski, 'z');
 		mufasa.setCurrentlyPlay(true);
 		zeromski.setCurrentlyPlay(false);
@@ -160,6 +166,7 @@ void Game_GUI_3::on_zeromskiAdd_clicked() {
 
 void Game_GUI_3::on_mufasaChange_clicked() {
 	if (mufasa.getCurrentlyPlay() == true) {
+		this->passCounter++;
 		gatherLetterToChange_1(mufasa, 'm');
 		mufasa.setCurrentlyPlay(false);
 		esteban.setCurrentlyPlay(true);
@@ -182,10 +189,15 @@ void Game_GUI_3::on_mufasaChange_clicked() {
 		ui.estebanVertical->setCheckable(true);
 		ui.estebanHorizontal->setChecked(true);
 	}
+	if (this->passCounter == 9)
+	{
+		on_pushButton_end_clicked();
+	}
 }
 
 void Game_GUI_3::on_estebanChange_clicked() {
 	if (esteban.getCurrentlyPlay() == true) {
+		this->passCounter++;
 		gatherLetterToChange_1(esteban, 'e');
 		zeromski.setCurrentlyPlay(true);
 		esteban.setCurrentlyPlay(false);
@@ -208,10 +220,15 @@ void Game_GUI_3::on_estebanChange_clicked() {
 		ui.zeromskiVertical->setCheckable(true);
 		ui.zeromskiHorizontal->setChecked(true);
 	}
+	if (this->passCounter == 9)
+	{
+		on_pushButton_end_clicked();
+	}
 }
 
 void Game_GUI_3::on_zeromskiChange_clicked() {
 	if (zeromski.getCurrentlyPlay() == true) {
+		this->passCounter++;
 		gatherLetterToChange_1(zeromski, 'z');
 		mufasa.setCurrentlyPlay(true);
 		zeromski.setCurrentlyPlay(false);
@@ -234,10 +251,15 @@ void Game_GUI_3::on_zeromskiChange_clicked() {
 		ui.mufasaVertical->setCheckable(true);
 		ui.mufasaHorizontal->setChecked(true);
 	}
+	if (this->passCounter == 9)
+	{
+		on_pushButton_end_clicked();
+	}
 }
 
 void Game_GUI_3::on_mufasaPass_clicked() {
 	if (mufasa.getCurrentlyPlay() == true) {
+		this->passCounter++;
 		mufasa.setCurrentlyPlay(false);
 		esteban.setCurrentlyPlay(true);
 		ui.mufasaLabel->setStyleSheet("QLabel { background-color : darkBlue; color : white; }");
@@ -259,10 +281,15 @@ void Game_GUI_3::on_mufasaPass_clicked() {
 		ui.estebanVertical->setCheckable(true);
 		ui.estebanHorizontal->setChecked(true);
 	}
+	if (this->passCounter == 9)
+	{
+		on_pushButton_end_clicked();
+	}
 }
 
 void Game_GUI_3::on_estebanPass_clicked() {
 	if (esteban.getCurrentlyPlay() == true) {
+		this->passCounter++;
 		zeromski.setCurrentlyPlay(true);
 		esteban.setCurrentlyPlay(false);
 		ui.mufasaLabel->setStyleSheet("QLabel { background-color :  darkBlue; color : white; }");
@@ -284,10 +311,15 @@ void Game_GUI_3::on_estebanPass_clicked() {
 		ui.zeromskiVertical->setCheckable(true);
 		ui.zeromskiHorizontal->setChecked(true);
 	}
+	if (this->passCounter == 9)
+	{
+		on_pushButton_end_clicked();
+	}
 }
 
 void Game_GUI_3::on_zeromskiPass_clicked() {
 	if (zeromski.getCurrentlyPlay() == true) {
+		this->passCounter++;
 		mufasa.setCurrentlyPlay(true);
 		zeromski.setCurrentlyPlay(false);
 		ui.mufasaLabel->setStyleSheet("QLabel { background-color : darkRed; color : cyan; }");
@@ -308,6 +340,10 @@ void Game_GUI_3::on_zeromskiPass_clicked() {
 		ui.mufasaHorizontal->setCheckable(true);
 		ui.mufasaVertical->setCheckable(true);
 		ui.mufasaHorizontal->setChecked(true);
+	}
+	if (this->passCounter == 9)
+	{
+		on_pushButton_end_clicked();
 	}
 }
 
@@ -808,4 +844,12 @@ void Game_GUI_3::gatherLetterToChange_1(player& playerGane, char c) {
 		ui.checkBox_30->setCheckState(Qt::Unchecked);
 	}
 	refreshGameMap();
+}
+
+void Game_GUI_3::on_pushButton_end_clicked()
+{
+	Results_GUI results(this->user, this->user2, this->user3, nullptr, this->match);
+	this->hide();
+	results.setModal(true);
+	results.exec();
 }

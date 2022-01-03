@@ -6319,6 +6319,19 @@
     </property>
    </item>
   </widget>
+  <widget class="QPushButton" name="pushButton_end">
+   <property name="geometry">
+    <rect>
+     <x>1460</x>
+     <y>730</y>
+     <width>111</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>End game</string>
+   </property>
+  </widget>
   <zorder>estebanBoard</zorder>
   <zorder>mufasaBoard</zorder>
   <zorder>checkBox_8</zorder>
@@ -6416,6 +6429,7 @@
   <zorder>zeromskiLabel</zorder>
   <zorder>rokokoLabel</zorder>
   <zorder>tableWidget_game</zorder>
+  <zorder>pushButton_end</zorder>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>

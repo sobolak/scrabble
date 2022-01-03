@@ -117,32 +117,6 @@
     <string/>
    </property>
   </widget>
-  <widget class="QLabel" name="label_computer">
-   <property name="geometry">
-    <rect>
-     <x>790</x>
-     <y>750</y>
-     <width>61</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>computer:</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_name">
-   <property name="geometry">
-    <rect>
-     <x>790</x>
-     <y>730</y>
-     <width>61</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>&lt;nick1&gt;</string>
-   </property>
-  </widget>
   <widget class="QCheckBox" name="checkBox_7">
    <property name="geometry">
     <rect>
@@ -378,19 +352,6 @@
     <string>Pass</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="sdadsa">
-   <property name="geometry">
-    <rect>
-     <x>870</x>
-     <y>730</y>
-     <width>51</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>pkt1</string>
-   </property>
-  </widget>
   <widget class="QPushButton" name="mufasaChange">
    <property name="geometry">
     <rect>
@@ -599,19 +560,6 @@
      <string>14</string>
     </property>
    </item>
-  </widget>
-  <widget class="QLabel" name="label_points2">
-   <property name="geometry">
-    <rect>
-     <x>870</x>
-     <y>750</y>
-     <width>51</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>pkt2</string>
-   </property>
   </widget>
   <widget class="QLabel" name="mufasaLabel">
    <property name="geometry">
@@ -5243,8 +5191,20 @@
     </property>
    </item>
   </widget>
+  <widget class="QPushButton" name="pushButton_end">
+   <property name="geometry">
+    <rect>
+     <x>1080</x>
+     <y>730</y>
+     <width>111</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>End game</string>
+   </property>
+  </widget>
   <zorder>mufasaChange</zorder>
-  <zorder>label_points2</zorder>
   <zorder>estebanBoard</zorder>
   <zorder>mufasaBoard</zorder>
   <zorder>checkBox_8</zorder>
@@ -5255,8 +5215,6 @@
   <zorder>checkBox_6</zorder>
   <zorder>mufasaWord</zorder>
   <zorder>checkBox_4</zorder>
-  <zorder>label_computer</zorder>
-  <zorder>label_name</zorder>
   <zorder>checkBox_7</zorder>
   <zorder>checkBox_9</zorder>
   <zorder>label_column</zorder>
@@ -5265,7 +5223,6 @@
   <zorder>estebanHorizontal</zorder>
   <zorder>checkBox_1</zorder>
   <zorder>mufasaPass</zorder>
-  <zorder>sdadsa</zorder>
   <zorder>checkBox_5</zorder>
   <zorder>checkBox_10</zorder>
   <zorder>mufasaColumn</zorder>
@@ -5297,6 +5254,7 @@
   <zorder>mufasaPoint</zorder>
   <zorder>mufasaTimer</zorder>
   <zorder>tableWidget_game</zorder>
+  <zorder>pushButton_end</zorder>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>

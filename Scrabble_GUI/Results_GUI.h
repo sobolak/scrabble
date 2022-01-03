@@ -11,7 +11,7 @@ class Results_GUI : public QDialog
 public:
 	User* user;
 	Results_GUI(QWidget* parent = Q_NULLPTR);
-	Results_GUI(User* user, QWidget* parent = Q_NULLPTR);
+	Results_GUI(User* user, User* estebanUser, User* zeromskiUser, User* rokokoUser, Match* match, QWidget* parent = Q_NULLPTR);
 	~Results_GUI();
 
 private:
