@@ -88,7 +88,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Settings</string>
+    <string>History</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_name">

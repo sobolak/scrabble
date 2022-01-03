@@ -2,6 +2,7 @@
 #include "Create_Game_GUI.h"
 #include "Logging_GUI.h"
 #include "Statistics_GUI.h"
+#include "History_GUI.h"
 
 Menu_GUI::Menu_GUI(QWidget *parent)
 	: QDialog(parent)
@@ -40,6 +41,14 @@ void Menu_GUI::on_pushButton_logout_clicked()
 void Menu_GUI::on_pushButton_statistics_clicked()
 {
 	Statistics_GUI stats(this->user);
+	this->hide();
+	stats.setModal(true);
+	stats.exec();
+}
+
+void Menu_GUI::on_pushButton_settings_clicked()
+{
+	History_GUI stats(this->user);
 	this->hide();
 	stats.setModal(true);
 	stats.exec();
