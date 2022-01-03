@@ -387,54 +387,34 @@ int UserManager::getPlayedMatches(User* user) {
 
 int UserManager::getWonMatches(User* user) {
     stringstream query;
-    query << "SELECT COUNT(*) FROM "
-        << "(SELECT mid, SUM(score) AS userscore FROM moves WHERE "
-        << "uid = " << user->getUid() << " GROUP BY mid) AS l1 "
-        << "JOIN "
-        << "(SELECT mid, SUM(score) AS allscore FROM moves GROUP BY mid) AS l2 "
-        << "USING(mid) WHERE 2*l1.userscore-l2.allscore > 0";
+    query << "SELECT COALESCE(COUNT(l1.mid), 0) AS cnt FROM users LEFT JOIN (SELECT DISTINCT m.mid, (SELECT uid FROM moves JOIN users USING(uid) WHERE mid=m.mid GROUP BY uid ORDER BY SUM(score) DESC LIMIT 1) AS uid FROM moves m JOIN users USING(uid)) AS l1 USING(uid) "
+        << "WHERE uid = " << user->getUid()
+        << " GROUP BY uid";
 
     return stoi(fetchSingleValue(query.str()));
 }
 
 float UserManager::getWonMatchesPercentage(User* user) {
     stringstream query;
-    query << "SELECT COALESCE(l3.won/l4.total, 0) FROM "
-        << "(SELECT uid, COUNT(*) AS won FROM "
-        << "(SELECT uid, mid, SUM(score) AS userscore FROM moves GROUP BY uid, mid) AS l1 "
-        << "JOIN "
-        << "(SELECT mid, SUM(score) AS allscore FROM moves GROUP BY mid) AS l2 "
-        << "USING(mid) WHERE 2*l1.userscore-l2.allscore > 0 GROUP BY uid) AS l3 "
-        << "RIGHT JOIN (SELECT l1.uid, COUNT(*) AS total FROM "
-        << "(SELECT uid, mid FROM moves GROUP BY uid, mid) AS l1 GROUP BY l1.uid) AS l4 "
-        << "ON(l3.uid = l4.uid) WHERE l4.uid = " << user->getUid();
+    query << "SELECT COALESCE(l2.cnt/l3.cnt, 0) FROM (SELECT uid, COUNT(*) AS cnt FROM users JOIN (SELECT DISTINCT m.mid, (SELECT uid FROM moves JOIN users USING(uid) WHERE mid = m.mid GROUP BY uid ORDER BY SUM(score) DESC LIMIT 1) AS uid FROM moves m JOIN users USING(uid)) AS l1 USING(uid) GROUP BY uid) AS l2 RIGHT JOIN (SELECT COUNT(DISTINCT mid) AS cnt, uid FROM moves GROUP BY uid) AS l3 USING(uid) "
+        << "WHERE l3.uid = " << user->getUid();
 
     return stof(fetchSingleValue(query.str()));
 }
 
 int UserManager::getLostMatches(User* user) {
     stringstream query;
-    query << "SELECT COUNT(*) FROM "
-        << "(SELECT mid, SUM(score) AS userscore FROM moves WHERE "
-        << "uid = " << user->getUid() << " GROUP BY mid) AS l1 "
-        << "JOIN "
-        << "(SELECT mid, SUM(score) AS allscore FROM moves GROUP BY mid) AS l2 "
-        << "USING(mid) WHERE 2*l1.userscore-l2.allscore < 0";
+    query << "SELECT COALESCE(COUNT(l1.mid), 0) AS cnt FROM users LEFT JOIN (SELECT DISTINCT m.mid, (SELECT uid FROM moves JOIN users USING(uid) WHERE mid = m.mid GROUP BY uid ORDER BY SUM(score) LIMIT 1) AS uid FROM moves m JOIN users USING(uid)) AS l1 USING(uid) "
+        << "WHERE uid = " << user->getUid()
+        << " GROUP BY uid";
 
     return stoi(fetchSingleValue(query.str()));
 }
 
 float UserManager::getLostMatchesPercentage(User* user) {
     stringstream query;
-    query << "SELECT COALESCE(l3.lost/l4.total, 0) FROM "
-        << "(SELECT uid, COUNT(*) AS lost FROM "
-        << "(SELECT uid, mid, SUM(score) AS userscore FROM moves GROUP BY uid, mid) AS l1 "
-        << "JOIN "
-        << "(SELECT mid, SUM(score) AS allscore FROM moves GROUP BY mid) AS l2 "
-        << "USING(mid) WHERE 2*l1.userscore-l2.allscore < 0 GROUP BY uid) AS l3 "
-        << "RIGHT JOIN (SELECT l1.uid, COUNT(*) AS total FROM "
-        << "(SELECT uid, mid FROM moves GROUP BY uid, mid) AS l1 GROUP BY l1.uid) AS l4 "
-        << "ON(l3.uid = l4.uid) WHERE l4.uid = " << user->getUid();
+    query << "SELECT COALESCE(l2.cnt/l3.cnt, 0) FROM (SELECT uid, COUNT(*) AS cnt FROM users JOIN (SELECT DISTINCT m.mid, (SELECT uid FROM moves JOIN users USING(uid) WHERE mid = m.mid GROUP BY uid ORDER BY SUM(score) LIMIT 1) AS uid FROM moves m JOIN users USING(uid)) AS l1 USING(uid) GROUP BY uid) AS l2 RIGHT JOIN (SELECT COUNT(DISTINCT mid) AS cnt, uid FROM moves GROUP BY uid) AS l3 USING(uid) "
+        << "WHERE l3.uid = " << user->getUid();
 
     return stof(fetchSingleValue(query.str()));
 }
@@ -444,12 +424,8 @@ int UserManager::getWonMatchesTrain(User* user) {
     MYSQL_ROW mysql_row;
     stringstream query;
 
-    query << "SELECT 2*l1.userscore-l2.allscore FROM "
-        << "(SELECT mid, SUM(score) AS userscore FROM moves WHERE "
-        << "uid = " << user->getUid() << " GROUP BY mid) AS l1 "
-        << "JOIN "
-        << "(SELECT mid, SUM(score) AS allscore FROM moves GROUP BY mid) AS l2 "
-        << "USING(mid) ORDER BY l1.mid DESC";
+    query << "SELECT DISTINCT m.mid, (SELECT SUM(score) FROM moves WHERE mid = m.mid AND uid = m.uid)-(SELECT MAX(score) FROM MOVES WHERE mid = m.mid) AS diff FROM moves m "
+        << "WHERE uid = " << user->getUid();
 
     if(mysql_query(DBconnection, query.str().c_str())) {
         message("Error fetching matches for uid=" + user->getUid());
@@ -459,7 +435,7 @@ int UserManager::getWonMatchesTrain(User* user) {
     res = mysql_use_result(DBconnection);
     int train = 0;
     while(mysql_row = mysql_fetch_row(res)) {
-        if(atoi(mysql_row[0]) > 0) 
+        if(atoi(mysql_row[1]) > 0) 
             ++train;
         else
             break;
@@ -474,12 +450,8 @@ int UserManager::getWonMatchesMax(User* user) {
     MYSQL_ROW mysql_row;
     stringstream query;
 
-    query << "SELECT 2*l1.userscore-l2.allscore FROM "
-        << "(SELECT mid, SUM(score) AS userscore FROM moves WHERE "
-        << "uid = " << user->getUid() << " GROUP BY mid) AS l1 "
-        << "JOIN "
-        << "(SELECT mid, SUM(score) AS allscore FROM moves GROUP BY mid) AS l2 "
-        << "USING(mid) ORDER BY l1.mid";
+    query << "SELECT DISTINCT m.mid, (SELECT SUM(score) FROM moves WHERE mid = m.mid AND uid = m.uid)-(SELECT MAX(score) FROM MOVES WHERE mid = m.mid) AS diff FROM moves m "
+        << "WHERE uid = " << user->getUid();
 
     if(mysql_query(DBconnection, query.str().c_str())) {
         message("Error fetching matches for uid=" + user->getUid());
@@ -490,7 +462,7 @@ int UserManager::getWonMatchesMax(User* user) {
     int train = 0;
     int maxTrain = 0;
     while(mysql_row = mysql_fetch_row(res)) {
-        if(atoi(mysql_row[0]) > 0) {
+        if(atoi(mysql_row[1]) > 0) {
             ++train;
         } else {
             train = 0;
