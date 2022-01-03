@@ -36,6 +36,7 @@ public:
     Match(const int = 0);
     ~Match();
     int incrementSeq();
+    void appendOpponent(string);
 
     // ----- SETTERS -----
     void setMid(int);
@@ -44,11 +45,13 @@ public:
     // ----- GETTERS -----
     int getMid() const;
     int getSeq() const;
+    vector<string>* getOpponents() const;
 
 private:
     int mid;
 
     int seq = 0;
+    vector<string>* opponents = NULL;
 };
 
 class Move {
@@ -136,6 +139,7 @@ public:
     void deleteMatch(Match*);
 
     vector<Move*>* getAllMovesList(Match*);
+    int getScoreInMatch(User*, Match*);
 };
 
 class MoveManager: public Manager {

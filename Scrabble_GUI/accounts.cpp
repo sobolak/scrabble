@@ -15,6 +15,7 @@ using std::setw;
 using std::left;
 using std::right;
 using std::string;
+using std::vector;
 using std::stringstream;
 
 // ----- User -----
@@ -51,15 +52,15 @@ void User::setPassword(string password) {
 }
 
 int User::getUid() const {
-    return uid;
+    return this->uid;
 }
 
 string User::getLogin() const {
-    return login;
+    return this->login;
 }
 
 string User::getPassword() const {
-    return password;
+    return this->password;
 }
 
 // ----- Match -----
@@ -77,6 +78,10 @@ int Match::incrementSeq() {
     return getSeq();
 }
 
+void Match::appendOpponent(string login) {
+    this->opponents->push_back(login);
+}
+
 void Match::setMid(int mid) {
     this->mid = mid;
 }
@@ -86,11 +91,15 @@ void Match::setSeq(int seq) {
 }
 
 int Match::getMid() const {
-    return mid;
+    return this->mid;
 }
 
 int Match::getSeq() const {
-    return seq;
+    return this->seq;
+}
+
+vector<string>* Match::getOpponents() const {
+    return this->opponents;
 }
 
 // ----- Move -----
@@ -150,39 +159,39 @@ void Move::setScore(int score) {
 }
 
 int Move::getMvid() const {
-    return mvid;
+    return this->mvid;
 }
 
 Match* Move::getMatch() const {
-    return match;
+    return this->match;
 }
 
 int Move::getSeq() const {
-    return seq;
+    return this->seq;
 }
 
 User* Move::getUser() const {
-    return user;
+    return this->user;
 }
 
 int Move::getCol() const {
-    return col;    
+    return this->col;    
 }
 
 int Move::getRow() const {
-    return row;    
+    return this->row;    
 }
 
 bool Move::getIsVert() const {
-    return isVert;    
+    return this->isVert;    
 }
 
 string Move::getWord() const {
-    return word;
+    return this->word;
 }
 
 int Move::getScore() const {
-    return score;
+    return this->score;
 }
 
 // ----- Manager -----
@@ -361,13 +370,11 @@ User* UserManager::logIn(const string login, const string password) {
     return NULL;
 }
 
-// TO BE CORRECTED (no fid, no sid)
 int UserManager::getPlayedMatches(User* user) {
     stringstream query;
-    query << "SELECT COUNT(*) FROM matches WHERE "
-        << "fid = " << user->getUid() << " OR "
-        << "sid = " << user->getUid() << "";
-   return stoi(fetchSingleValue(query.str()));
+    query << "SELECT COUNT(DISTINCT(mid)) FROM moves WHERE "
+        << "uid = " << user->getUid();
+    return stoi(fetchSingleValue(query.str()));
 }
 
 int UserManager::getWonMatches(User* user) {
@@ -445,7 +452,7 @@ int UserManager::getWonMatchesTrain(User* user) {
     int train = 0;
     while(mysql_row = mysql_fetch_row(res)) {
         if(atoi(mysql_row[0]) > 0) 
-            train++;
+            ++train;
         else
             break;
     }
@@ -476,7 +483,7 @@ int UserManager::getWonMatchesMax(User* user) {
     int maxTrain = 0;
     while(mysql_row = mysql_fetch_row(res)) {
         if(atoi(mysql_row[0]) > 0) {
-            train++;
+            ++train;
         } else {
             train = 0;
         }
@@ -526,10 +533,10 @@ vector<string>* UserManager::getRemainingLogins(User* user) {
     stringstream query;
 
     query << "SELECT login FROM users "
-        << "WHERE login <> '" << user->getLogin() << "'";
+        << "WHERE login <> '" << user->getLogin() << "' AND login <> 'easy' AND login <> 'medium' AND login <> 'hard'";
 
     if(mysql_query(DBconnection, query.str().c_str())) {
-        message("Error fetching remaining logins list for uid=" + user->getLogin());
+        message("Error fetching remaining logins list for uid=" + user->getUid());
         return NULL;
     }
 
@@ -543,16 +550,15 @@ vector<string>* UserManager::getRemainingLogins(User* user) {
     return loginsList;
 }
 
-// TO BE CORRECTED (no fid, no sid)
 vector<Match*>* UserManager::getAllMatchesList(User* user) {
     MYSQL_RES* res;
     MYSQL_ROW mysql_row;
     stringstream query;
 
-    query << "SELECT * FROM "
-        << "(SELECT m.mid, (SELECT uid FROM matches JOIN users ON(uid = fid OR uid = sid) WHERE m.mid = mid AND uid <> u.uid) AS uid, uid AS opp_uid, login AS opp_login "
-        << "FROM matches m JOIN users u ON(u.uid = m.fid OR u.uid = m.sid)) AS l1 "
-        << "WHERE l1.uid = " << user->getUid();
+    query << "SELECT DISTINCT (SELECT login FROM users WHERE uid = m.uid) AS opp, m.mid FROM " 
+        << "moves m JOIN (SELECT mid, uid FROM moves) AS l1 USING(mid) JOIN "
+        << "users u ON(l1.uid = u.uid AND m.uid <> u.uid) "
+        << "WHERE u.uid = " << user->getUid() << " ORDER BY m.mid";
 
     if(mysql_query(DBconnection, query.str().c_str())) {
         message("Error fetching matches list for uid=" + user->getUid());
@@ -561,9 +567,17 @@ vector<Match*>* UserManager::getAllMatchesList(User* user) {
 
     vector<Match*>* matchesList = new vector<Match*>;
     res = mysql_use_result(DBconnection);
+    int lastMid = 0;
+    int currMid = -1;
+    Match* currMatch = NULL;
     while(mysql_row = mysql_fetch_row(res)) {
-        Match* match = new Match(atoi(mysql_row[0]));
-        matchesList->push_back(match);
+        currMid = atoi(mysql_row[1]);
+        if (currMid != lastMid) {
+            currMatch = new Match(currMid);
+            matchesList->push_back(currMatch);
+        }
+        currMatch->appendOpponent(mysql_row[0]);
+        lastMid = currMid;
     }
 
     mysql_free_result(res);
@@ -655,6 +669,14 @@ vector<Move*>* MatchManager::getAllMovesList(Match* match) {
 
     mysql_free_result(res);
     return movesList;
+}
+
+int MatchManager::getScoreInMatch(User* user, Match* match) {
+    stringstream query;
+    query << "SELECT SUM(score) FROM moves WHERE "
+    << "uid = " << user->getUid() << " AND mid = " << match->getMid() << " GROUP BY uid";
+
+    return stoi(fetchSingleValue(query.str()));
 }
 
 // ----- MoveManager -----
