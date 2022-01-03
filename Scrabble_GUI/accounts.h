@@ -41,16 +41,19 @@ public:
     // ----- SETTERS -----
     void setMid(int);
     void setSeq(int);
+    void setWinner(string);
 
     // ----- GETTERS -----
     int getMid() const;
     int getSeq() const;
+    string getWinner() const;
     vector<string>* getOpponents() const;
 
 private:
     int mid;
 
     int seq = 0;
+    string winner = "";
     vector<string>* opponents = NULL;
 };
 

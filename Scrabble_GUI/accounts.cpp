@@ -90,12 +90,20 @@ void Match::setSeq(int seq) {
     this->seq = seq;
 }
 
+void Match::setWinner(string winner) {
+    this->winner = winner;
+}
+
 int Match::getMid() const {
     return this->mid;
 }
 
 int Match::getSeq() const {
     return this->seq;
+}
+
+string Match::getWinner() const {
+    return this->winner;
 }
 
 vector<string>* Match::getOpponents() const {
@@ -555,7 +563,8 @@ vector<Match*>* UserManager::getAllMatchesList(User* user) {
     MYSQL_ROW mysql_row;
     stringstream query;
 
-    query << "SELECT DISTINCT (SELECT login FROM users WHERE uid = m.uid) AS opp, m.mid FROM " 
+    query << "SELECT DISTINCT (SELECT login FROM users WHERE uid = m.uid) AS opp, m.mid, (select login from moves join users using(uid) where mid=m.mid group by uid order by sum(score) desc limit 1) as winner"
+        << "FROM "
         << "moves m JOIN (SELECT mid, uid FROM moves) AS l1 USING(mid) JOIN "
         << "users u ON(l1.uid = u.uid AND m.uid <> u.uid) "
         << "WHERE u.uid = " << user->getUid() << " ORDER BY m.mid";
@@ -574,6 +583,7 @@ vector<Match*>* UserManager::getAllMatchesList(User* user) {
         currMid = atoi(mysql_row[1]);
         if (currMid != lastMid) {
             currMatch = new Match(currMid);
+            currMatch->setWinner(mysql_row[2]);
             matchesList->push_back(currMatch);
         }
         currMatch->appendOpponent(mysql_row[0]);
