@@ -4023,6 +4023,136 @@
     </property>
    </item>
   </widget>
+  <widget class="QLabel" name="mufasaLabel">
+   <property name="geometry">
+    <rect>
+     <x>810</x>
+     <y>50</y>
+     <width>71</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="estebanLabel">
+   <property name="geometry">
+    <rect>
+     <x>810</x>
+     <y>80</y>
+     <width>71</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="zeromskiLabel">
+   <property name="geometry">
+    <rect>
+     <x>810</x>
+     <y>110</y>
+     <width>71</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="zeromskiPoint">
+   <property name="geometry">
+    <rect>
+     <x>890</x>
+     <y>110</y>
+     <width>71</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="mufasaPoint">
+   <property name="geometry">
+    <rect>
+     <x>890</x>
+     <y>50</y>
+     <width>71</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="estebanPoint">
+   <property name="geometry">
+    <rect>
+     <x>890</x>
+     <y>80</y>
+     <width>71</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="rokokoLabel">
+   <property name="geometry">
+    <rect>
+     <x>810</x>
+     <y>140</y>
+     <width>71</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="rokokoPoint">
+   <property name="geometry">
+    <rect>
+     <x>890</x>
+     <y>140</y>
+     <width>71</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_continue">
+   <property name="geometry">
+    <rect>
+     <x>800</x>
+     <y>190</y>
+     <width>141</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Continue</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_return">
+   <property name="geometry">
+    <rect>
+     <x>800</x>
+     <y>250</y>
+     <width>141</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Return to menu</string>
+   </property>
+  </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>

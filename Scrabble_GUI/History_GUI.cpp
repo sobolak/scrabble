@@ -1,6 +1,7 @@
 #include "History_GUI.h"
 #include "Menu_GUI.h"
 #include "Logging_GUI.h"
+#include "Replay_GUI.h"
 
 History_GUI::History_GUI(QWidget* parent)
 	: QDialog(parent)
@@ -36,10 +37,10 @@ void History_GUI::on_pushButton_return_clicked()
 	menu.exec();
 }
 
-//void History_GUI::on_pushButton_replay_clicked()
-//{
-//	History_GUI stats(this->user);
-//	this->hide();
-//	stats.setModal(true);
-//	stats.exec();
-//}
+void History_GUI::on_pushButton_replay_clicked()
+{
+	Replay_GUI rep(this->user);
+	this->hide();
+	rep.setModal(true);
+	rep.exec();
+}

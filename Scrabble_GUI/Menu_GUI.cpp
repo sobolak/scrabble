@@ -3,6 +3,7 @@
 #include "Logging_GUI.h"
 #include "Statistics_GUI.h"
 #include "History_GUI.h"
+#include "Player_GUI.h"
 
 Menu_GUI::Menu_GUI(QWidget *parent)
 	: QDialog(parent)
@@ -46,10 +47,18 @@ void Menu_GUI::on_pushButton_statistics_clicked()
 	stats.exec();
 }
 
-void Menu_GUI::on_pushButton_settings_clicked()
+void Menu_GUI::on_pushButton_history_clicked()
 {
-	History_GUI stats(this->user);
+	History_GUI hist(this->user);
 	this->hide();
-	stats.setModal(true);
-	stats.exec();
+	hist.setModal(true);
+	hist.exec();
+}
+
+void Menu_GUI::on_pushButton_profile_clicked()
+{
+	Player_GUI player(this->user);
+	this->hide();
+	player.setModal(true);
+	player.exec();
 }

@@ -78,7 +78,7 @@
     <string>User:</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_settings">
+  <widget class="QPushButton" name="pushButton_history">
    <property name="geometry">
     <rect>
      <x>110</x>

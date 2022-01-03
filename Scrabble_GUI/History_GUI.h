@@ -20,6 +20,6 @@ private slots:
 	void on_pushButton_logout_clicked();
 private slots:
 	void on_pushButton_return_clicked();
-//private slots:
-//	void on_pushButton_replay_clicked();
+private slots:
+	void on_pushButton_replay_clicked();
 };
