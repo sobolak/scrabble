@@ -51,15 +51,15 @@ INSERT INTO users(login, password) VALUES
 
 CREATE VIEW played_matches_count AS SELECT uid, COALESCE(COUNT(DISTINCT(mid)),0) as cnt FROM moves RIGHT JOIN users USING(uid) GROUP BY uid;
 
-CREATE VIEW won_matches_count AS SELECT uid, COALESCE(COUNT(l1.mid), 0) AS cnt FROM users LEFT JOIN (SELECT DISTINCT m.mid, (SELECT uid FROM moves JOIN users USING(uid) WHERE mid=m.mid GROUP BY uid ORDER BY SUM(score) DESC LIMIT 1) AS uid FROM moves m JOIN users USING(uid)) AS l1 USING(uid) GROUP BY uid;
+CREATE VIEW played_maches_relative AS SELECT DISTINCT m.mid, uid, (SELECT SUM(score) FROM moves WHERE mid=m.mid AND uid=m.uid)-(SELECT MAX(l1.sum) FROM (SELECT m2.mid, (SELECT SUM(score) FROM moves WHERE mid=m2.mid AND uid=m2.uid) AS sum FROM moves m2) AS l1 WHERE l1.mid=m.mid) AS diff FROM moves m ORDER BY m.mid; 
 
-CREATE VIEW won_matches_percentage AS SELECT u.uid, COALESCE(l2.cnt/l3.cnt, 0) AS prc FROM (SELECT uid, COUNT(*) AS cnt FROM users JOIN (SELECT DISTINCT m.mid, (SELECT uid FROM moves JOIN users USING(uid) WHERE mid=m.mid GROUP BY uid ORDER BY SUM(score) DESC LIMIT 1) AS uid FROM moves m JOIN users USING(uid)) AS l1 USING(uid) GROUP BY uid) AS l2 RIGHT JOIN (SELECT COUNT(DISTINCT mid) AS cnt, uid FROM moves GROUP BY uid) AS l3 USING(uid) RIGHT JOIN users u USING(uid);
+CREATE VIEW won_matches_count AS SELECT u.uid, COALESCE(l1.cnt, 0) AS cnt FROM (SELECT uid, COUNT(*) AS cnt FROM played_maches_relative WHERE diff=0 GROUP BY uid) AS l1 RIGHT JOIN users u USING(uid);
 
-CREATE VIEW lost_matches_count AS SELECT pmc.uid, pmc.cnt-wmc.cnt as cnt from played_matches_count pmc JOIN won_matches_count wmc USING(uid);
+CREATE VIEW won_matches_percentage AS SELECT pmc.uid, COALESCE(wmc.cnt/pmc.cnt, 0) AS prc FROM won_matches_count wmc JOIN played_matches_count pmc USING(uid);
+
+CREATE VIEW lost_matches_count AS SELECT u.uid, COALESCE(l1.cnt, 0) AS cnt FROM (SELECT uid, COUNT(*) AS cnt FROM played_maches_relative WHERE diff<0 GROUP BY uid) AS l1 RIGHT JOIN users u USING(uid);
 
 CREATE VIEW lost_matches_percentage AS SELECT pmc.uid, COALESCE(lmc.cnt/pmc.cnt, 0) as prc FROM lost_matches_count lmc JOIN played_matches_count pmc USING(uid);
-
-CREATE VIEW played_maches_relative AS SELECT DISTINCT m.mid, uid, (SELECT SUM(score) FROM moves WHERE mid=m.mid AND uid=m.uid)-(SELECT MAX(l1.sum) FROM (SELECT m2.mid, (SELECT SUM(score) FROM moves WHERE mid=m2.mid AND uid=m2.uid) AS sum FROM moves m2) AS l1 WHERE l1.mid=m.mid) AS diff FROM moves m ORDER BY m.mid; 
 
 CREATE VIEW mean_letter_count AS SELECT u.uid, COALESCE(l2.sum/l3.total, 0) AS mean FROM (SELECT l1.uid, SUM(l1.len) AS sum FROM (SELECT uid, LENGTH(word) AS len FROM moves) AS l1 GROUP BY l1.uid) AS l2 JOIN (SELECT uid, COUNT(*) AS total FROM moves GROUP BY uid) AS l3 USING(uid) RIGHT JOIN users u USING(uid);
 
