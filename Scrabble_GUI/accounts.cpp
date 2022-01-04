@@ -380,34 +380,34 @@ User* UserManager::logIn(const string login, const string password) {
 
 int UserManager::getPlayedMatches(User* user) {
     stringstream query;
-    query << "SELECT cnt FROM playedMatchesCount WHERE uid=" << user->getUid();
+    query << "SELECT cnt FROM played_matches_count WHERE uid=" << user->getUid();
     return stoi(fetchSingleValue(query.str()));
 }
 
 int UserManager::getWonMatches(User* user) {
     stringstream query;
-    query << "SELECT cnt FROM wonMatchesCount WHERE uid=" << user->getUid();
+    query << "SELECT cnt FROM won_matches_count WHERE uid=" << user->getUid();
 
     return stoi(fetchSingleValue(query.str()));
 }
 
 float UserManager::getWonMatchesPercentage(User* user) {
     stringstream query;
-    query << "SELECT prc FROM wonMatchesPercentage WHERE uid=" << user->getUid();
+    query << "SELECT prc FROM won_matches_percentage WHERE uid=" << user->getUid();
 
     return stof(fetchSingleValue(query.str()));
 }
 
 int UserManager::getLostMatches(User* user) {
     stringstream query;
-    query << "SELECT cnt FROM lostMatchesCount WHERE uid=" << user->getUid();
+    query << "SELECT cnt FROM lost_matches_count WHERE uid=" << user->getUid();
 
     return stoi(fetchSingleValue(query.str()));
 }
 
 float UserManager::getLostMatchesPercentage(User* user) {
     stringstream query;
-    query << "SELECT prc FROM lostMatchesPercentage WHERE uid=" << user->getUid();
+    query << "SELECT prc FROM lost_matches_percentage WHERE uid=" << user->getUid();
 
     return stof(fetchSingleValue(query.str()));
 }
@@ -417,7 +417,7 @@ int UserManager::getWonMatchesTrain(User* user) {
     MYSQL_ROW mysql_row;
     stringstream query;
 
-    query << "SELECT rel FROM playedMachesRelative WHERE uid=" << user->getUid();
+    query << "SELECT rel FROM played_maches_relative WHERE uid=" << user->getUid();
 
     if(mysql_query(DBconnection, query.str().c_str())) {
         message("Error fetching matches for uid=" + user->getUid());
@@ -442,7 +442,7 @@ int UserManager::getWonMatchesMax(User* user) {
     MYSQL_ROW mysql_row;
     stringstream query;
 
-    query << "SELECT rel FROM playedMachesRelative WHERE uid=" << user->getUid();
+    query << "SELECT rel FROM played_maches_relative WHERE uid=" << user->getUid();
 
     if(mysql_query(DBconnection, query.str().c_str())) {
         message("Error fetching matches for uid=" + user->getUid());
@@ -475,14 +475,14 @@ int UserManager::getWordsCount(User* user) {
 
 float UserManager::getMeanLetterCount(User* user) {
     stringstream query;
-    query << "SELECT mean FROM meanLetterCount WHERE uid=" << user->getUid();
+    query << "SELECT mean FROM mean_letter_count WHERE uid=" << user->getUid();
 
     return stof(fetchSingleValue(query.str()));
 }
 
 float UserManager::getMeanWordScore(User* user) {
     stringstream query;
-    query << "SELECT mean FROM meanWordScore WHERE uid=" << user->getUid();
+    query << "SELECT mean FROM mean_word_score WHERE uid=" << user->getUid();
 
    return stof(fetchSingleValue(query.str()));
 }
@@ -514,7 +514,7 @@ vector<Match*>* UserManager::getAllMatchesList(User* user) {
     MYSQL_ROW mysql_row;
     stringstream query;
 
-    query << "SELECT opp, mid, winner FROM playedMatchesOpponents WHERE u.uid=" << user->getUid();
+    query << "SELECT opp, mid, winner FROM played_matches_opponents WHERE u.uid=" << user->getUid();
 
     if(mysql_query(DBconnection, query.str().c_str())) {
         message("Error fetching matches list for uid=" + user->getUid());
