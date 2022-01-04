@@ -1,9 +1,4 @@
-/* 
-instalujemy bazke,
-robimy poniższe z roota widzowie
-czyli w terminalu (hehe):
-mysql -u root -p
-*/
+/* instalujemy bazke widzowie */
 
 CREATE DATABASE scrabble;
 
@@ -54,160 +49,26 @@ INSERT INTO users(login, password) VALUES
 ('rokoko', 'A2C988799DCB80C5AAE08C7404FAC588A0AC2AE41979C16678C584F3FE43AF16'); /*rokoko1*/
 
 
-CREATE VIEW wonMatchesCount AS SELECT uid,
-         COALESCE(COUNT(l1.mid),
-         0) AS cnt
-FROM users
-LEFT JOIN 
-    (SELECT DISTINCT m.mid,  
-        (SELECT uid
-        FROM moves
-        JOIN users USING(uid)
-        WHERE mid=m.mid
-        GROUP BY  uid
-        ORDER BY  SUM(score) DESC LIMIT 1) AS uid
-        FROM moves m
-        JOIN users USING(uid)) AS l1 USING(uid)
-    GROUP BY  uid; 
+CREATE VIEW playedMatchesCount AS SELECT uid, COALESCE(COUNT(DISTINCT(mid)),0) as cnt FROM moves RIGHT JOIN users USING(uid) GROUP BY uid;
 
-CREATE VIEW wonMatchesPercentage AS SELECT u.uid,
-         COALESCE(l2.cnt/l3.cnt,
-         0) AS prc
-FROM 
-    (SELECT uid,
-         COUNT(*) AS cnt
-    FROM users
-    JOIN 
-        (SELECT DISTINCT m.mid,
-            (SELECT uid
-            FROM moves
-            JOIN users USING(uid)
-            WHERE mid=m.mid
-            GROUP BY  uid
-            ORDER BY  SUM(score) DESC LIMIT 1) AS uid
-            FROM moves m
-            JOIN users USING(uid)) AS l1 USING(uid)
-            GROUP BY  uid) AS l2
-        RIGHT JOIN 
-        (SELECT COUNT(DISTINCT mid) AS cnt,
-         uid
-        FROM moves
-        GROUP BY  uid) AS l3 USING(uid)
-    RIGHT JOIN users u USING(uid); 
+CREATE VIEW wonMatchesCount AS SELECT uid, COALESCE(COUNT(l1.mid), 0) AS cnt FROM users LEFT JOIN (SELECT DISTINCT m.mid, (SELECT uid FROM moves JOIN users USING(uid) WHERE mid=m.mid GROUP BY uid ORDER BY SUM(score) DESC LIMIT 1) AS uid FROM moves m JOIN users USING(uid)) AS l1 USING(uid) GROUP BY uid;
 
-CREATE VIEW lostMatchesCount AS SELECT COALESCE(COUNT(l1.mid),
-         0) AS cnt
-FROM users
-LEFT JOIN 
-    (SELECT DISTINCT m.mid, 
-        (SELECT uid
-        FROM moves
-        JOIN users USING(uid)
-        WHERE mid=m.mid
-        GROUP BY  uid
-        ORDER BY  SUM(score) LIMIT 1) AS uid
-        FROM moves m
-        JOIN users USING(uid)) AS l1 USING(uid)
-    GROUP BY  uid; 
+CREATE VIEW wonMatchesPercentage AS SELECT u.uid, COALESCE(l2.cnt/l3.cnt, 0) AS prc FROM (SELECT uid, COUNT(*) AS cnt FROM users JOIN (SELECT DISTINCT m.mid, (SELECT uid FROM moves JOIN users USING(uid) WHERE mid=m.mid GROUP BY uid ORDER BY SUM(score) DESC LIMIT 1) AS uid FROM moves m JOIN users USING(uid)) AS l1 USING(uid) GROUP BY uid) AS l2 RIGHT JOIN (SELECT COUNT(DISTINCT mid) AS cnt, uid FROM moves GROUP BY uid) AS l3 USING(uid) RIGHT JOIN users u USING(uid);
 
-CREATE VIEW lostMatchesPercentage AS SELECT u.uid,
-         COALESCE(l2.cnt/l3.cnt,
-         0) AS prc
-FROM 
-    (SELECT uid,
-         COUNT(*) AS cnt
-    FROM users
-    JOIN 
-        (SELECT DISTINCT m.mid,
-            (SELECT uid
-            FROM moves
-            JOIN users USING(uid)
-            WHERE mid=m.mid
-            GROUP BY  uid
-            ORDER BY  SUM(score) LIMIT 1) AS uid
-            FROM moves m
-            JOIN users USING(uid)) AS l1 USING(uid)
-            GROUP BY  uid) AS l2
-        RIGHT JOIN 
-        (SELECT COUNT(DISTINCT mid) AS cnt,
-         uid
-        FROM moves
-        GROUP BY  uid) AS l3 USING(uid)
-    RIGHT JOIN users u USING(uid); 
+CREATE VIEW lostMatchesCount AS SELECT pmc.uid, pmc.cnt-wmc.cnt as cnt from playedMatchesCount pmc JOIN wonMatchesCount wmc USING(uid);
 
-CREATE VIEW playedMachesRelative AS SELECT DISTINCT m.mid,
-         uid,
-    (SELECT SUM(score)
-    FROM moves
-    WHERE mid=m.mid
-            AND uid=m.uid)- 
-    (SELECT MAX(l1.sum)
-    FROM 
-        (SELECT m2.mid,
-            (SELECT SUM(score)
-            FROM moves
-            WHERE mid=m2.mid
-                    AND uid=m2.uid) AS sum
-            FROM moves m2) AS l1
-            WHERE l1.mid=m.mid) AS rel
-        FROM moves m
-    ORDER BY  m.mid; 
+CREATE VIEW lostMatchesPercentage AS SELECT pmc.uid, COALESCE(lmc.cnt/pmc.cnt, 0) as prc FROM lostMatchesCount lmc JOIN playedMatchesCount pmc USING(uid);
 
-CREATE VIEW meanLetterCount AS SELECT u.uid,
-         COALESCE(l2.sum/l3.total,
-         0) AS mean
-FROM 
-    (SELECT l1.uid,
-         SUM(l1.len) AS sum
-    FROM 
-        (SELECT uid,
-         LENGTH(word) AS len
-        FROM moves) AS l1
-        GROUP BY  l1.uid) AS l2
-    JOIN 
-    (SELECT uid,
-         COUNT(*) AS total
-    FROM moves
-    GROUP BY  uid) AS l3 USING(uid)
-RIGHT JOIN users u USING(uid); 
+CREATE VIEW playedMachesRelative AS SELECT DISTINCT m.mid, uid, (SELECT SUM(score) FROM moves WHERE mid=m.mid AND uid=m.uid)-(SELECT MAX(l1.sum) FROM (SELECT m2.mid, (SELECT SUM(score) FROM moves WHERE mid=m2.mid AND uid=m2.uid) AS sum FROM moves m2) AS l1 WHERE l1.mid=m.mid) AS diff FROM moves m ORDER BY m.mid; 
 
-CREATE VIEW meanWordScore AS SELECT u.uid,
-         COALESCE(l1.sum/l2.total,
-         0) AS mean
-FROM 
-    (SELECT uid,
-         SUM(score) AS sum
-    FROM moves
-    GROUP BY  uid) AS l1
-JOIN 
-    (SELECT uid,
-         COUNT(*) AS total
-    FROM moves
-    GROUP BY  uid) AS l2 USING(uid)
-RIGHT JOIN users u USING(uid); 
+CREATE VIEW meanLetterCount AS SELECT u.uid, COALESCE(l2.sum/l3.total, 0) AS mean FROM (SELECT l1.uid, SUM(l1.len) AS sum FROM (SELECT uid, LENGTH(word) AS len FROM moves) AS l1 GROUP BY l1.uid) AS l2 JOIN (SELECT uid, COUNT(*) AS total FROM moves GROUP BY uid) AS l3 USING(uid) RIGHT JOIN users u USING(uid);
 
-CREATE VIEW playedMatchesOpponents AS SELECT DISTINCT 
-    (SELECT login
-    FROM users
-    WHERE uid=m.uid) AS opp, m.mid, 
-    (SELECT login
-    FROM moves
-    JOIN users using(uid)
-    WHERE mid=m.mid
-    GROUP BY  uid
-    ORDER BY  sum(score) DESC limit 1) AS winner, u.uid
-FROM moves m
-JOIN 
-    (SELECT mid,
-         uid
-    FROM moves) AS l1 USING(mid)
-JOIN users u ON(l1.uid=u.uid
-        AND m.uid<>u.uid)
-ORDER BY  m.mid; 
+CREATE VIEW meanWordScore AS SELECT u.uid, COALESCE(l1.sum/l2.total, 0) AS mean FROM (SELECT uid, SUM(score) AS sum FROM moves GROUP BY uid) AS l1 JOIN (SELECT uid, COUNT(*) AS total FROM moves GROUP BY uid) AS l2 USING(uid) RIGHT JOIN users u USING(uid);
+
+CREATE VIEW playedMatchesOpponents AS SELECT DISTINCT (SELECT login FROM users WHERE uid=m.uid) AS opp, m.mid, (select login from moves join users using(uid) where mid=m.mid group by uid order by SUM(score) desc limit 1) as winner, u.uid FROM moves m JOIN (SELECT mid, uid FROM moves) AS l1 USING(mid) JOIN users u ON(l1.uid=u.uid AND m.uid<>u.uid) ORDER BY m.mid;
 
 CREATE USER serviceaccount IDENTIFIED BY 'cZtx7b$xwkSL'; 
 
-GRANT ALL PRIVILEGES
-    ON scrabble.* TO serviceaccount; 
+GRANT ALL PRIVILEGES ON scrabble.* TO serviceaccount; 
 
 /* koniec widzowie */ 
