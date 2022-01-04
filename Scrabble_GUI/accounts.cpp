@@ -380,41 +380,34 @@ User* UserManager::logIn(const string login, const string password) {
 
 int UserManager::getPlayedMatches(User* user) {
     stringstream query;
-    query << "SELECT COUNT(DISTINCT(mid)) FROM moves WHERE "
-        << "uid=" << user->getUid();
+    query << "SELECT COUNT(DISTINCT(mid)) FROM moves WHERE uid=" << user->getUid();
     return stoi(fetchSingleValue(query.str()));
 }
 
 int UserManager::getWonMatches(User* user) {
     stringstream query;
-    query << "SELECT COALESCE(COUNT(l1.mid), 0) AS cnt FROM users LEFT JOIN (SELECT DISTINCT m.mid, (SELECT uid FROM moves JOIN users USING(uid) WHERE mid=m.mid GROUP BY uid ORDER BY SUM(score) DESC LIMIT 1) AS uid FROM moves m JOIN users USING(uid)) AS l1 USING(uid) "
-        << "WHERE uid=" << user->getUid()
-        << " GROUP BY uid";
+    query << "SELECT cnt FROM wonMatchesCount WHERE uid=" << user->getUid();
 
     return stoi(fetchSingleValue(query.str()));
 }
 
 float UserManager::getWonMatchesPercentage(User* user) {
     stringstream query;
-    query << "SELECT COALESCE(l2.cnt/l3.cnt, 0) FROM (SELECT uid, COUNT(*) AS cnt FROM users JOIN (SELECT DISTINCT m.mid, (SELECT uid FROM moves JOIN users USING(uid) WHERE mid=m.mid GROUP BY uid ORDER BY SUM(score) DESC LIMIT 1) AS uid FROM moves m JOIN users USING(uid)) AS l1 USING(uid) GROUP BY uid) AS l2 RIGHT JOIN (SELECT COUNT(DISTINCT mid) AS cnt, uid FROM moves GROUP BY uid) AS l3 USING(uid) RIGHT JOIN users u USING(uid) "
-        << "WHERE u.uid=" << user->getUid();
+    query << "SELECT prc FROM wonMatchesPercentage WHERE uid=" << user->getUid();
 
     return stof(fetchSingleValue(query.str()));
 }
 
 int UserManager::getLostMatches(User* user) {
     stringstream query;
-    query << "SELECT COALESCE(COUNT(l1.mid), 0) AS cnt FROM users LEFT JOIN (SELECT DISTINCT m.mid, (SELECT uid FROM moves JOIN users USING(uid) WHERE mid=m.mid GROUP BY uid ORDER BY SUM(score) LIMIT 1) AS uid FROM moves m JOIN users USING(uid)) AS l1 USING(uid) "
-        << "WHERE uid=" << user->getUid()
-        << " GROUP BY uid";
+    query << "SELECT cnt FROM lostMatchesCount WHERE uid=" << user->getUid();
 
     return stoi(fetchSingleValue(query.str()));
 }
 
 float UserManager::getLostMatchesPercentage(User* user) {
     stringstream query;
-    query << "SELECT COALESCE(l2.cnt/l3.cnt, 0) FROM (SELECT uid, COUNT(*) AS cnt FROM users JOIN (SELECT DISTINCT m.mid, (SELECT uid FROM moves JOIN users USING(uid) WHERE mid=m.mid GROUP BY uid ORDER BY SUM(score) LIMIT 1) AS uid FROM moves m JOIN users USING(uid)) AS l1 USING(uid) GROUP BY uid) AS l2 RIGHT JOIN (SELECT COUNT(DISTINCT mid) AS cnt, uid FROM moves GROUP BY uid) AS l3 USING(uid) RIGHT JOIN users u USING(uid) "
-        << "WHERE u.uid=" << user->getUid();
+    query << "SELECT prc FROM lostMatchesPercentage WHERE uid=" << user->getUid();
 
     return stof(fetchSingleValue(query.str()));
 }
@@ -424,8 +417,7 @@ int UserManager::getWonMatchesTrain(User* user) {
     MYSQL_ROW mysql_row;
     stringstream query;
 
-    query << "SELECT DISTINCT m.mid, (SELECT SUM(score) FROM moves WHERE mid=m.mid AND uid=m.uid)-(SELECT MAX(l1.sum) FROM (SELECT m2.mid, (SELECT SUM(score) FROM moves WHERE mid=m2.mid AND uid=m2.uid) AS sum FROM moves m2) AS l1 WHERE l1.mid=m.mid) AS diff FROM moves m  "
-        << "WHERE uid=" << user->getUid();
+    query << "SELECT rel FROM playedMachesRelative WHERE uid=" << user->getUid();
 
     if(mysql_query(DBconnection, query.str().c_str())) {
         message("Error fetching matches for uid=" + user->getUid());
@@ -450,8 +442,7 @@ int UserManager::getWonMatchesMax(User* user) {
     MYSQL_ROW mysql_row;
     stringstream query;
 
-    query << "SELECT DISTINCT m.mid, (SELECT SUM(score) FROM moves WHERE mid=m.mid AND uid=m.uid)-(SELECT MAX(l1.sum) FROM (SELECT m2.mid, (SELECT SUM(score) FROM moves WHERE mid=m2.mid AND uid=m2.uid) AS sum FROM moves m2) AS l1 WHERE l1.mid=m.mid) AS diff FROM moves m  "
-        << "WHERE uid=" << user->getUid();
+    query << "SELECT rel FROM playedMachesRelative WHERE uid=" << user->getUid();
 
     if(mysql_query(DBconnection, query.str().c_str())) {
         message("Error fetching matches for uid=" + user->getUid());
@@ -484,16 +475,14 @@ int UserManager::getWordsCount(User* user) {
 
 float UserManager::getMeanLetterCount(User* user) {
     stringstream query;
-    query << "SELECT COALESCE(l2.sum/l3.total, 0) FROM (SELECT l1.uid, SUM(l1.len) AS sum FROM (SELECT uid, LENGTH(word) AS len FROM moves) AS l1 GROUP BY l1.uid) AS l2 JOIN (SELECT uid, COUNT(*) AS total FROM moves GROUP BY uid) AS l3 USING(uid) "
-        << "WHERE uid=" << user->getUid() << " GROUP BY uid";
+    query << "SELECT mean FROM meanLetterCount WHERE uid=" << user->getUid();
 
     return stof(fetchSingleValue(query.str()));
 }
 
 float UserManager::getMeanWordScore(User* user) {
     stringstream query;
-    query << "SELECT COALESCE(l1.sum/l2.total, 0) FROM (SELECT uid, SUM(score) AS sum FROM moves GROUP BY uid) AS l1 JOIN (SELECT uid, COUNT(*) AS total FROM moves GROUP BY uid) AS l2 USING(uid) "
-        << "WHERE uid=" << user->getUid() << " GROUP BY uid";
+    query << "SELECT mean FROM meanWordScore WHERE uid=" << user->getUid();
 
    return stof(fetchSingleValue(query.str()));
 }
@@ -520,14 +509,12 @@ vector<string>* UserManager::getRemainingLogins(User* user) {
     mysql_free_result(res);
     return loginsList;
 }
-
 vector<Match*>* UserManager::getAllMatchesList(User* user) {
     MYSQL_RES* res;
     MYSQL_ROW mysql_row;
     stringstream query;
 
-    query << "SELECT DISTINCT (SELECT login FROM users WHERE uid=m.uid) AS opp, m.mid, (select login from moves join users using(uid) where mid=m.mid group by uid order by sum(score) desc limit 1) as winnerFROM moves m JOIN (SELECT mid, uid FROM moves) AS l1 USING(mid) JOIN users u ON(l1.uid=u.uid AND m.uid<>u.uid) "
-        << "WHERE u.uid=" << user->getUid() << " ORDER BY m.mid";
+    query << "SELECT opp, mid, winner FROM playedMatchesOpponents WHERE u.uid=" << user->getUid();
 
     if(mysql_query(DBconnection, query.str().c_str())) {
         message("Error fetching matches list for uid=" + user->getUid());
@@ -615,7 +602,6 @@ void MatchManager::deleteMatch(Match* match) {
 }
 
 vector<Move*>* MatchManager::getAllMovesList(Match* match) {
-    // returns first user's moves
     MYSQL_RES* res;
     MYSQL_ROW mysql_row;
     stringstream query;
