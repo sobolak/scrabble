@@ -380,7 +380,7 @@ User* UserManager::logIn(const string login, const string password) {
 
 int UserManager::getPlayedMatches(User* user) {
     stringstream query;
-    query << "SELECT COUNT(DISTINCT(mid)) FROM moves WHERE uid=" << user->getUid();
+    query << "SELECT cnt FROM playedMatchesCount WHERE uid=" << user->getUid();
     return stoi(fetchSingleValue(query.str()));
 }
 
