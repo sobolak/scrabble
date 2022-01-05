@@ -9,6 +9,7 @@
 #include "sha256.h"
 
 using std::cout;
+using std::stoi;
 using std::endl;
 using std::setfill;
 using std::setw;
@@ -427,10 +428,13 @@ int UserManager::getWonMatchesTrain(User* user) {
     res = mysql_use_result(DBconnection);
     int train = 0;
     while(mysql_row = mysql_fetch_row(res)) {
-        if(atoi(mysql_row[1]) > 0) 
+        if (stoi(mysql_row[0]) == 0) {
             ++train;
-        else
+        }
+        else {
+            train = 0;
             break;
+        }
     }
 
     mysql_free_result(res);
@@ -453,7 +457,7 @@ int UserManager::getWonMatchesMax(User* user) {
     int train = 0;
     int maxTrain = 0;
     while(mysql_row = mysql_fetch_row(res)) {
-        if(atoi(mysql_row[1]) > 0) {
+        if(stoi(mysql_row[0]) == 0) {
             ++train;
         } else {
             train = 0;
@@ -514,7 +518,7 @@ vector<Match*>* UserManager::getAllMatchesList(User* user) {
     MYSQL_ROW mysql_row;
     stringstream query;
 
-    query << "SELECT opp, mid, winner FROM played_matches_opponents WHERE u.uid=" << user->getUid();
+    query << "SELECT opp, mid, winner FROM played_matches_opponents WHERE uid=" << user->getUid();
 
     if(mysql_query(DBconnection, query.str().c_str())) {
         message("Error fetching matches list for uid=" + user->getUid());
@@ -607,7 +611,7 @@ vector<Move*>* MatchManager::getAllMovesList(Match* match) {
     stringstream query;
 
     query << "SELECT mvid, mid, seq, uid, login, r0w, col, is_vert, word, score FROM moves JOIN users USING(uid) "
-    << "WHERE mid=" << match->getMid();
+    << "WHERE mid=" << match->getMid() << " ORDER BY seq DESC";
 
     if(mysql_query(DBconnection, query.str().c_str())) {
         message("Error fetching moves list for mid=" + match->getMid());
