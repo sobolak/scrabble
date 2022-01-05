@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>403</width>
-    <height>300</height>
+    <width>411</width>
+    <height>314</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -154,6 +154,19 @@
    </property>
    <property name="text">
     <string>Password:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_info">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>240</y>
+     <width>49</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string> </string>
    </property>
   </widget>
  </widget>

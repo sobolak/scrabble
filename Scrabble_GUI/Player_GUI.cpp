@@ -35,3 +35,18 @@ void Player_GUI::on_pushButton_logout_clicked()
 	login.setModal(true);
 	login.exec();
 }
+
+void Player_GUI::on_pushButton_change_clicked()
+{
+
+	string oldPassword = ui.lineEdit_password->text().toStdString();
+	string newPassword = ui.lineEdit_new_password->text().toStdString();
+	string newPassword2 = ui.lineEdit_confirm_password->text().toStdString();
+
+	if (globalUserManager->changePassword(this->user, oldPassword, newPassword, newPassword2))
+	{
+		ui.lineEdit_confirm_password->clear();
+		ui.lineEdit_new_password->clear();
+		ui.lineEdit_password->clear();
+	}
+}

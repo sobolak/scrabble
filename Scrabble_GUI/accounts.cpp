@@ -388,21 +388,15 @@ bool UserManager::changePassword(User* user, string oldPassword, string newPassw
 
     query << "UPDATE users SET password='" << sha256(newPassword) << "' WHERE "
         << "login='" << user->getLogin() << "' AND "
-        << "password='" << user->getPassword() << "'";
+        << "password='" << oldPassword << "'";
 
     if(mysql_query(DBconnection, query.str().c_str())) {
         message("Error changing password! ");
         return false;
     }
-
-    if(mysql_fetch_row(res)) {
-        mysql_free_result(res);
-        user->setPassword(newPassword);
-        return true;
-    }
-
-    mysql_free_result(res);
-    return false;
+    //////////////////////////////////////
+    user->setPassword(newPassword);
+    return true;
 }
 
 int UserManager::getPlayedMatches(User* user) {

@@ -17,8 +17,8 @@ public:
 private:
 	Ui::Player_GUI ui;
 
-//private slots:
-//	void on_pushButton_change_clicked();
+private slots:
+	void on_pushButton_change_clicked();
 private slots:
 	void on_pushButton_menu_clicked();
 private slots:
