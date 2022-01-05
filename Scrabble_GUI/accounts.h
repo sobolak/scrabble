@@ -6,6 +6,8 @@
 using std::string;
 using std::vector;
 
+
+
 class User {
 public:
     static const int MAX_LOGIN_SIZE = 20;
@@ -117,6 +119,7 @@ public:
     void printAllUsers();
     void deleteUser(User*);
     User* logIn(const string, const string);
+    bool changePassword(User*, string, string, string);
 
     int getPlayedMatches(User*);
     int getWonMatches(User*);

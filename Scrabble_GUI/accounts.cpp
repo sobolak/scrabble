@@ -379,6 +379,32 @@ User* UserManager::logIn(const string login, const string password) {
     return NULL;
 }
 
+bool UserManager::changePassword(User* user, string oldPassword, string newPassword, string newPassword2) {
+    MYSQL_RES* res;
+    stringstream query;
+
+    if (strcmp(newPassword.c_str(), newPassword2.c_str()) != 0)
+        return false;
+
+    query << "UPDATE users SET password='" << sha256(newPassword) << "' WHERE "
+        << "login='" << user->getLogin() << "' AND "
+        << "password='" << user->getPassword() << "'";
+
+    if(mysql_query(DBconnection, query.str().c_str())) {
+        message("Error changing password! ");
+        return false;
+    }
+
+    if(mysql_fetch_row(res)) {
+        mysql_free_result(res);
+        user->setPassword(newPassword);
+        return true;
+    }
+
+    mysql_free_result(res);
+    return false;
+}
+
 int UserManager::getPlayedMatches(User* user) {
     stringstream query;
     query << "SELECT cnt FROM played_matches_count WHERE uid=" << user->getUid();
