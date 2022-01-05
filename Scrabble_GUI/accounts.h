@@ -54,7 +54,7 @@ private:
 
     int seq = 0;
     string winner = "";
-    vector<string>* opponents = NULL;
+    vector<string>* opponents = new vector<string>;
 };
 
 class Move {
