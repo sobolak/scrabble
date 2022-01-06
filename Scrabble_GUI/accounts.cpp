@@ -346,10 +346,12 @@ void UserManager::deleteUser(User* user) {
         return;
     }
 
-    delete user;
-    message("User delete successful. ");
+    if (mysql_affected_rows(DBconnection) > 0) {
+        delete user;
+        message("User delete successful. ");
+        return;
+    }
     return;
-
 }
 
 User* UserManager::logIn(const string login, const string password) {
@@ -380,7 +382,6 @@ User* UserManager::logIn(const string login, const string password) {
 }
 
 bool UserManager::changePassword(User* user, string oldPassword, string newPassword, string newPassword2) {
-    MYSQL_RES* res;
     stringstream query;
 
     if (strcmp(newPassword.c_str(), newPassword2.c_str()) != 0)
@@ -388,15 +389,18 @@ bool UserManager::changePassword(User* user, string oldPassword, string newPassw
 
     query << "UPDATE users SET password='" << sha256(newPassword) << "' WHERE "
         << "login='" << user->getLogin() << "' AND "
-        << "password='" << oldPassword << "'";
+        << "password='" << sha256(oldPassword) << "'";
 
     if(mysql_query(DBconnection, query.str().c_str())) {
         message("Error changing password! ");
         return false;
     }
-    //////////////////////////////////////
-    user->setPassword(newPassword);
-    return true;
+    
+    if (mysql_affected_rows(DBconnection) > 0) {
+        user->setPassword(newPassword);
+        return true;
+    }
+    return false;
 }
 
 int UserManager::getPlayedMatches(User* user) {
@@ -448,13 +452,10 @@ int UserManager::getWonMatchesTrain(User* user) {
     res = mysql_use_result(DBconnection);
     int train = 0;
     while(mysql_row = mysql_fetch_row(res)) {
-        if (stoi(mysql_row[0]) == 0) {
+        if (stoi(mysql_row[0]) == 0)
             ++train;
-        }
-        else {
-            train = 0;
+        else
             break;
-        }
     }
 
     mysql_free_result(res);
@@ -538,7 +539,7 @@ vector<Match*>* UserManager::getAllMatchesList(User* user) {
     MYSQL_ROW mysql_row;
     stringstream query;
 
-    query << "SELECT opp, mid, winner FROM played_matches_opponents WHERE uid=" << user->getUid();
+    query << "SELECT opp, mid, winner FROM played_matches_opponents WHERE uid=" << user->getUid() << " ORDER BY mid DESC";
 
     if(mysql_query(DBconnection, query.str().c_str())) {
         message("Error fetching matches list for uid=" + user->getUid());
@@ -620,8 +621,11 @@ void MatchManager::deleteMatch(Match* match) {
         message("Failed to delete match! ");
         return;
     }
-    delete match;
-    message("Match delete successful. ");
+    if (mysql_affected_rows(DBconnection) > 0) {
+        delete match;
+        message("Match delete successful. ");
+        return;
+    }
     return;
 }
 
@@ -764,7 +768,10 @@ void MoveManager::deleteMove(Move* move) {
         message("Failed to delete move! ");
         return;
     }
-    delete move;
-    message("Move delete successful. ");
+    if (mysql_affected_rows(DBconnection) > 0) {
+        delete move;
+        message("Move delete successful. ");
+        return;
+    }
     return;
 }

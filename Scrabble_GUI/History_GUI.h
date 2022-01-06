@@ -10,6 +10,7 @@ class History_GUI : public QDialog
 
 public:
 	User* user;
+	vector<Match*>* matchesList;
 	History_GUI(QWidget *parent = Q_NULLPTR);
 	History_GUI(User* user, QWidget* parent = Q_NULLPTR);
 	~History_GUI();

@@ -20,26 +20,24 @@ History_GUI::History_GUI(User* user, QWidget *parent)
 	ui.setupUi(this);
 	auto model = ui.tableWidget->model();
 	ui.label_name->setText(QString::fromStdString(this->user->getLogin()));
-	vector<Match*>* matchesList = globalUserManager->getAllMatchesList(this->user);
+	this->matchesList = globalUserManager->getAllMatchesList(this->user);
 	int i = 0;
-	Match* currMatch = NULL;
-	vector<string>* opponents = NULL;
-	while (i < 10 && !matchesList->empty())
-	{
-		currMatch = (*matchesList).back();
-		model->setData(model->index(i, 0), QString::fromStdString(to_string(currMatch->getMid())));
+	vector<Match*>::iterator mIter = this->matchesList->begin();
+	vector<string>::iterator oIter;
 
-		opponents = currMatch->getOpponents();
+	while (i < 10 && mIter != this->matchesList->end())
+	{
+		model->setData(model->index(i, 0), QString::fromStdString(to_string(this->matchesList->size()-i)));
+		oIter = (*mIter)->getOpponents()->begin();
 		int j = 1;
-		while (j < 4 && !opponents->empty())
+		while (j < 4 && oIter != (*mIter)->getOpponents()->end())
 		{
-			model->setData(model->index(i, j), QString::fromStdString((*opponents).back().c_str()));
-			opponents->pop_back();
+			model->setData(model->index(i, j), QString::fromStdString((*oIter).c_str()));
+			++oIter;
 			++j;
 		}
-		model->setData(model->index(i, 4), QString::fromStdString(currMatch->getWinner().c_str()));
-
-		matchesList->pop_back();
+		model->setData(model->index(i, 4), QString::fromStdString((*mIter)->getWinner().c_str()));
+		++mIter;
 		++i;
 	}
 }
@@ -71,25 +69,25 @@ void History_GUI::on_pushButton_replay_clicked()
 	try
 	{
 		if (ui.radioButton_1->isChecked())
-			matchID = stoi(model->data(model->index(0, 0)).toString().toStdString());
+			matchID = this->matchesList->at(0)->getMid();
 		else if (ui.radioButton_2->isChecked())
-			matchID = stoi(model->data(model->index(1, 0)).toString().toStdString());
+			matchID = this->matchesList->at(1)->getMid();
 		else if (ui.radioButton_3->isChecked())
-			matchID = stoi(model->data(model->index(2, 0)).toString().toStdString());
+			matchID = this->matchesList->at(2)->getMid();
 		else if (ui.radioButton_4->isChecked())
-			matchID = stoi(model->data(model->index(3, 0)).toString().toStdString());
+			matchID = this->matchesList->at(3)->getMid();
 		else if (ui.radioButton_5->isChecked())
-			matchID = stoi(model->data(model->index(4, 0)).toString().toStdString());
+			matchID = this->matchesList->at(4)->getMid();
 		else if (ui.radioButton_6->isChecked())
-			matchID = stoi(model->data(model->index(5, 0)).toString().toStdString());
+			matchID = this->matchesList->at(5)->getMid();
 		else if (ui.radioButton_7->isChecked())
-			matchID = stoi(model->data(model->index(6, 0)).toString().toStdString());
+			matchID = this->matchesList->at(6)->getMid();
 		else if (ui.radioButton_8->isChecked())
-			matchID = stoi(model->data(model->index(7, 0)).toString().toStdString());
+			matchID = this->matchesList->at(7)->getMid();
 		else if (ui.radioButton_9->isChecked())
-			matchID = stoi(model->data(model->index(8, 0)).toString().toStdString());
+			matchID = this->matchesList->at(8)->getMid();
 		else if (ui.radioButton_10->isChecked())
-			matchID = stoi(model->data(model->index(9, 0)).toString().toStdString());
+			matchID = this->matchesList->at(9)->getMid();
 	}
 	catch (const std::exception&)
 	{
