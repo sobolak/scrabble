@@ -304,9 +304,7 @@ void Game_GUI_2::playerMove(player& playerPlay, char c) {
 				}
 				++cnt;
 			}
-			for (int i{ 0 }; i < 10; ++i) {
-				playerPlay.setPlayerCardsChoiceToWrite(i, false);
-			}
+
 			if (check_word == true) {
 				check_word = this->gameMap1.correctMove(mufasa);
 				if (check_word == true) {
@@ -331,6 +329,9 @@ void Game_GUI_2::playerMove(player& playerPlay, char c) {
 					ui.mufasaWord->setText(""); //zmiana tabelki
 					playerLetterRefresh('m');
 				}
+			}
+			for (int i{ 0 }; i < 10; ++i) {
+				playerPlay.setPlayerCardsChoiceToWrite(i, false);
 			}
 			if (!check_word) {
 				gameMap1.incorrextMoveOfPlayer();
@@ -396,9 +397,6 @@ void Game_GUI_2::playerMove(player& playerPlay, char c) {
 				}
 				++cnt;
 			}
-			for (int i{ 0 }; i < 10; ++i) {
-				playerPlay.setPlayerCardsChoiceToWrite(i, false);
-			}
 			if (check_word == true) {
 				check_word = this->gameMap1.correctMove(mufasa);
 				if (check_word == true) {
@@ -423,6 +421,9 @@ void Game_GUI_2::playerMove(player& playerPlay, char c) {
 					ui.estebanWord->setText(""); //zmiana tabelki
 					playerLetterRefresh('e');
 				}
+			}
+			for (int i{ 0 }; i < 10; ++i) {
+				playerPlay.setPlayerCardsChoiceToWrite(i, false);
 			}
 			if (!check_word) {
 				gameMap1.incorrextMoveOfPlayer();
