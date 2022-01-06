@@ -348,7 +348,7 @@ void Game_GUI_3::on_zeromskiPass_clicked() {
 }
 
 void Game_GUI_3::privacyBoard(char c) {
-	QString tmp = '#';
+	QString tmp = QChar('#');
 	if (c == 'm') {
 		auto model = ui.mufasaBoard->model();
 		for (int i{ 0 }; i < 10; ++i) {
@@ -373,21 +373,21 @@ void Game_GUI_3::playerLetterRefresh(char c) {
 	if (c == 'm') {
 		auto model = ui.mufasaBoard->model();
 		for (int i{ 0 }; i < 10; ++i) {
-			QString tmp = char(mufasa.getPlayerCardsName(i));
+			QString tmp = QChar(mufasa.getPlayerCardsName(i));
 			model->setData(model->index(0, i), tmp);
 		}
 	}
 	else if (c == 'e') {
 		auto model = ui.estebanBoard->model();
 		for (int i{ 0 }; i < 10; ++i) {
-			QString tmp = char(esteban.getPlayerCardsName(i));
+			QString tmp = QChar(esteban.getPlayerCardsName(i));
 			model->setData(model->index(0, i), tmp);
 		}
 	}
 	else if (c == 'z') {
 		auto model = ui.zeromskiBoard->model();
 		for (int i{ 0 }; i < 10; ++i) {
-			QString tmp = char(zeromski.getPlayerCardsName(i));
+			QString tmp = QChar(zeromski.getPlayerCardsName(i));
 			model->setData(model->index(0, i), tmp);
 		}
 	}

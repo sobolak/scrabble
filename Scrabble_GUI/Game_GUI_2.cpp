@@ -213,7 +213,7 @@ void Game_GUI_2::on_estebanPass_clicked() {
 }
 
 void Game_GUI_2::privacyBoard(char c) {
-	QString tmp = '#';
+	QString tmp = QChar('#');
 	if (c == 'm') {
 		auto model = ui.mufasaBoard->model();
 		for (int i{ 0 }; i < 10; ++i) {
@@ -232,14 +232,14 @@ void Game_GUI_2::playerLetterRefresh(char c) {
 	if (c == 'm') {
 		auto model = ui.mufasaBoard->model();
 		for (int i{ 0 }; i < 10; ++i) {
-			QString tmp = char(mufasa.getPlayerCardsName(i));
+			QString tmp = QChar(mufasa.getPlayerCardsName(i));
 			model->setData(model->index(0, i), tmp);
 		}
 	}
 	else if (c == 'e') {
 		auto model = ui.estebanBoard->model();
 		for (int i{ 0 }; i < 10; ++i) {
-			QString tmp = char(esteban.getPlayerCardsName(i));
+			QString tmp = QChar(esteban.getPlayerCardsName(i));
 			model->setData(model->index(0, i), tmp);
 		}
 	}

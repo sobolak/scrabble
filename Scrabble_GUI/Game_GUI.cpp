@@ -87,7 +87,7 @@ void Game_GUI::on_pushButton_pass_clicked() {
 void Game_GUI::playerLetterRefresh(player player) {
 	auto model = ui.tableWidget_letters->model();
 	for (int i{ 0 }; i < 10; ++i) { // wpisuje w tabelke zawsze literki mufasy bo on jest graczem rozpoczynajcym rozgryke 
-		QString tmp = char(player.getPlayerCardsName(i));
+		QString tmp = QChar(player.getPlayerCardsName(i));
 		model->setData(model->index(0, i), tmp);
 	}
 }
