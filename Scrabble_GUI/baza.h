@@ -160,7 +160,7 @@ public:
         int luck;
         for (int i{ 0 }; i < word.length(); i++) {
             for (int j{ 0 }; j < cardQuantity; j++) {
-                if (word[i] == playerCards[j].name) {
+                if (word[i] == playerCards[j].name && getPlayerCardsChoiceToWrite(j) == true) {
                     luck = rand() % 79;
                     playerCards[j].name = cybant[luck].name;
                     playerCards[j].points = cybant[luck].points;

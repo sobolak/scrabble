@@ -150,9 +150,6 @@ void Game_GUI::playerMove(player& playerPlay) {
 			}
 			++cnt;
 		}
-		for (int i{ 0 }; i < 10; ++i) {
-			playerPlay.setPlayerCardsChoiceToWrite(i, false);
-		}
 		if (check_word == true) {
 			check_word = this->gameMap1.correctMove(mufasa);
 			if (check_word == true) {
@@ -178,6 +175,9 @@ void Game_GUI::playerMove(player& playerPlay) {
 				ui.lineEdit_word->setText(""); //zmiana tabelki
 				playerLetterRefresh(playerPlay);
 			}
+		}
+		for (int i{ 0 }; i < 10; ++i) {
+			playerPlay.setPlayerCardsChoiceToWrite(i, false);
 		}
 		if (!check_word) {
 			gameMap1.incorrextMoveOfPlayer();
