@@ -51,7 +51,7 @@ INSERT INTO users(login, password) VALUES
 
 CREATE VIEW played_matches_count AS SELECT uid, COALESCE(COUNT(DISTINCT(mid)),0) as cnt FROM moves RIGHT JOIN users USING(uid) GROUP BY uid;
 
-CREATE VIEW played_maches_relative AS SELECT DISTINCT m.mid, uid, (SELECT SUM(score) FROM moves WHERE mid=m.mid AND uid=m.uid)-(SELECT MAX(l1.sum) FROM (SELECT m2.mid, (SELECT SUM(score) FROM moves WHERE mid=m2.mid AND uid=m2.uid) AS sum FROM moves m2) AS l1 WHERE l1.mid=m.mid) AS rel FROM moves m ORDER BY m.mid; 
+CREATE VIEW played_maches_relative AS SELECT DISTINCT m.mid, uid, (SELECT SUM(score) FROM moves WHERE mid=m.mid AND uid=m.uid)-(SELECT MAX(l1.sum) FROM (SELECT m2.mid, (SELECT SUM(score) FROM moves WHERE mid=m2.mid AND uid=m2.uid) AS sum FROM moves m2) AS l1 WHERE l1.mid=m.mid) AS rel FROM moves m ORDER BY m.mid DESC; 
 
 CREATE VIEW played_matches_opponents AS SELECT DISTINCT (SELECT login FROM users WHERE uid=m.uid) AS opp, m.mid, (select login from moves join users using(uid) where mid=m.mid group by uid order by SUM(score) desc limit 1) as winner, u.uid FROM moves m JOIN (SELECT mid, uid FROM moves) AS l1 USING(mid) JOIN users u ON(l1.uid=u.uid AND m.uid<>u.uid) ORDER BY m.mid;
 
