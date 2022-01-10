@@ -107,17 +107,17 @@ void Game_GUI::playerMove(player& playerPlay) {
 		for (auto lett : word) { //sprawdzenie czy na odpowiednich pozycjach jest to samo i czy litery istnieja odpowiednio
 			if (ui.radioButton_horizontal->isChecked()) {
 				if (this->gameMap1.board[y][x + cnt].isOccupied()) {
-					if (this->gameMap1.board[y][x + cnt].getLetter() != lett) {
+					if ((char)toupper(this->gameMap1.board[y][x + cnt].getLetter()) != (char)toupper(lett)) {
 						check_word = false;
 					}
 				}
 				else {
 					check_word = false;
 					for (int i{ 0 }; i < 10; ++i) {
-						if (lett == char(playerPlay.getPlayerCardsName(i)) && playerPlay.getPlayerCardsChoiceToWrite(i) == false) {
+						if ((char)toupper(lett) == (char)toupper(playerPlay.getPlayerCardsName(i)) && playerPlay.getPlayerCardsChoiceToWrite(i) == false) {
 							playerPlay.setPlayerCardsChoiceToWrite(i, true);
 							this->gameMap1.board[y][x + cnt].setSession(1);
-							this->gameMap1.board[y][x + cnt].setLetter(lett);
+							this->gameMap1.board[y][x + cnt].setLetter((char)toupper(lett));
 							check_word = true;
 							break;
 						}
@@ -129,17 +129,17 @@ void Game_GUI::playerMove(player& playerPlay) {
 			else
 			{
 				if (this->gameMap1.board[y + cnt][x].isOccupied()) {
-					if (this->gameMap1.board[y + cnt][x].getLetter() != lett) {
+					if ((char)toupper( this->gameMap1.board[y + cnt][x].getLetter()) != (char)toupper(lett)) {
 						check_word = false;
 					}
 				}
 				else {
 					check_word = false;
 					for (int i{ 0 }; i < 10; ++i) {
-						if (lett == char(playerPlay.getPlayerCardsName(i)) && playerPlay.getPlayerCardsChoiceToWrite(i) == false) {
+						if ((char)toupper(lett) == (char)toupper(playerPlay.getPlayerCardsName(i)) && playerPlay.getPlayerCardsChoiceToWrite(i) == false) {
 							playerPlay.setPlayerCardsChoiceToWrite(i, true);
 							this->gameMap1.board[y + cnt][x].setSession(1);
-							this->gameMap1.board[y + cnt][x].setLetter(lett);
+							this->gameMap1.board[y + cnt][x].setLetter((char)toupper(lett));
 							check_word = true;
 							break;
 						}
@@ -158,14 +158,14 @@ void Game_GUI::playerMove(player& playerPlay) {
 				int cnt = 0;
 				for (auto lett : word) {
 					if (ui.radioButton_horizontal->isChecked()) {
-						model->setData(model->index(y, x + cnt), QString(lett));
+						model->setData(model->index(y, x + cnt), QString((char)toupper(lett)));
 						this->gameMap1.board[y][x + cnt].setSession(2);
-						this->gameMap1.board[y][x + cnt].setLetter(lett);
+						this->gameMap1.board[y][x + cnt].setLetter((char)toupper(lett));
 					}
 					else {
-						model->setData(model->index(y + cnt, x), QString(lett));
+						model->setData(model->index(y + cnt, x), QString((char)toupper(lett)));
 						this->gameMap1.board[y + cnt][x].setSession(2);
-						this->gameMap1.board[y + cnt][x].setLetter(lett);
+						this->gameMap1.board[y + cnt][x].setLetter((char)toupper(lett));
 					}
 					++cnt;
 				}
@@ -199,7 +199,7 @@ void Game_GUI::refreshGameMap() {
 	for (int i = 0; i < 15; i++) { // refresh tablicy
 		for (int j = 0; j < 15; j++) {
 			if (gameMap1.board[i][j].getSession() == 1 || gameMap1.board[i][j].getSession() == 2)
-				model->setData(model->index(i, j), QString(gameMap1.board[i][j].getLetter()));
+				model->setData(model->index(i, j), QString((char)toupper(gameMap1.board[i][j].getLetter())));
 		}
 	}
 

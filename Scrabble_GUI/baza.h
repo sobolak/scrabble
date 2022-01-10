@@ -5,6 +5,7 @@
 #include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 #include <conio.h>
 #include <string.h>
 #include <fstream>
@@ -160,7 +161,7 @@ public:
         int luck;
         for (int i{ 0 }; i < word.length(); i++) {
             for (int j{ 0 }; j < cardQuantity; j++) {
-                if (word[i] == playerCards[j].name && getPlayerCardsChoiceToWrite(j) == true) {
+                if ((char)toupper(word[i]) == playerCards[j].name && getPlayerCardsChoiceToWrite(j) == true) {
                     luck = rand() % 79;
                     playerCards[j].name = cybant[luck].name;
                     playerCards[j].points = cybant[luck].points;
@@ -802,7 +803,7 @@ public:
         int points = 0;
         for (auto letter : word) {
             for (int i{ 0 }; i < 79; i++) {
-                if (letter == cybant[i].name) {
+                if ((char)toupper(letter) == cybant[i].name) {
                     points += cybant[i].points;
                     break;
                 }
