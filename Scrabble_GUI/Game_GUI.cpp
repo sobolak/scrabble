@@ -12,7 +12,6 @@ Game_GUI::Game_GUI(QWidget* parent)
 	mufasa.setNick("mufasa");
 
 	ui.setupUi(this);
-	// mufasa to zawsze domyslny player 1 czy z kompem czy nie i zawsze robi 1 ruch i zawsze jeg literki
 	changeCurrentPlayer(mufasa);
 	playerLetterRefresh(mufasa);
 }
@@ -51,27 +50,13 @@ void Game_GUI::on_pushButton_add_clicked()
 }
 
 void Game_GUI::on_pushButton_change_clicked() {
-	//if (gameMap1.getNumberOfPlayers() == 1) {
-	//	mufasa.changeEveryPlayerCard(gameMap1.cybant, gameMap1.getFirstMove());
-	//	playerLetterRefresh(mufasa);
-	//}
-	// TO DO ZMIANY PO W PIERWSZYM MOVE LOSUJESZ W INF 
+
 	this->passCounter++;
 	if (this->passCounter == 4)
 	{
 		on_pushButton_end_clicked();
 	}
 	gatherLetterToChange_1(mufasa);
-
-	/*std::random_device rd;
-	std::mt19937 gen(rd());
-	std::uniform_int_distribution<> distrib(65, 90);
-	auto playerLetter = ui.tableWidget_letters->model();
-	for (int i{ 0 }; i < 10; ++i)
-	{
-			QString tmp = char(distrib(rd));
-			playerLetter->setData(playerLetter->index(0, i), tmp);
-	}*/
 }
 
 void Game_GUI::on_pushButton_pass_clicked() {
@@ -86,7 +71,7 @@ void Game_GUI::on_pushButton_pass_clicked() {
 
 void Game_GUI::playerLetterRefresh(player player) {
 	auto model = ui.tableWidget_letters->model();
-	for (int i{ 0 }; i < 10; ++i) { // wpisuje w tabelke zawsze literki mufasy bo on jest graczem rozpoczynajcym rozgryke 
+	for (int i{ 0 }; i < 10; ++i) { 
 		QString tmp = QChar(player.getPlayerCardsName(i));
 		model->setData(model->index(0, i), tmp);
 	}
@@ -99,12 +84,12 @@ void Game_GUI::playerMove(player& playerPlay) {
 	if (word == "") {
 		check_word = false;
 	}
-	if (check_word) { //trzeba dodac jakies rzeczy gdy slowo nie znajduje sie w slowniku dic
+	if (check_word) { 
 		int x = ui.comboBox_column->currentText().toInt();
 		int y = ui.comboBox_row->currentText().toInt();
 		int cnt = 0;
 		int s = 0;
-		for (auto lett : word) { //sprawdzenie czy na odpowiednich pozycjach jest to samo i czy litery istnieja odpowiednio
+		for (auto lett : word) { 
 			if (ui.radioButton_horizontal->isChecked()) {
 				if (this->gameMap1.board[y][x + cnt].isOccupied()) {
 					if ((char)toupper(this->gameMap1.board[y][x + cnt].getLetter()) != (char)toupper(lett)) {
@@ -196,7 +181,7 @@ void Game_GUI::changeCurrentPlayer(player playerPLay) {
 void Game_GUI::refreshGameMap() {
 	mufasa.setPossibilityToChangeCards(true);
 	auto model = ui.tableWidget_game->model();
-	for (int i = 0; i < 15; i++) { // refresh tablicy
+	for (int i = 0; i < 15; i++) {
 		for (int j = 0; j < 15; j++) {
 			if (gameMap1.board[i][j].getSession() == 1 || gameMap1.board[i][j].getSession() == 2)
 				model->setData(model->index(i, j), QString((char)toupper(gameMap1.board[i][j].getLetter())));

@@ -582,17 +582,17 @@ void Game_GUI_4::playerMove(player& playerPlay, char c) {
 			for (auto lett : word) { //sprawdzenie czy na odpowiednich pozycjach jest to samo i czy litery istnieja odpowiednio
 				if (ui.mufasaHorizontal->isChecked()) {
 					if (this->gameMap1.board[y][x + cnt].isOccupied()) {
-						if (this->gameMap1.board[y][x + cnt].getLetter() != lett) {
+						if ((char)toupper(this->gameMap1.board[y][x + cnt].getLetter()) != (char)toupper(lett)) {
 							check_word = false;
 						}
 					}
 					else {
 						check_word = false;
 						for (int i{ 0 }; i < 10; ++i) {
-							if (lett == char(playerPlay.getPlayerCardsName(i)) && playerPlay.getPlayerCardsChoiceToWrite(i) == false) {
+							if ((char)toupper(lett) == (char)toupper(playerPlay.getPlayerCardsName(i)) && playerPlay.getPlayerCardsChoiceToWrite(i) == false) {
 								playerPlay.setPlayerCardsChoiceToWrite(i, true);
 								this->gameMap1.board[y][x + cnt].setSession(1);
-								this->gameMap1.board[y][x + cnt].setLetter(lett);
+								this->gameMap1.board[y][x + cnt].setLetter((char)toupper(lett));
 								check_word = true;
 								break;
 							}
@@ -604,17 +604,17 @@ void Game_GUI_4::playerMove(player& playerPlay, char c) {
 				else
 				{
 					if (this->gameMap1.board[y + cnt][x].isOccupied()) {
-						if (this->gameMap1.board[y + cnt][x].getLetter() != lett) {
+						if ((char)toupper(this->gameMap1.board[y + cnt][x].getLetter()) != (char)toupper(lett)) {
 							check_word = false;
 						}
 					}
 					else {
 						check_word = false;
 						for (int i{ 0 }; i < 10; ++i) {
-							if (lett == char(playerPlay.getPlayerCardsName(i)) && playerPlay.getPlayerCardsChoiceToWrite(i) == false) {
+							if ((char)toupper(lett) == (char)toupper(playerPlay.getPlayerCardsName(i)) && playerPlay.getPlayerCardsChoiceToWrite(i) == false) {
 								playerPlay.setPlayerCardsChoiceToWrite(i, true);
 								this->gameMap1.board[y + cnt][x].setSession(1);
-								this->gameMap1.board[y + cnt][x].setLetter(lett);
+								this->gameMap1.board[y + cnt][x].setLetter((char)toupper(lett));
 								check_word = true;
 								break;
 							}
@@ -625,6 +625,7 @@ void Game_GUI_4::playerMove(player& playerPlay, char c) {
 				}
 				++cnt;
 			}
+
 			if (check_word == true) {
 				check_word = this->gameMap1.correctMove(mufasa);
 				if (check_word == true) {
@@ -633,14 +634,14 @@ void Game_GUI_4::playerMove(player& playerPlay, char c) {
 					int cnt = 0;
 					for (auto lett : word) {
 						if (ui.mufasaHorizontal->isChecked()) {
-							model->setData(model->index(y, x + cnt), QString(lett));
+							model->setData(model->index(y, x + cnt), QString((char)toupper(lett)));
 							this->gameMap1.board[y][x + cnt].setSession(2);
-							this->gameMap1.board[y][x + cnt].setLetter(lett);
+							this->gameMap1.board[y][x + cnt].setLetter((char)toupper(lett));
 						}
 						else {
 							model->setData(model->index(y + cnt, x), QString(lett));
 							this->gameMap1.board[y + cnt][x].setSession(2);
-							this->gameMap1.board[y + cnt][x].setLetter(lett);
+							this->gameMap1.board[y][x + cnt].setLetter((char)toupper(lett));
 						}
 						++cnt;
 					}
@@ -674,17 +675,17 @@ void Game_GUI_4::playerMove(player& playerPlay, char c) {
 			for (auto lett : word) { //sprawdzenie czy na odpowiednich pozycjach jest to samo i czy litery istnieja odpowiednio
 				if (ui.estebanHorizontal->isChecked()) {
 					if (this->gameMap1.board[y][x + cnt].isOccupied()) {
-						if (this->gameMap1.board[y][x + cnt].getLetter() != lett) {
+						if ((char)toupper(this->gameMap1.board[y][x + cnt].getLetter()) != (char)toupper(lett)) {
 							check_word = false;
 						}
 					}
 					else {
 						check_word = false;
 						for (int i{ 0 }; i < 10; ++i) {
-							if (lett == char(playerPlay.getPlayerCardsName(i)) && playerPlay.getPlayerCardsChoiceToWrite(i) == false) {
+							if ((char)toupper(lett) == (char)toupper(playerPlay.getPlayerCardsName(i)) && playerPlay.getPlayerCardsChoiceToWrite(i) == false) {
 								playerPlay.setPlayerCardsChoiceToWrite(i, true);
 								this->gameMap1.board[y][x + cnt].setSession(1);
-								this->gameMap1.board[y][x + cnt].setLetter(lett);
+								this->gameMap1.board[y][x + cnt].setLetter((char)toupper(lett));
 								check_word = true;
 								break;
 							}
@@ -696,17 +697,17 @@ void Game_GUI_4::playerMove(player& playerPlay, char c) {
 				else
 				{
 					if (this->gameMap1.board[y + cnt][x].isOccupied()) {
-						if (this->gameMap1.board[y + cnt][x].getLetter() != lett) {
+						if ((char)toupper(this->gameMap1.board[y + cnt][x].getLetter()) != (char)toupper(lett)) {
 							check_word = false;
 						}
 					}
 					else {
 						check_word = false;
 						for (int i{ 0 }; i < 10; ++i) {
-							if (lett == char(playerPlay.getPlayerCardsName(i)) && playerPlay.getPlayerCardsChoiceToWrite(i) == false) {
+							if ((char)toupper(lett) == (char)toupper(playerPlay.getPlayerCardsName(i)) && playerPlay.getPlayerCardsChoiceToWrite(i) == false) {
 								playerPlay.setPlayerCardsChoiceToWrite(i, true);
 								this->gameMap1.board[y + cnt][x].setSession(1);
-								this->gameMap1.board[y + cnt][x].setLetter(lett);
+								this->gameMap1.board[y + cnt][x].setLetter((char)toupper(lett));
 								check_word = true;
 								break;
 							}
@@ -725,14 +726,14 @@ void Game_GUI_4::playerMove(player& playerPlay, char c) {
 					int cnt = 0;
 					for (auto lett : word) {
 						if (ui.estebanHorizontal->isChecked()) {
-							model->setData(model->index(y, x + cnt), QString(lett));
+							model->setData(model->index(y, x + cnt), QString((char)toupper(lett)));
 							this->gameMap1.board[y][x + cnt].setSession(2);
-							this->gameMap1.board[y][x + cnt].setLetter(lett);
+							this->gameMap1.board[y][x + cnt].setLetter((char)toupper(lett));
 						}
 						else {
-							model->setData(model->index(y + cnt, x), QString(lett));
+							model->setData(model->index(y + cnt, x), QString((char)toupper(lett)));
 							this->gameMap1.board[y + cnt][x].setSession(2);
-							this->gameMap1.board[y + cnt][x].setLetter(lett);
+							this->gameMap1.board[y + cnt][x].setLetter((char)toupper(lett));
 						}
 						++cnt;
 					}
@@ -766,17 +767,17 @@ void Game_GUI_4::playerMove(player& playerPlay, char c) {
 		for (auto lett : word) { //sprawdzenie czy na odpowiednich pozycjach jest to samo i czy litery istnieja odpowiednio
 			if (ui.zeromskiHorizontal->isChecked()) {
 				if (this->gameMap1.board[y][x + cnt].isOccupied()) {
-					if (this->gameMap1.board[y][x + cnt].getLetter() != lett) {
+					if ((char)toupper(this->gameMap1.board[y][x + cnt].getLetter()) != (char)toupper(lett)) {
 						check_word = false;
 					}
 				}
 				else {
 					check_word = false;
 					for (int i{ 0 }; i < 10; ++i) {
-						if (lett == char(playerPlay.getPlayerCardsName(i)) && playerPlay.getPlayerCardsChoiceToWrite(i) == false) {
+						if ((char)toupper(lett) == (char)toupper(playerPlay.getPlayerCardsName(i)) && playerPlay.getPlayerCardsChoiceToWrite(i) == false) {
 							playerPlay.setPlayerCardsChoiceToWrite(i, true);
 							this->gameMap1.board[y][x + cnt].setSession(1);
-							this->gameMap1.board[y][x + cnt].setLetter(lett);
+							this->gameMap1.board[y][x + cnt].setLetter((char)toupper(lett));
 							check_word = true;
 							break;
 						}
@@ -788,17 +789,17 @@ void Game_GUI_4::playerMove(player& playerPlay, char c) {
 			else
 			{
 				if (this->gameMap1.board[y + cnt][x].isOccupied()) {
-					if (this->gameMap1.board[y + cnt][x].getLetter() != lett) {
+					if ((char)toupper(this->gameMap1.board[y + cnt][x].getLetter()) != (char)toupper(lett)) {
 						check_word = false;
 					}
 				}
 				else {
 					check_word = false;
 					for (int i{ 0 }; i < 10; ++i) {
-						if (lett == char(playerPlay.getPlayerCardsName(i)) && playerPlay.getPlayerCardsChoiceToWrite(i) == false) {
+						if ((char)toupper(lett) == (char)toupper(playerPlay.getPlayerCardsName(i)) && playerPlay.getPlayerCardsChoiceToWrite(i) == false) {
 							playerPlay.setPlayerCardsChoiceToWrite(i, true);
 							this->gameMap1.board[y + cnt][x].setSession(1);
-							this->gameMap1.board[y + cnt][x].setLetter(lett);
+							this->gameMap1.board[y + cnt][x].setLetter((char)toupper(lett));
 							check_word = true;
 							break;
 						}
@@ -817,14 +818,14 @@ void Game_GUI_4::playerMove(player& playerPlay, char c) {
 				int cnt = 0;
 				for (auto lett : word) {
 					if (ui.zeromskiHorizontal->isChecked()) {
-						model->setData(model->index(y, x + cnt), QString(lett));
+						model->setData(model->index(y, x + cnt), QString((char)toupper(lett)));
 						this->gameMap1.board[y][x + cnt].setSession(2);
-						this->gameMap1.board[y][x + cnt].setLetter(lett);
+						this->gameMap1.board[y][x + cnt].setLetter((char)toupper(lett));
 					}
 					else {
-						model->setData(model->index(y + cnt, x), QString(lett));
+						model->setData(model->index(y + cnt, x), QString((char)toupper(lett)));
 						this->gameMap1.board[y + cnt][x].setSession(2);
-						this->gameMap1.board[y + cnt][x].setLetter(lett);
+						this->gameMap1.board[y + cnt][x].setLetter((char)toupper(lett));
 					}
 					++cnt;
 				}
@@ -858,17 +859,17 @@ void Game_GUI_4::playerMove(player& playerPlay, char c) {
 		for (auto lett : word) { //sprawdzenie czy na odpowiednich pozycjach jest to samo i czy litery istnieja odpowiednio
 			if (ui.rokokoHorizontal->isChecked()) {
 				if (this->gameMap1.board[y][x + cnt].isOccupied()) {
-					if (this->gameMap1.board[y][x + cnt].getLetter() != lett) {
+					if ((char)toupper(this->gameMap1.board[y][x + cnt].getLetter()) != (char)toupper(lett)) {
 						check_word = false;
 					}
 				}
 				else {
 					check_word = false;
 					for (int i{ 0 }; i < 10; ++i) {
-						if (lett == char(playerPlay.getPlayerCardsName(i)) && playerPlay.getPlayerCardsChoiceToWrite(i) == false) {
+						if ((char)toupper(lett) == (char)toupper(playerPlay.getPlayerCardsName(i)) && playerPlay.getPlayerCardsChoiceToWrite(i) == false) {
 							playerPlay.setPlayerCardsChoiceToWrite(i, true);
 							this->gameMap1.board[y][x + cnt].setSession(1);
-							this->gameMap1.board[y][x + cnt].setLetter(lett);
+							this->gameMap1.board[y][x + cnt].setLetter((char)toupper(lett));
 							check_word = true;
 							break;
 						}
@@ -880,17 +881,17 @@ void Game_GUI_4::playerMove(player& playerPlay, char c) {
 			else
 			{
 				if (this->gameMap1.board[y + cnt][x].isOccupied()) {
-					if (this->gameMap1.board[y + cnt][x].getLetter() != lett) {
+					if ((char)toupper(this->gameMap1.board[y + cnt][x].getLetter()) != (char)toupper(lett)) {
 						check_word = false;
 					}
 				}
 				else {
 					check_word = false;
 					for (int i{ 0 }; i < 10; ++i) {
-						if (lett == char(playerPlay.getPlayerCardsName(i)) && playerPlay.getPlayerCardsChoiceToWrite(i) == false) {
+						if ((char)toupper(lett) == (char)toupper(playerPlay.getPlayerCardsName(i)) && playerPlay.getPlayerCardsChoiceToWrite(i) == false) {
 							playerPlay.setPlayerCardsChoiceToWrite(i, true);
 							this->gameMap1.board[y + cnt][x].setSession(1);
-							this->gameMap1.board[y + cnt][x].setLetter(lett);
+							this->gameMap1.board[y + cnt][x].setLetter((char)toupper(lett));
 							check_word = true;
 							break;
 						}
@@ -910,14 +911,14 @@ void Game_GUI_4::playerMove(player& playerPlay, char c) {
 				int cnt = 0;
 				for (auto lett : word) {
 					if (ui.rokokoHorizontal->isChecked()) {
-						model->setData(model->index(y, x + cnt), QString(lett));
+						model->setData(model->index(y, x + cnt), QString((char)toupper(lett)));
 						this->gameMap1.board[y][x + cnt].setSession(2);
-						this->gameMap1.board[y][x + cnt].setLetter(lett);
+						this->gameMap1.board[y][x + cnt].setLetter((char)toupper(lett));
 					}
 					else {
 						model->setData(model->index(y + cnt, x), QString(lett));
 						this->gameMap1.board[y + cnt][x].setSession(2);
-						this->gameMap1.board[y + cnt][x].setLetter(lett);
+						this->gameMap1.board[y][x + cnt].setLetter((char)toupper(lett));
 					}
 					++cnt;
 				}

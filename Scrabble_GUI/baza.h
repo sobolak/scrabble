@@ -790,6 +790,11 @@ public:
                         ok = true;
                     }
                 }
+                for (auto lett : word) {
+                    if (lett == '_') {
+                        ok = false;
+                    }
+                }
                 if (ok == false) {
                     break;
                 }
@@ -1059,7 +1064,7 @@ public:
                     }
                     if (rowPointer != sizeOfTheBoard) {
                         for (int q = rowPointer + 1; q < sizeOfTheBoard; q++) {
-                            if (board[q][p].getSession() == 0) {
+                            if (this->board[q][p].getSession() == 0) {
                                 newWordEndPointer = q - 1;
                                 break;
                             }
@@ -1072,7 +1077,7 @@ public:
                     if (newWordEndPointer != newWordStartPointer) {
                         bool isWritten = true;
                         for (int k = newWordStartPointer; k <= newWordEndPointer; k++) {
-                            if (board[k][p].getSession() == 1) {
+                            if (this->board[k][p].getSession() == 1) {
                                 isWritten = false;
                                 break;
                             }
@@ -1137,8 +1142,10 @@ public:
         int row;
         bool isVer;
         int column;
+        bool spaceCheck = true;
         string word = "";
         do {
+            spaceCheck = true;
             if (startEndPointers[4 * numberOfWord] == startEndPointers[4 * numberOfWord + 2]) { //wiersz
                 row = startEndPointers[4 * numberOfWord];
                 points = 0;
@@ -1151,6 +1158,9 @@ public:
                     board[row][column].setLetterBonnus(1);
                     board[row][column].setWordBonus(1);
                     word.push_back(board[row][column].getLetter());
+                    if (board[row][column].getLetter() == '_') {
+                        spaceCheck = false;
+                    }
                 }
             }
             else { //kolumna
@@ -1165,12 +1175,15 @@ public:
                     board[row][column].setLetterBonnus(1);
                     board[row][column].setWordBonus(1);
                     word.push_back(board[row][column].getLetter());
+                    if (board[row][column].getLetter() == '_') {
+                        spaceCheck = false;
+                    }
                 }
             }
-            playerGame.setPlayerPoints(playerGame.getPlayerPoints() + points * wordBonus);
-         
-            globalMoveManager->createMove(match, user, startEndPointers[4 * numberOfWord], startEndPointers[4 * numberOfWord + 1], isVer, word, points * wordBonus);
-
+            if (spaceCheck == true) {
+                playerGame.setPlayerPoints(playerGame.getPlayerPoints() + points * wordBonus);
+                globalMoveManager->createMove(match, user, startEndPointers[4 * numberOfWord], startEndPointers[4 * numberOfWord + 1], isVer, word, points * wordBonus);
+            }
             numberOfWord++;
         } while (startEndPointers[4 * numberOfWord] != -1);
         flushStartEndWord();
