@@ -17,10 +17,10 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>225</x>
-      <y>100</y>
-      <width>350</width>
-      <height>50</height>
+      <x>340</x>
+      <y>120</y>
+      <width>141</width>
+      <height>81</height>
      </rect>
     </property>
     <property name="font">
@@ -29,7 +29,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Grafika scrabbli widzowie :)</string>
+     <string>SCRABBLE</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton">
@@ -42,7 +42,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Ahoj przygodo</string>
+     <string>START GAME</string>
     </property>
    </widget>
   </widget>

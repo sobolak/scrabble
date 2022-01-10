@@ -29,9 +29,9 @@
   <widget class="QTableWidget" name="tableWidget_stats">
    <property name="geometry">
     <rect>
-     <x>250</x>
+     <x>280</x>
      <y>70</y>
-     <width>281</width>
+     <width>221</width>
      <height>331</height>
     </rect>
    </property>
@@ -49,52 +49,52 @@
    </attribute>
    <row>
     <property name="text">
-     <string>Ilość rozegranych meczy</string>
+     <string>Games played</string>
     </property>
    </row>
    <row>
     <property name="text">
-     <string>Ilość wygranych meczy</string>
+     <string>Games won</string>
     </property>
    </row>
    <row>
     <property name="text">
-     <string>% wygranych meczy</string>
+     <string>Winning rate</string>
     </property>
    </row>
    <row>
     <property name="text">
-     <string>Ilość przegranych meczy</string>
+     <string>Games lost</string>
     </property>
    </row>
    <row>
     <property name="text">
-     <string>% przegranych meczy</string>
+     <string>Loosing rate</string>
     </property>
    </row>
    <row>
     <property name="text">
-     <string>Ilość wygranych pod rząd</string>
+     <string>Win  streak</string>
     </property>
    </row>
    <row>
     <property name="text">
-     <string>Max ilość wygranych pod rząd</string>
+     <string>Max win streak</string>
     </property>
    </row>
    <row>
     <property name="text">
-     <string>Ilość ułożonych słów</string>
+     <string>Used word</string>
     </property>
    </row>
    <row>
     <property name="text">
-     <string>Średnio liter na słowo</string>
+     <string>Avg letters for word</string>
     </property>
    </row>
    <row>
     <property name="text">
-     <string>Średnio punktów na słowo</string>
+     <string>Avg points for word</string>
     </property>
    </row>
    <column>
@@ -103,51 +103,81 @@
     </property>
    </column>
    <item row="0" column="0">
+    <property name="text">
+     <string/>
+    </property>
     <property name="flags">
      <set>ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
     </property>
    </item>
    <item row="1" column="0">
+    <property name="text">
+     <string/>
+    </property>
     <property name="flags">
      <set>ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
     </property>
    </item>
    <item row="2" column="0">
+    <property name="text">
+     <string/>
+    </property>
     <property name="flags">
      <set>ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
     </property>
    </item>
    <item row="3" column="0">
+    <property name="text">
+     <string/>
+    </property>
     <property name="flags">
      <set>ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
     </property>
    </item>
    <item row="4" column="0">
+    <property name="text">
+     <string/>
+    </property>
     <property name="flags">
      <set>ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
     </property>
    </item>
    <item row="5" column="0">
+    <property name="text">
+     <string/>
+    </property>
     <property name="flags">
      <set>ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
     </property>
    </item>
    <item row="6" column="0">
+    <property name="text">
+     <string/>
+    </property>
     <property name="flags">
      <set>ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
     </property>
    </item>
    <item row="7" column="0">
+    <property name="text">
+     <string/>
+    </property>
     <property name="flags">
      <set>ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
     </property>
    </item>
    <item row="8" column="0">
+    <property name="text">
+     <string/>
+    </property>
     <property name="flags">
      <set>ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
     </property>
    </item>
    <item row="9" column="0">
+    <property name="text">
+     <string/>
+    </property>
     <property name="flags">
      <set>ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
     </property>
