@@ -79,6 +79,7 @@ void Game_GUI::playerLetterRefresh(player player) {
 
 void Game_GUI::playerMove(player& playerPlay) {
 	auto model = ui.tableWidget_game->model();
+	bool isConected = false;	
 	std::string word = ui.lineEdit_word->text().toStdString();
 	bool check_word = true;
 	if (word == "") {
@@ -92,6 +93,7 @@ void Game_GUI::playerMove(player& playerPlay) {
 		for (auto lett : word) { 
 			if (ui.radioButton_horizontal->isChecked()) {
 				if (this->gameMap1.board[y][x + cnt].isOccupied()) {
+					isConected = true;
 					if ((char)toupper(this->gameMap1.board[y][x + cnt].getLetter()) != (char)toupper(lett)) {
 						check_word = false;
 					}
@@ -114,6 +116,7 @@ void Game_GUI::playerMove(player& playerPlay) {
 			else
 			{
 				if (this->gameMap1.board[y + cnt][x].isOccupied()) {
+					isConected = true;
 					if ((char)toupper( this->gameMap1.board[y + cnt][x].getLetter()) != (char)toupper(lett)) {
 						check_word = false;
 					}
@@ -142,6 +145,9 @@ void Game_GUI::playerMove(player& playerPlay) {
 				if (gameMap1.board[7][7].getSession() != 1) {
 					check_word = false;
 				}
+			}
+			else if (isConected == false) {
+				check_word = false;
 			}
 		}
 		

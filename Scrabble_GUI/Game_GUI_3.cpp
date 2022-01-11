@@ -396,6 +396,7 @@ void Game_GUI_3::playerLetterRefresh(char c) {
 void Game_GUI_3::playerMove(player& playerPlay, char c) {
 	if (c == 'm') {
 		auto model = ui.tableWidget_game->model();
+		bool isConected = false;
 		std::string word = ui.mufasaWord->text().toStdString();
 		bool check_word = true;
 		if (word == "") {
@@ -409,6 +410,7 @@ void Game_GUI_3::playerMove(player& playerPlay, char c) {
 			for (auto lett : word) { //sprawdzenie czy na odpowiednich pozycjach jest to samo i czy litery istnieja odpowiednio
 				if (ui.mufasaHorizontal->isChecked()) {
 					if (this->gameMap1.board[y][x + cnt].isOccupied()) {
+						isConected = true;
 						if ((char)toupper(this->gameMap1.board[y][x + cnt].getLetter()) != (char)toupper(lett)) {
 							check_word = false;
 						}
@@ -431,6 +433,7 @@ void Game_GUI_3::playerMove(player& playerPlay, char c) {
 				else
 				{
 					if (this->gameMap1.board[y + cnt][x].isOccupied()) {
+						isConected = true;
 						if ((char)toupper(this->gameMap1.board[y + cnt][x].getLetter()) != (char)toupper(lett)) {
 							check_word = false;
 						}
@@ -457,6 +460,9 @@ void Game_GUI_3::playerMove(player& playerPlay, char c) {
 					if (gameMap1.board[7][7].getSession() != 1) {
 						check_word = false;
 					}
+				}
+				else if (isConected == false) {
+					check_word = false;
 				}
 			}
 			if (check_word == true) {
@@ -496,6 +502,7 @@ void Game_GUI_3::playerMove(player& playerPlay, char c) {
 	}
 	else if (c == 'e') {
 		auto model = ui.tableWidget_game->model();
+		bool isConected = false;
 		std::string word = ui.estebanWord->text().toStdString();
 		bool check_word = true;
 		if (word == "") {
@@ -509,6 +516,7 @@ void Game_GUI_3::playerMove(player& playerPlay, char c) {
 			for (auto lett : word) { //sprawdzenie czy na odpowiednich pozycjach jest to samo i czy litery istnieja odpowiednio
 				if (ui.estebanHorizontal->isChecked()) {
 					if (this->gameMap1.board[y][x + cnt].isOccupied()) {
+						isConected = true;
 						if ((char)toupper(this->gameMap1.board[y][x + cnt].getLetter()) != (char)toupper(lett)) {
 							check_word = false;
 						}
@@ -531,6 +539,7 @@ void Game_GUI_3::playerMove(player& playerPlay, char c) {
 				else
 				{
 					if (this->gameMap1.board[y + cnt][x].isOccupied()) {
+						isConected = true;
 						if ((char)toupper(this->gameMap1.board[y + cnt][x].getLetter()) != (char)toupper(lett)) {
 							check_word = false;
 						}
@@ -557,6 +566,9 @@ void Game_GUI_3::playerMove(player& playerPlay, char c) {
 					if (gameMap1.board[7][7].getSession() != 1) {
 						check_word = false;
 					}
+				}
+				else if (isConected == false) {
+					check_word = false;
 				}
 			}
 			if (check_word == true) {
@@ -596,6 +608,7 @@ void Game_GUI_3::playerMove(player& playerPlay, char c) {
 	}
 	else if (c == 'z') {
 	auto model = ui.tableWidget_game->model();
+	bool isConected = false;
 	std::string word = ui.zeromskiWord->text().toStdString();
 	bool check_word = true;
 	if (word == "") {
@@ -609,6 +622,7 @@ void Game_GUI_3::playerMove(player& playerPlay, char c) {
 		for (auto lett : word) { //sprawdzenie czy na odpowiednich pozycjach jest to samo i czy litery istnieja odpowiednio
 			if (ui.zeromskiHorizontal->isChecked()) {
 				if (this->gameMap1.board[y][x + cnt].isOccupied()) {
+					isConected = true;
 					if ((char)toupper(this->gameMap1.board[y][x + cnt].getLetter()) != (char)toupper(lett)) {
 						check_word = false;
 					}
@@ -631,6 +645,7 @@ void Game_GUI_3::playerMove(player& playerPlay, char c) {
 			else
 			{
 				if (this->gameMap1.board[y + cnt][x].isOccupied()) {
+					isConected = true;
 					if ((char)toupper(this->gameMap1.board[y + cnt][x].getLetter()) != (char)toupper(lett)) {
 						check_word = false;
 					}
@@ -657,6 +672,9 @@ void Game_GUI_3::playerMove(player& playerPlay, char c) {
 				if (gameMap1.board[7][7].getSession() != 1) {
 					check_word = false;
 				}
+			}
+			else if (isConected == false) {
+				check_word = false;
 			}
 		}
 		if (check_word == true) {
