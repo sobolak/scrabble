@@ -452,7 +452,13 @@ void Game_GUI_3::playerMove(player& playerPlay, char c) {
 				}
 				++cnt;
 			}
-
+			if (check_word == true) {
+				if (gameMap1.getFirstMove() == true) {
+					if (gameMap1.board[7][7].getSession() != 1) {
+						check_word = false;
+					}
+				}
+			}
 			if (check_word == true) {
 				check_word = this->gameMap1.correctMove(mufasa);
 				if (check_word == true) {
@@ -473,6 +479,7 @@ void Game_GUI_3::playerMove(player& playerPlay, char c) {
 						++cnt;
 					}
 					playerPlay.changeUsedCards(word, gameMap1.cybant);
+					gameMap1.setFirstMove(false);
 					gameMap1.playerPointsCount(playerPlay, user, match);
 					ui.mufasaWord->setText(""); //zmiana tabelki
 					playerLetterRefresh('m');
@@ -546,6 +553,13 @@ void Game_GUI_3::playerMove(player& playerPlay, char c) {
 				++cnt;
 			}
 			if (check_word == true) {
+				if (gameMap1.getFirstMove() == true) {
+					if (gameMap1.board[7][7].getSession() != 1) {
+						check_word = false;
+					}
+				}
+			}
+			if (check_word == true) {
 				check_word = this->gameMap1.correctMove(mufasa);
 				if (check_word == true) {
 					int x = ui.estebanColumn->currentText().toInt();
@@ -565,6 +579,7 @@ void Game_GUI_3::playerMove(player& playerPlay, char c) {
 						++cnt;
 					}
 					playerPlay.changeUsedCards(word, gameMap1.cybant);
+					gameMap1.setFirstMove(false);
 					gameMap1.playerPointsCount(playerPlay, user2, match);
 					ui.estebanWord->setText(""); //zmiana tabelki
 					playerLetterRefresh('e');
@@ -638,6 +653,13 @@ void Game_GUI_3::playerMove(player& playerPlay, char c) {
 			++cnt;
 		}
 		if (check_word == true) {
+			if (gameMap1.getFirstMove() == true) {
+				if (gameMap1.board[7][7].getSession() != 1) {
+					check_word = false;
+				}
+			}
+		}
+		if (check_word == true) {
 			check_word = this->gameMap1.correctMove(mufasa);
 			if (check_word == true) {
 				int x = ui.zeromskiColumn->currentText().toInt();
@@ -657,6 +679,7 @@ void Game_GUI_3::playerMove(player& playerPlay, char c) {
 					++cnt;
 				}
 				playerPlay.changeUsedCards(word, gameMap1.cybant);
+				gameMap1.setFirstMove(false);
 				gameMap1.playerPointsCount(playerPlay, user3, match);
 				ui.zeromskiWord->setText(""); //zmiana tabelki
 				playerLetterRefresh('z');

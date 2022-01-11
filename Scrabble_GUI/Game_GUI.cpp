@@ -135,6 +135,18 @@ void Game_GUI::playerMove(player& playerPlay) {
 			}
 			++cnt;
 		}
+
+		// ////////////////////////////////////////////////////////////////////////////////////////
+		if (check_word == true) {
+			if (gameMap1.getFirstMove() == true) {
+				if (gameMap1.board[7][7].getSession() != 1) {
+					check_word = false;
+				}
+			}
+		}
+		
+		// ////////////////////////////////////////////////////////////////////////////////////////
+		
 		if (check_word == true) {
 			check_word = this->gameMap1.correctMove(mufasa);
 			if (check_word == true) {
