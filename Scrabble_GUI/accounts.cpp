@@ -492,7 +492,7 @@ int UserManager::getWonMatchesMax(User* user) {
 
 int UserManager::getWordsCount(User* user) {
     stringstream query;
-    query << "SELECT COUNT(*) FROM moves WHERE uid=" << user->getUid();
+    query << "SELECT COUNT(*) FROM moves WHERE uid=" << user->getUid() << " AND word<>''";
 
     int count = stoi(fetchSingleValue(query.str()));
     return count;
@@ -635,7 +635,7 @@ vector<Move*>* MatchManager::getAllMovesList(Match* match) {
     stringstream query;
 
     query << "SELECT mvid, mid, seq, uid, login, r0w, col, is_vert, word, score FROM moves JOIN users USING(uid) "
-    << "WHERE mid=" << match->getMid() << " ORDER BY seq DESC";
+    << "WHERE mid=" << match->getMid() << " AND word<>'' ORDER BY seq DESC";
 
     if(mysql_query(DBconnection, query.str().c_str())) {
         message("Error fetching moves list for mid=" + match->getMid());

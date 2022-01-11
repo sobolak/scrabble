@@ -26,8 +26,7 @@ CREATE TABLE moves (
 	score INT(4) NOT NULL,
 	FOREIGN KEY (mid) REFERENCES matches(mid) ON DELETE SET NULL,
  	FOREIGN KEY (uid) REFERENCES users(uid) ON DELETE SET NULL,
- 	CONSTRAINT uq_seq UNIQUE (mid, seq),
- 	CONSTRAINT uq_position UNIQUE (mid, r0w, col, is_vert)
+ 	CONSTRAINT uq_seq UNIQUE (mid, seq)
 );
 
 DELIMITER $$
@@ -53,19 +52,19 @@ CREATE VIEW played_matches_count AS SELECT uid, COALESCE(COUNT(DISTINCT(mid)),0)
 
 CREATE VIEW played_maches_relative AS SELECT DISTINCT m.mid, uid, (SELECT SUM(score) FROM moves WHERE mid=m.mid AND uid=m.uid)-(SELECT MAX(l1.sum) FROM (SELECT m2.mid, (SELECT SUM(score) FROM moves WHERE mid=m2.mid AND uid=m2.uid) AS sum FROM moves m2) AS l1 WHERE l1.mid=m.mid) AS rel FROM moves m ORDER BY m.mid DESC; 
 
-CREATE VIEW played_matches_opponents AS SELECT DISTINCT (SELECT login FROM users WHERE uid=m.uid) AS opp, m.mid, (select login from moves join users using(uid) where mid=m.mid group by uid order by SUM(score) desc limit 1) as winner, u.uid FROM moves m JOIN (SELECT mid, uid FROM moves) AS l1 USING(mid) JOIN users u ON(l1.uid=u.uid AND m.uid<>u.uid) ORDER BY m.mid;
+CREATE VIEW played_matches_opponents AS SELECT DISTINCT (SELECT login FROM users WHERE uid=m.uid) AS opp, m.mid, (SELECT LOGIN FROM moves JOIN users USING(uid) WHERE mid=m.mid GROUP BY uid ORDER BY SUM(score) DESC LIMIT 1) AS winner, u.uid FROM moves m JOIN (SELECT mid, uid FROM moves) AS l1 USING(mid) JOIN users u ON(l1.uid=u.uid AND m.uid<>u.uid) ORDER BY m.mid;
 
 CREATE VIEW won_matches_count AS SELECT u.uid, COALESCE(l1.cnt, 0) AS cnt FROM (SELECT uid, COUNT(*) AS cnt FROM played_maches_relative WHERE rel=0 GROUP BY uid) AS l1 RIGHT JOIN users u USING(uid);
 
 CREATE VIEW won_matches_percentage AS SELECT pmc.uid, COALESCE(wmc.cnt/pmc.cnt, 0) AS prc FROM won_matches_count wmc JOIN played_matches_count pmc USING(uid);
 
-CREATE VIEW lost_matches_count AS SELECT uid, COALESCE(l3.cnt, 0) as cnt FROM (SELECT uid, COUNT(*) as cnt from (SELECT DISTINCT m.mid, uid, (SELECT SUM(score) FROM moves WHERE mid=m.mid AND uid=m.uid)-(SELECT MIN(l1.sum) FROM (SELECT m2.mid, (SELECT SUM(score) FROM moves WHERE mid=m2.mid AND uid=m2.uid) AS sum FROM moves m2) AS l1 WHERE l1.mid=m.mid) AS rel FROM moves m ORDER BY m.mid) AS l2 WHERE l2.rel=0 GROUP BY uid) AS l3 RIGHT JOIN users USING(uid);
+CREATE VIEW lost_matches_count AS SELECT uid, COALESCE(l3.cnt, 0) AS cnt FROM (SELECT uid, COUNT(*) AS cnt from (SELECT DISTINCT m.mid, uid, (SELECT SUM(score) FROM moves WHERE mid=m.mid AND uid=m.uid)-(SELECT MIN(l1.sum) FROM (SELECT m2.mid, (SELECT SUM(score) FROM moves WHERE mid=m2.mid AND uid=m2.uid) AS sum FROM moves m2) AS l1 WHERE l1.mid=m.mid) AS rel FROM moves m ORDER BY m.mid) AS l2 WHERE l2.rel=0 GROUP BY uid) AS l3 RIGHT JOIN users USING(uid);
 
-CREATE VIEW lost_matches_percentage AS SELECT pmc.uid, COALESCE(lmc.cnt/pmc.cnt, 0) as prc FROM lost_matches_count lmc JOIN played_matches_count pmc USING(uid);
+CREATE VIEW lost_matches_percentage AS SELECT pmc.uid, COALESCE(lmc.cnt/pmc.cnt, 0) AS prc FROM lost_matches_count lmc JOIN played_matches_count pmc USING(uid);
 
-CREATE VIEW mean_letter_count AS SELECT u.uid, COALESCE(l2.sum/l3.total, 0) AS mean FROM (SELECT l1.uid, SUM(l1.len) AS sum FROM (SELECT uid, LENGTH(word) AS len FROM moves) AS l1 GROUP BY l1.uid) AS l2 JOIN (SELECT uid, COUNT(*) AS total FROM moves GROUP BY uid) AS l3 USING(uid) RIGHT JOIN users u USING(uid);
+CREATE VIEW mean_letter_count AS SELECT u.uid, COALESCE(l2.sum/l3.total, 0) AS mean FROM (SELECT l1.uid, SUM(l1.len) AS sum FROM (SELECT uid, LENGTH(word) AS len FROM moves) AS l1 GROUP BY l1.uid) AS l2 JOIN (SELECT uid, COUNT(*) AS total FROM moves WHERE word <> "" GROUP BY uid) AS l3 USING(uid) RIGHT JOIN users u USING(uid);
 
-CREATE VIEW mean_word_score AS SELECT u.uid, COALESCE(l1.sum/l2.total, 0) AS mean FROM (SELECT uid, SUM(score) AS sum FROM moves GROUP BY uid) AS l1 JOIN (SELECT uid, COUNT(*) AS total FROM moves GROUP BY uid) AS l2 USING(uid) RIGHT JOIN users u USING(uid);
+CREATE VIEW mean_word_score AS SELECT u.uid, COALESCE(l1.sum/l2.total, 0) AS mean FROM (SELECT uid, SUM(score) AS sum FROM moves WHERE word <> "" GROUP BY uid) AS l1 JOIN (SELECT uid, COUNT(*) AS total FROM moves GROUP BY uid) AS l2 USING(uid) RIGHT JOIN users u USING(uid);
 
 CREATE USER serviceaccount IDENTIFIED BY 'cZtx7b$xwkSL'; 
 
