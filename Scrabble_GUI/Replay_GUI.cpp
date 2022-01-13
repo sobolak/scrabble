@@ -40,7 +40,7 @@ Replay_GUI::~Replay_GUI()
 void Replay_GUI::on_pushButton_return_clicked()
 {
 	Menu_GUI menu(this->user);
-	this->hide();
+	this->destroy();
 	menu.setModal(true);
 	menu.exec();
 }

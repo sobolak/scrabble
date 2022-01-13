@@ -49,7 +49,7 @@ History_GUI::~History_GUI()
 void History_GUI::on_pushButton_logout_clicked()
 {
 	Logging_GUI login;
-	this->hide();
+	this->destroy();
 	login.setModal(true);
 	login.exec();
 }
@@ -57,7 +57,7 @@ void History_GUI::on_pushButton_logout_clicked()
 void History_GUI::on_pushButton_return_clicked()
 {
 	Menu_GUI menu(this->user);
-	this->hide();
+	this->destroy();
 	menu.setModal(true);
 	menu.exec();
 }
@@ -95,7 +95,7 @@ void History_GUI::on_pushButton_replay_clicked()
 	}
 
 	Replay_GUI rep(this->user, matchID);
-	this->hide();
+	this->destroy();
 	rep.setModal(true);
 	rep.exec();
 }

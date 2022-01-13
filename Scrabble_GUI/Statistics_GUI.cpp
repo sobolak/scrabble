@@ -51,7 +51,7 @@ Statistics_GUI::~Statistics_GUI()
 void Statistics_GUI::on_pushButton_return_clicked()
 {
 	Menu_GUI menu(this->user);
-	this->hide();
+	this->destroy();
 	menu.setModal(true);
 	menu.exec();
 }
@@ -59,7 +59,7 @@ void Statistics_GUI::on_pushButton_return_clicked()
 void Statistics_GUI::on_pushButton_logout_clicked()
 {
 	Logging_GUI login;
-	this->hide();
+	this->destroy();
 	login.setModal(true);
 	login.exec();
 }

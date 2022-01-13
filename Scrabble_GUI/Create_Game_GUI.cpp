@@ -29,7 +29,7 @@ Create_Game_GUI::~Create_Game_GUI()
 void Create_Game_GUI::on_pushButton_logout_clicked()
 {	
 	Logging_GUI login;
-	this->hide();
+	this->destroy();
 	login.setModal(true);
 	login.exec();
 }
@@ -37,7 +37,7 @@ void Create_Game_GUI::on_pushButton_logout_clicked()
 void Create_Game_GUI::on_pushButton_return_clicked()
 {
 	Menu_GUI menu(this->user);
-	this->hide();
+	this->destroy();
 	menu.setModal(true);
 	menu.exec();
 }
@@ -50,7 +50,7 @@ void Create_Game_GUI::on_pushButton_start_clicked()
 		string passComputer = "e83VmB9=JG3XA!df";
 		User* userComputer = globalUserManager->logIn(loginComputer.toStdString(), passComputer);
 		Game_GUI game(this->user, userComputer);
-		this->hide();
+		this->destroy();
 		game.setModal(true);
 		game.exec();
 	}
@@ -63,7 +63,7 @@ void Create_Game_GUI::on_pushButton_start_clicked()
 		if (user2 != NULL && strcmp(user2->getLogin().c_str(),user->getLogin().c_str()) != 0)
 		{
 			Game_GUI_2 game(this->user,user2);
-			this->hide();
+			this->destroy();
 			game.setModal(true);
 			game.exec();
 		}
@@ -83,7 +83,7 @@ void Create_Game_GUI::on_pushButton_start_clicked()
 			&& strcmp(user->getLogin().c_str(), user3->getLogin().c_str()) != 0)
 		{
 			Game_GUI_3 game(this->user, user2, user3);
-			this->hide();
+			this->destroy();
 			game.setModal(true);
 			game.exec();
 		}
@@ -108,7 +108,7 @@ void Create_Game_GUI::on_pushButton_start_clicked()
 			&& strcmp(user4->getLogin().c_str(), user->getLogin().c_str()) != 0)
 		{
 			Game_GUI_4 game(this->user, user2, user3, user4);
-			this->hide();
+			this->destroy();
 			game.setModal(true);
 			game.exec();
 		}

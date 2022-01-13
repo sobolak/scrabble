@@ -47,7 +47,7 @@ Results_GUI::~Results_GUI()
 void Results_GUI::on_pushButton_continue_clicked()
 {
 	Menu_GUI menu(this->user);
-	this->hide();
+	this->destroy();
 	menu.setModal(true);
 	menu.exec();
 }

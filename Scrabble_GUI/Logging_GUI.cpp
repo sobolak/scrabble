@@ -40,7 +40,7 @@ void Logging_GUI::on_pushButton_login_clicked()
 	if (user != NULL)
 	{
 		Menu_GUI menu(user);
-		this->hide();
+		this->destroy();
 		menu.setModal(true);
 		menu.exec();
 	}
@@ -61,7 +61,7 @@ void Logging_GUI::on_pushButton_register_clicked()
 		if (user != NULL)
 		{
 			Menu_GUI menu(user);
-			this->hide();
+			this->destroy();
 			menu.setModal(true);
 			menu.exec();
 		}

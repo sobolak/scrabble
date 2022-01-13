@@ -26,7 +26,7 @@ Menu_GUI::~Menu_GUI()
 void Menu_GUI::on_pushButton_play_clicked()
 {
 	Create_Game_GUI create_game(this->user);
-	this->hide();
+	this->destroy();
 	create_game.setModal(true);
 	create_game.exec();
 }
@@ -34,7 +34,7 @@ void Menu_GUI::on_pushButton_play_clicked()
 void Menu_GUI::on_pushButton_logout_clicked()
 {
 	Logging_GUI login;
-	this->hide();
+	this->destroy();
 	login.setModal(true);
 	login.exec();
 }
@@ -42,7 +42,7 @@ void Menu_GUI::on_pushButton_logout_clicked()
 void Menu_GUI::on_pushButton_statistics_clicked()
 {
 	Statistics_GUI stats(this->user);
-	this->hide();
+	this->destroy();
 	stats.setModal(true);
 	stats.exec();
 }
@@ -50,7 +50,7 @@ void Menu_GUI::on_pushButton_statistics_clicked()
 void Menu_GUI::on_pushButton_history_clicked()
 {
 	History_GUI hist(this->user);
-	this->hide();
+	this->destroy();
 	hist.setModal(true);
 	hist.exec();
 }
@@ -58,7 +58,7 @@ void Menu_GUI::on_pushButton_history_clicked()
 void Menu_GUI::on_pushButton_profile_clicked()
 {
 	Player_GUI player(this->user);
-	this->hide();
+	this->destroy();
 	player.setModal(true);
 	player.exec();
 }

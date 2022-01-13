@@ -271,7 +271,7 @@ void Game_GUI::gatherLetterToChange_1(player& playerGane) {
 void Game_GUI::on_pushButton_end_clicked()
 {
 	Results_GUI results(this->user, this->userComputer, nullptr, nullptr, this->match);
-	this->hide();
+	this->destroy();
 	results.setModal(true);
 	results.exec();
 }
