@@ -45,6 +45,9 @@ Game_GUI_3::Game_GUI_3(User* user, User* user2, User* user3, QWidget* parent)
 	ui.zeromskiLabel->setText(QString::fromStdString(this->user3->getLogin()));
 	gameMap gameMap1;
 	this->match = globalMatchManager->createMatch();
+	globalMoveManager->createMove(this->match, this->user, 0, 0, 0, "", 0);
+	globalMoveManager->createMove(this->match, this->user2, 0, 0, 0, "", 0);
+	globalMoveManager->createMove(this->match, this->user3, 0, 0, 0, "", 0);
 	mufasa.setNick("mufasa");
 	esteban.setNick("esteban");
 	zeromski.setNick("zeromski");

@@ -51,6 +51,10 @@ Game_GUI_4::Game_GUI_4(User* user, User* user2, User* user3, User* user4, QWidge
 	ui.zeromskiLabel->setText(QString::fromStdString(this->user3->getLogin()));
 	ui.rokokoLabel->setText(QString::fromStdString(this->user4->getLogin()));
 	this->match = globalMatchManager->createMatch();
+	globalMoveManager->createMove(this->match, this->user, 0, 0, 0, "", 0);
+	globalMoveManager->createMove(this->match, this->user2, 0, 0, 0, "", 0);
+	globalMoveManager->createMove(this->match, this->user3, 0, 0, 0, "", 0);
+	globalMoveManager->createMove(this->match, this->user4, 0, 0, 0, "", 0);
 	gameMap gameMap1;
 	mufasa.setNick("mufasa");
 	esteban.setNick("esteban");

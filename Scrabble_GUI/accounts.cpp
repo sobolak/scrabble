@@ -492,7 +492,7 @@ int UserManager::getWonMatchesMax(User* user) {
 
 int UserManager::getWordsCount(User* user) {
     stringstream query;
-    query << "SELECT COUNT(*) FROM moves WHERE uid=" << user->getUid() << " AND word<>''";
+    query << "SELECT COUNT(*) FROM moves WHERE uid=" << user->getUid() << " AND score<>0";
 
     int count = stoi(fetchSingleValue(query.str()));
     return count;
@@ -635,7 +635,7 @@ vector<Move*>* MatchManager::getAllMovesList(Match* match) {
     stringstream query;
 
     query << "SELECT mvid, mid, seq, uid, login, r0w, col, is_vert, word, score FROM moves JOIN users USING(uid) "
-    << "WHERE mid=" << match->getMid() << " AND word<>'' ORDER BY seq DESC";
+    << "WHERE mid=" << match->getMid() << " AND score<>0 ORDER BY seq DESC";
 
     if(mysql_query(DBconnection, query.str().c_str())) {
         message("Error fetching moves list for mid=" + match->getMid());
@@ -652,6 +652,28 @@ vector<Move*>* MatchManager::getAllMovesList(Match* match) {
 
     mysql_free_result(res);
     return movesList;
+}
+
+vector<string>* MatchManager::getMatchPlayers(Match* match) {
+    MYSQL_RES* res;
+    MYSQL_ROW mysql_row;
+    stringstream query;
+
+    query << "SELECT login FROM match_players WHERE mid=" << match->getMid();
+
+    if (mysql_query(DBconnection, query.str().c_str())) {
+        message("Error fetching players list for mid=" + match->getMid());
+        return NULL;
+    }
+
+    vector<string>* playersList = new vector<string>;
+    res = mysql_use_result(DBconnection);
+    while (mysql_row = mysql_fetch_row(res)) {
+        playersList->push_back(mysql_row[0]);
+    }
+
+    mysql_free_result(res);
+    return playersList;
 }
 
 int MatchManager::getScoreInMatch(User* user, Match* match) {

@@ -27,6 +27,8 @@ Game_GUI::Game_GUI(User* user, User* userComputer, QWidget* parent)
 	string DBConfig[4];
 	srand(time(NULL));
 	this->match = globalMatchManager->createMatch();
+	globalMoveManager->createMove(this->match, this->user, 0, 0, 0, "", 0);
+	globalMoveManager->createMove(this->match, this->userComputer, 0, 0, 0, "", 0);
 	gameMap1.setDifficultyLevel(userComputer->getLogin()[0]);
 	mufasa.randomCards(gameMap1.cybant);
 	mufasa.setNick("mufasa");

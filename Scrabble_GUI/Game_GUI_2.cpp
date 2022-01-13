@@ -45,6 +45,8 @@ Game_GUI_2::Game_GUI_2(User* user, User* user2, QWidget* parent)
 	ui.estebanLabel->setText(QString::fromStdString(this->user2->getLogin()));
 	gameMap gameMap1;
 	this->match = globalMatchManager->createMatch();
+	globalMoveManager->createMove(this->match, this->user, 0, 0, 0, "", 0);
+	globalMoveManager->createMove(this->match, this->user2, 0, 0, 0, "", 0);
 	mufasa.setNick("mufasa");
 	esteban.setNick("esteban");
 	srand(time(NULL));

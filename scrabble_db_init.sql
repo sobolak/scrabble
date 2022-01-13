@@ -47,6 +47,7 @@ INSERT INTO users(login, password) VALUES
 ('esteban', '7c73b6f7177e24d79d94430a85ccb2ef2f090bdd54157a12af97aaa3efb73154'), /*esteban37*/
 ('rokoko', 'A2C988799DCB80C5AAE08C7404FAC588A0AC2AE41979C16678C584F3FE43AF16'); /*rokoko1*/
 
+CREATE VIEW match_players AS SELECT l1.mid, login FROM (SELECT DISTINCT uid, mid FROM moves) AS l1 JOIN users USING(uid) ORDER BY l1.mid;
 
 CREATE VIEW played_matches_count AS SELECT uid, COALESCE(COUNT(DISTINCT(mid)),0) as cnt FROM moves RIGHT JOIN users USING(uid) GROUP BY uid;
 

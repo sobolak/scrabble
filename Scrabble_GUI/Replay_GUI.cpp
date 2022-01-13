@@ -20,15 +20,11 @@ Replay_GUI::Replay_GUI(User* user, int matchID, QWidget* parent)
 	ui.setupUi(this);
 	this->user = user;
 	this->movesList = globalMatchManager->getAllMovesList(new Match(matchID));
-	set<string> loginsSet;
-	for_each(this->movesList->begin(), this->movesList->end(), [&](Move* move)
-	{
-		loginsSet.insert(move->getUser()->getLogin());
-	});
+	vector<string>* loginsList = globalMatchManager->getMatchPlayers(new Match(matchID));
 
 	auto model = ui.tableWidget_score->model();
 	int i = 0;
-	for (auto login : loginsSet)
+	for (auto login : *loginsList)
 	{
 		this->logins.insert(pair<string, int>(login, i));
 		model->setData(model->index(i, 0), QString::fromStdString(login));

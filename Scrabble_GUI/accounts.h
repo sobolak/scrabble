@@ -145,6 +145,7 @@ public:
     void deleteMatch(Match*);
 
     vector<Move*>* getAllMovesList(Match*);
+    vector<string>* getMatchPlayers(Match*);
     int getScoreInMatch(User*, Match*);
 };
 
