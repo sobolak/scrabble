@@ -32,9 +32,7 @@ User::User(const string login, const int uid) {
     setUid(uid);
 }
 
-User::~User() {
-    // nothing yet
-}
+User::~User() {}
 
 void User::setUid(int uid) {
     this->uid = uid;
@@ -70,9 +68,7 @@ Match::Match(const int mid) {
     setMid(mid);
 }
 
-Match::~Match() {
-    // nothing yet
-}
+Match::~Match() {}
 
 int Match::incrementSeq() {
     setSeq(getSeq() + 1);
@@ -125,9 +121,7 @@ Move::Move(Match* match, const int seq, User* user, const int row, const int col
     setMvid(mvid);
 }
 
-Move::~Move() {
-    // nothing yet
-}
+Move::~Move() {}
 
 void Move::setMvid(int mvid) {
     this->mvid = mvid;

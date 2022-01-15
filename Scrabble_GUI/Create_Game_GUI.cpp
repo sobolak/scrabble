@@ -143,9 +143,7 @@ void Create_Game_GUI::on_radioButton_second_clicked()
 	vector<string>* logins = globalUserManager->getRemainingLogins(this->user);
 
 	for (string login : *logins)
-	{
 		ui.comboBox_second_name->addItem(QString::fromStdString(login));
-	}
 }
 
 void Create_Game_GUI::on_radioButton_third_clicked()
@@ -164,7 +162,6 @@ void Create_Game_GUI::on_radioButton_third_clicked()
 	{
 		ui.comboBox_second_name->addItem(QString::fromStdString(login));
 		ui.comboBox_third_name->addItem(QString::fromStdString(login));
-
 	}
 }
 

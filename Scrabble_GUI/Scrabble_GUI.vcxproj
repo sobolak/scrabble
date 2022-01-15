@@ -98,7 +98,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="accounts.cpp" />
-    <ClCompile Include="acc_test.cpp" />
     <ClCompile Include="Create_Game_GUI.cpp" />
     <ClCompile Include="Game_GUI.cpp" />
     <ClCompile Include="Game_GUI_2.cpp" />

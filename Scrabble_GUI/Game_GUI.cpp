@@ -32,7 +32,6 @@ Game_GUI::Game_GUI(User* user, User* userComputer, QWidget* parent)
 	gameMap1.setDifficultyLevel(userComputer->getLogin()[0]);
 	mufasa.randomCards(gameMap1.cybant);
 	mufasa.setNick("mufasa");
-	// mufasa to zawsze domyslny player 1 czy z kompem czy nie i zawsze robi 1 ruch i zawsze jeg literki
 	changeCurrentPlayer(mufasa);
 	playerLetterRefresh(mufasa);
 	ui.label_user->setStyleSheet("QLabel { background-color : darkRed; color : cyan; }");
@@ -51,27 +50,25 @@ void Game_GUI::on_pushButton_add_clicked()
 	refreshGameMap();
 }
 
-void Game_GUI::on_pushButton_change_clicked() {
-
+void Game_GUI::on_pushButton_change_clicked()
+{
 	this->passCounter++;
 	if (this->passCounter == 4)
-	{
 		on_pushButton_end_clicked();
-	}
 	gatherLetterToChange_1(mufasa);
 }
 
-void Game_GUI::on_pushButton_pass_clicked() {
+void Game_GUI::on_pushButton_pass_clicked()
+{
 	this->passCounter++;
 	if (this->passCounter == 4)
-	{
 		on_pushButton_end_clicked();
-	}
 	gameMap1.computerAction(match, userComputer);
 	refreshGameMap();
 }
 
-void Game_GUI::playerLetterRefresh(player player) {
+void Game_GUI::playerLetterRefresh(player player)
+{
 	auto model = ui.tableWidget_letters->model();
 	for (int i{ 0 }; i < 10; ++i) { 
 		QString tmp = QChar(player.getPlayerCardsName(i));
@@ -79,14 +76,15 @@ void Game_GUI::playerLetterRefresh(player player) {
 	}
 }
 
-void Game_GUI::playerMove(player& playerPlay) {
+void Game_GUI::playerMove(player& playerPlay)
+{
 	auto model = ui.tableWidget_game->model();
 	bool isConected = false;	
 	std::string word = ui.lineEdit_word->text().toStdString();
 	bool check_word = true;
-	if (word == "") {
+	if (word == "")
 		check_word = false;
-	}
+
 	if (check_word) { 
 		int x = ui.comboBox_column->currentText().toInt();
 		int y = ui.comboBox_row->currentText().toInt();
@@ -96,9 +94,8 @@ void Game_GUI::playerMove(player& playerPlay) {
 			if (ui.radioButton_horizontal->isChecked()) {
 				if (this->gameMap1.board[y][x + cnt].isOccupied()) {
 					isConected = true;
-					if ((char)toupper(this->gameMap1.board[y][x + cnt].getLetter()) != (char)toupper(lett)) {
+					if ((char)toupper(this->gameMap1.board[y][x + cnt].getLetter()) != (char)toupper(lett))
 						check_word = false;
-					}
 				}
 				else {
 					check_word = false;
@@ -119,9 +116,8 @@ void Game_GUI::playerMove(player& playerPlay) {
 			{
 				if (this->gameMap1.board[y + cnt][x].isOccupied()) {
 					isConected = true;
-					if ((char)toupper( this->gameMap1.board[y + cnt][x].getLetter()) != (char)toupper(lett)) {
+					if ((char)toupper( this->gameMap1.board[y + cnt][x].getLetter()) != (char)toupper(lett))
 						check_word = false;
-					}
 				}
 				else {
 					check_word = false;
@@ -141,19 +137,15 @@ void Game_GUI::playerMove(player& playerPlay) {
 			++cnt;
 		}
 
-		// ////////////////////////////////////////////////////////////////////////////////////////
 		if (check_word == true) {
 			if (gameMap1.getFirstMove() == true) {
-				if (gameMap1.board[7][7].getSession() != 1) {
+				if (gameMap1.board[7][7].getSession() != 1)
 					check_word = false;
-				}
 			}
 			else if (isConected == false) {
 				check_word = false;
 			}
 		}
-		
-		// ////////////////////////////////////////////////////////////////////////////////////////
 		
 		if (check_word == true) {
 			check_word = this->gameMap1.correctMove(mufasa);
@@ -177,7 +169,7 @@ void Game_GUI::playerMove(player& playerPlay) {
 				playerPlay.changeUsedCards(word, gameMap1.cybant);
 				gameMap1.setFirstMove(false);
 				gameMap1.playerPointsCount(playerPlay, user, match);
-				ui.lineEdit_word->setText(""); //zmiana tabelki
+				ui.lineEdit_word->setText("");
 				playerLetterRefresh(playerPlay);
 			}
 		}
@@ -192,22 +184,21 @@ void Game_GUI::playerMove(player& playerPlay) {
 
 }
 
-void Game_GUI::changeCurrentPlayer(player playerPLay) {
+void Game_GUI::changeCurrentPlayer(player playerPLay)
+{
 	cout << "";
 	mufasa.setCurrentlyPlay(true);
 	cout << "";
 };
 
-void Game_GUI::refreshGameMap() {
+void Game_GUI::refreshGameMap()
+{
 	mufasa.setPossibilityToChangeCards(true);
 	auto model = ui.tableWidget_game->model();
-	for (int i = 0; i < 15; i++) {
-		for (int j = 0; j < 15; j++) {
+	for (int i = 0; i < 15; i++)
+		for (int j = 0; j < 15; j++)
 			if (gameMap1.board[i][j].getSession() == 1 || gameMap1.board[i][j].getSession() == 2)
 				model->setData(model->index(i, j), QString((char)toupper(gameMap1.board[i][j].getLetter())));
-		}
-	}
-
 
 	QString x = QString::number(gameMap1.getComputerPoints());
 	auto computerPoints = ui.textEdit;
@@ -219,36 +210,26 @@ void Game_GUI::refreshGameMap() {
 }
 
 void Game_GUI::gatherLetterToChange_1(player& playerGane) {
-	if (ui.checkBox->isChecked()) {
+	if (ui.checkBox->isChecked())
 		playerGane.setPlayerCardsToChange(0, true);
-	}
-	if (ui.checkBox_2->isChecked()) {
+	if (ui.checkBox_2->isChecked())
 		playerGane.setPlayerCardsToChange(1, true);
-	}
-	if (ui.checkBox_3->isChecked()) {
+	if (ui.checkBox_3->isChecked())
 		playerGane.setPlayerCardsToChange(2, true);
-	}
-	if (ui.checkBox_4->isChecked()) {
+	if (ui.checkBox_4->isChecked())
 		playerGane.setPlayerCardsToChange(3, true);
-	}
-	if (ui.checkBox_5->isChecked()) {
+	if (ui.checkBox_5->isChecked())
 		playerGane.setPlayerCardsToChange(4, true);
-	}
-	if (ui.checkBox_6->isChecked()) {
+	if (ui.checkBox_6->isChecked())
 		playerGane.setPlayerCardsToChange(5, true);
-	}
-	if (ui.checkBox_7->isChecked()) {
+	if (ui.checkBox_7->isChecked())
 		playerGane.setPlayerCardsToChange(6, true);
-	}
-	if (ui.checkBox_8->isChecked()) {
+	if (ui.checkBox_8->isChecked())
 		playerGane.setPlayerCardsToChange(7, true);
-	}
-	if (ui.checkBox_9->isChecked()) {
+	if (ui.checkBox_9->isChecked())
 		playerGane.setPlayerCardsToChange(8, true);
-	}
-	if (ui.checkBox_10->isChecked()) {
+	if (ui.checkBox_10->isChecked())
 		playerGane.setPlayerCardsToChange(9, true);
-	}
 	playerGane.changeChosenCards(gameMap1.cybant);
 	playerLetterRefresh(mufasa);
 
