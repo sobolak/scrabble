@@ -16,4 +16,5 @@ C++ project implementing Scrabble as university project
 https://www.youtube.com/watch?v=yNniOHn9Xe0&ab_channel=TenorGames
 ## Starting project
 ![image](https://user-images.githubusercontent.com/56030605/150582674-e6a201ee-2402-44bd-9e0e-1c822aff8cbc.png)
+
 You just have to start file main.cpp
