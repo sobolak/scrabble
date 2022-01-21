@@ -1,2 +1,4 @@
-# scrabble
-C++ project - scrabble
+# SCRABBLE
+C++ pr
+## Technologies used
+## Starting project
