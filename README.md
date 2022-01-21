@@ -3,9 +3,12 @@ C++ pr
 ## Technologies used
 - C++
 - MySQL
-- QT desiner
+- QT Creator
 ## Set up enviroment
-
+- IDE 
+  Visual Studio Community 2019 from Microsoft Store 
+- GUI 
+  QT Creator
+- Database  
+  MySql connector to C++
 ## Starting project
-- ide 
- ``` you have to install  Visual Studio Community 2019 from Microsoft Store```
