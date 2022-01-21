@@ -6,9 +6,9 @@ C++ pr
 - QT Creator
 ## Set up enviroment
 - IDE 
-  Visual Studio Community 2019 from Microsoft Store 
+  -> Visual Studio Community 2019 from Microsoft Store 
 - GUI 
-  QT Creator
+  -> QT Creator
 - Database  
-  MySql connector to C++
+  -> MySql connector to C++
 ## Starting project
