@@ -7,4 +7,5 @@ C++ pr
 ## Set up enviroment
 
 ## Starting project
-- ide ''' you have to install  Visual Studio Community 2019 from Microsoft Store'''
+- ide 
+ ''' you have to install  Visual Studio Community 2019 from Microsoft Store'''
