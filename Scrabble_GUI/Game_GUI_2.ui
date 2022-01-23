@@ -1306,6 +1306,9 @@
      <height>31</height>
     </rect>
    </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
   </widget>
   <widget class="QTextEdit" name="mufasaPoint">
    <property name="geometry">
@@ -1315,6 +1318,9 @@
      <width>71</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
    </property>
   </widget>
   <widget class="QTableWidget" name="tableWidget_game">
